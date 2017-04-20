@@ -1,6 +1,7 @@
 package com.pm.onlinetest.domain;
 
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -19,9 +20,13 @@ public class User {
 	    private String lname;
 	    private String password;
 	 
-	    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	    private Set<Role> roles ;
-
+	    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		@JoinTable(name = "user_role", joinColumns = {
+		@JoinColumn(name = "user_id", nullable = false, updatable = false) },
+				inverseJoinColumns = { @JoinColumn(name = "role_id",
+						nullable = false, updatable = false) })
+	    private Set<Role> roles = new HashSet<Role>(0);
+ 
 		public Integer getId() {
 			return id;
 		}
@@ -78,6 +83,7 @@ public class User {
 		public void setRoles(Set<Role> roles) {
 			this.roles = roles;
 		}
+
 
 
 	    

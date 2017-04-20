@@ -2,10 +2,15 @@ package com.pm.onlinetest.domain;
 
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 
@@ -18,10 +23,9 @@ public class Role {
     @GeneratedValue
     private Integer id;
  	
- 	  @ManyToOne
- 	    @JoinColumn(name = "user_id")
- 	  private User user;
- 	
+ 	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")	
+ 	private Set<User> users = new HashSet<User>(0);
+
  	private String description;
 
 	public Integer getId() {
@@ -41,14 +45,15 @@ public class Role {
 		this.description = description;
 	}
 
-	public User getUser() {
-		return user;
+	public Set<User> getUsers() {
+		return users;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
- 	
+
+
  	
 
  	
