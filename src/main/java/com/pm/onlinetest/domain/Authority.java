@@ -12,8 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Authority", catalog = "onlinetest")
-public class Authority implements java.io.Serializable {
+public class Authority{
 
 	private Integer id;
 	private User user;

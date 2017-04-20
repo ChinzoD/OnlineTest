@@ -17,8 +17,7 @@ import com.pm.onlinetest.domain.Authority;
 
 
 @Entity
-@Table(name = "User", catalog = "onlinetest")
-public class User implements java.io.Serializable {
+public class User{
 
 	 	
 	    private Integer userId;
