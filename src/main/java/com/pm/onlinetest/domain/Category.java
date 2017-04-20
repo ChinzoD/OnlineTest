@@ -9,12 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Category {
+public class Category implements java.io.Serializable{
 
  	@Id
     @GeneratedValue
     private Integer id;
- 	
  	private String name;
  	
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)	

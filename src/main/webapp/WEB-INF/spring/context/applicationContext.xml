@@ -19,11 +19,11 @@
    
     <!-- The jpa:repositories scans for all interfaces that extend  Repository and 
       creates implementations for use at runtime.  -->
-  <jpa:repositories base-package="com.pm.onlinetest.repository1"/>
+  <jpa:repositories base-package="com.pm.onlinetest.repository"/>
  
    <bean id="entityManager" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
       <property name="dataSource" ref="dataSource" />
-      <property name="packagesToScan" value="com.pm.onlinetest.model" />
+      <property name="packagesToScan" value="com.pm.onlinetest.domain" />
       
       <!--  provider-specific initialization,etc. -->
       <property name="jpaVendorAdapter">
@@ -67,6 +67,5 @@
     -->
    <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
- 
  
 </beans>

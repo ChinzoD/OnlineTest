@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -62,13 +63,15 @@ public class Assignment {
 		this.count = count;
 	}
 
+	@Column(name = "finished", nullable = false, columnDefinition = "BIT", length = 1)
 	public boolean isFinished() {
-		return finished;
+		return this.finished;
 	}
 
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}
+
 
 	public User getStudentId() {
 		return studentId;

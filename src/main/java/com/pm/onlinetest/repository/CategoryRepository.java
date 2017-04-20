@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.pm.onlinetest.domain.Category;
 
 @Repository
-public interface CategoryRepository extends CrudRepository<Category, Long> {
+public interface CategoryRepository extends CrudRepository<Category, Integer> {
 
 	
 	
