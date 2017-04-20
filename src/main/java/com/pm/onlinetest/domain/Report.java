@@ -1,4 +1,4 @@
-package com.pm.onlinetest.model;
+package com.pm.onlinetest.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

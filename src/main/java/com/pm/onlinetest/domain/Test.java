@@ -1,4 +1,4 @@
-package com.pm.onlinetest.model;
+package com.pm.onlinetest.domain;
 
 import java.util.Set;
 
