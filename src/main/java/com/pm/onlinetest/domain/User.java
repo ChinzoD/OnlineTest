@@ -18,6 +18,7 @@ import com.pm.onlinetest.domain.Authority;
 import  javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User{
 
 	 	
