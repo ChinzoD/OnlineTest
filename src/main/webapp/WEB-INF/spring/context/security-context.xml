@@ -32,7 +32,7 @@
 		<!-- the more specific rules need to come first, followed by the more general 
 			ones. -->
 		<!-- COMMENT out the following to see @Service METHOD level authorization -->
-		<security:intercept-url pattern="/" access="ROLE_ADMIN" />
+		
 		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/coach" access="hasRole('ROLE_COACH')" />
 		<security:intercept-url pattern="/dbadmin" access="hasRole('ROLE_DBADMIN')" />
