@@ -42,7 +42,6 @@
 			requires-channel="http"/> -->
 		<!-- BASIC login -->
 		<!-- <security:form-login /> -->
-
 		<!-- always-use-default-target overrides where login was triggered routes 
 			to default-target-url -->
 		<!-- logout-url renames j_security_logout URL -->
