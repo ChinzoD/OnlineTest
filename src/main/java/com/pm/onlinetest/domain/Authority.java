@@ -19,10 +19,7 @@ import javax.persistence.ManyToOne;
 public class Authority{
 
 	private Integer id;
-	
-	
 	private User user;
-	
 	private Role role;
 
 
