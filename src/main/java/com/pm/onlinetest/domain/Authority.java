@@ -6,25 +6,39 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
+
+
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+
 
 @Entity
 public class Authority{
 
 	private Integer id;
+	
+	
 	private User user;
-	private String authority;
+	
+	private Role role;
+
 
 	public Authority() {
 	}
 
-	public Authority(User user, String authority) {
+
+
+	public Authority(Integer id, User user, Role role) {
+		
+		this.id = id;
 		this.user = user;
-		this.authority = authority;
+		this.role = role;
 	}
+
+
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -38,6 +52,8 @@ public class Authority{
 		this.id = id;
 	}
 
+
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId", nullable = false)
 	public User getUser() {
@@ -48,13 +64,18 @@ public class Authority{
 		this.user = user;
 	}
 
-	@Column(name = "authority", nullable = false)
-	public String getAuthority() {
-		return this.authority;
+ 
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "roleId", nullable = false)
+	public Role getRole() {
+		return role;
 	}
 
-	public void setAuthority(String authority) {
-		this.authority = authority;
+	public void setRole(Role role) {
+		this.role = role;
 	}
+	
+	
 
 }

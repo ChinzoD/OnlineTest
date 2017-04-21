@@ -3,18 +3,19 @@ package com.pm.onlinetest.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.ManyToMany;
 
 import com.pm.onlinetest.domain.Authority;
-
+import  javax.persistence.*;
 
 @Entity
 public class User{
@@ -27,9 +28,11 @@ public class User{
 	    private String firstName;
 	    private String lastName;
 	    private String password;
-	    private boolean enabled;
-	    private List<Authority> authorities;
+	    private boolean enabled; 
 	    
+	    
+	    private List<Authority> authorities;
+	  	    
 	    public User() {
 		}
 	    
@@ -56,7 +59,7 @@ public class User{
 			this.enabled = enabled;
 			this.authorities = authorities;
 		}
-		 
+		
 		@Id
 		@GeneratedValue(strategy = IDENTITY)
 
@@ -110,14 +113,7 @@ public class User{
 			this.password = password;
 		}
 
-		@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-		public List<Authority> getAuthorities() {
-			return this.authorities;
-		}
 
-		public void setAuthorities(List<Authority> authorities) {
-			this.authorities = authorities;
-		}
     
 		@Column(name = "enabled", nullable = false, columnDefinition = "BIT", length = 1)
 		public boolean isEnabled() {
@@ -127,4 +123,16 @@ public class User{
 		public void setEnabled(boolean enabled) {
 			this.enabled = enabled;
 		}
+
+		@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+		public List<Authority> getAuthorities() {
+			return this.authorities;
+		}
+
+		public void setAuthorities(List<Authority> authorities) {
+			this.authorities = authorities;
+		}
+   
+
+
 }
