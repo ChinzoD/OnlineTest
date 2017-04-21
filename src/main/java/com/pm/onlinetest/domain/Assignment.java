@@ -63,7 +63,6 @@ public class Assignment {
 		this.count = count;
 	}
 
-	@Column(name = "finished", nullable = false, columnDefinition = "BIT", length = 1)
 	public boolean isFinished() {
 		return this.finished;
 	}
@@ -96,12 +95,5 @@ public class Assignment {
 	public void setTests(Set<Test> tests) {
 		this.tests = tests;
 	}
-
- 	
-
- 	
- 	
- 	
- 	
- 	
+	
 }

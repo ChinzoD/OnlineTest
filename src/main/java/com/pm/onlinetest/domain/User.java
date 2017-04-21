@@ -24,12 +24,19 @@ public class User{
 	 
 	    private String email;
 	    private String username;
-	    private String fname;
-	    private String lname;
+	    private String firstName;
+	    private String lastName;
 	    private String password;
+	    private boolean enabled;
 	    private List<Authority> authorities;
 	    
 	    public User() {
+		}
+	    
+	    public User(String username, String password, boolean enabled) {
+			this.username = username;
+			this.password = password;
+			this.enabled = enabled;
 		}
 
 		public User(String username, String password, String verifyPassword, String firstName, String lastName,
@@ -37,6 +44,16 @@ public class User{
 			this.username = username;
 			this.password = password;
 			this.email = email;
+			this.authorities = authorities;
+			
+			
+			this.username = username;
+			this.password = password;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			//this.gender = gender;
+			this.email = email;
+			this.enabled = enabled;
 			this.authorities = authorities;
 		}
 		 
@@ -60,20 +77,20 @@ public class User{
 			this.username = username;
 		}
 
-		public String getFname() {
-			return fname;
+		public String getFirstName() {
+			return firstName;
 		}
 
-		public void setFname(String fname) {
-			this.fname = fname;
+		public void setFirstName(String firstName) {
+			this.firstName = firstName;
 		}
 
-		public String getLname() {
-			return lname;
+		public String getLastName() {
+			return lastName;
 		}
 
-		public void setLname(String lname) {
-			this.lname = lname;
+		public void setLastName(String lastName) {
+			this.lastName = lastName;
 		}
 
 		public String getEmail() {
@@ -102,5 +119,12 @@ public class User{
 			this.authorities = authorities;
 		}
     
-	    
+		@Column(name = "enabled", nullable = false, columnDefinition = "BIT", length = 1)
+		public boolean isEnabled() {
+			return this.enabled;
+		}
+
+		public void setEnabled(boolean enabled) {
+			this.enabled = enabled;
+		}
 }
