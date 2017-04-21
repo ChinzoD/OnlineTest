@@ -13,5 +13,8 @@
 	<definition name="register" extends="base-definition">
 		<put-attribute name="content"   value="/WEB-INF/views/register.jsp"/> 
 	</definition>
+	<definition name="home" extends="base-definition">
+		<put-attribute name="content"   value="/WEB-INF/views/home.jsp"/> 
+	</definition>
 	
 </tiles-definitions>
