@@ -1,14 +1,10 @@
 package com.pm.onlinetest.domain;
 
-import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 
 
 @Entity
@@ -20,7 +16,7 @@ public class Question {
  
     private String description;
     
-	@ManyToOne
+	/*@ManyToOne
  	@JoinColumn(name = "subcategory_id") 	   
     private Subcategory subcategory;
 	
@@ -29,15 +25,15 @@ public class Question {
 	
 	@ManyToOne
  	@JoinColumn(name = "test_id") 	
-	private Test test;
+	private Test test;*/
 
 	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	/*public void setId(Integer id) {
 		this.id = id;
-	}
+	}*/
 
 	public String getDescription() {
 		return description;
@@ -47,7 +43,7 @@ public class Question {
 		this.description = description;
 	}
 
-	public Subcategory getSubcategory() {
+	/*	public Subcategory getSubcategory() {
 		return subcategory;
 	}
 
@@ -70,7 +66,7 @@ public class Question {
 	public void setTest(Test test) {
 		this.test = test;
 	}
-
+*/
 	
 
     
