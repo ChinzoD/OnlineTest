@@ -1,17 +1,14 @@
 package com.pm.onlinetest.domain;
-// Generated Oct 26, 2016 2:24:30 PM by Hibernate Tools 5.1.0.CR1
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 import static javax.persistence.GenerationType.IDENTITY;
-
-
-
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 
@@ -20,27 +17,19 @@ public class Authority{
 
 	private Integer id;
 	private User user;
-	private Role role;
-
+	private String authority;
 
 	public Authority() {
 	}
 
-
-
-	public Authority(Integer id, User user, Role role) {
-		
-		this.id = id;
+	public Authority(User user, String authority) {
 		this.user = user;
-		this.role = role;
+		this.authority = authority;
 	}
 
-
-
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-
-	@Column(name = "id", unique = true, nullable = false)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id")
 	public Integer getId() {
 		return this.id;
 	}
@@ -48,8 +37,6 @@ public class Authority{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "userId", nullable = false)
@@ -61,18 +48,13 @@ public class Authority{
 		this.user = user;
 	}
 
- 
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "roleId", nullable = false)
-	public Role getRole() {
-		return role;
+	@Column(name = "authority", nullable = false)
+	public String getAuthority() {
+		return this.authority;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
-	
-	
 
 }

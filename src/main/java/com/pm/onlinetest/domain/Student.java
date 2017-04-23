@@ -1,11 +1,16 @@
 package com.pm.onlinetest.domain;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
-public class Student extends User {
+public class Student {
 
-	private String entry;
+	@Id
+	@GeneratedValue
 	private Integer studentId;
+	private String entry;
+	
 	public String getEntry() {
 		return entry;
 	}

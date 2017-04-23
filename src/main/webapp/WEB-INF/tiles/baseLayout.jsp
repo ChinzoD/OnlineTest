@@ -8,7 +8,7 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8" />
-<title>Pos</title>
+<title>Online Test</title>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css" />" />
@@ -104,7 +104,7 @@
 				<!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
 				<div class="hor-menu ">
 					<ul class="nav navbar-nav">
-						<li><a href="<c:url value="/sales" />">Sales</a></li>
+						<li><a href="<c:url value="/home" />">Home</a></li>
 						<li><a href="<c:url value="/register" />">Register</a></li>
 					</ul>
 				</div>
