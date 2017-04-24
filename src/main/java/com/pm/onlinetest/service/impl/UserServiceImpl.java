@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private AuthorityRepository authorityRepository;
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void save(User user) {
 
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -46,5 +46,16 @@ public class UserServiceImpl implements UserService {
 	public User findByUsername(String username) {
 		// TODO Auto-generated method stub
 		return userRepository.findByUsername(username);
+	}
+	
+	@Override
+	public User findByUserId(Integer userId) {
+		// TODO Auto-generated method stub
+		return userRepository.findByUserId(userId);
+	}
+	@Override
+	public void delete(User user) {
+		// TODO Auto-generated method stub
+		userRepository.delete( user);
 	}
 }

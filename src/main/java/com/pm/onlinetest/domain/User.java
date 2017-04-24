@@ -97,6 +97,7 @@ public class User {
 		this.enabled = enabled;
 	}
 
+	//@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "user")
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	public List<Authority> getAuthorities() {
 		return this.authorities;

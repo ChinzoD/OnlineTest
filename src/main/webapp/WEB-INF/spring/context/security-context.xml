@@ -33,9 +33,9 @@
 			ones. -->
 		<!-- COMMENT out the following to see @Service METHOD level authorization -->
 		
-		<security:intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/coach" access="hasRole('ROLE_COACH')" />
-		<security:intercept-url pattern="/dbadmin" access="hasRole('ROLE_DBA')" />
+		<security:intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/coach/*" access="hasRole('ROLE_COACH')" />
+		<security:intercept-url pattern="/dba/*" access="hasRole('ROLE_DBA')" />
 		<!-- Switch to HTTPS -->
 		<!-- <security:intercept-url pattern="/login" access="isAnonymous()" requires-channel="https"/> 
 			<security:intercept-url pattern="/logout" access="hasRole('ROLE_ADMIN')" 

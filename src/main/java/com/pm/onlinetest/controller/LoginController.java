@@ -25,22 +25,6 @@ public class LoginController {
  		return "login";
 	}
 	
-	@RequestMapping(value="/register", method = RequestMethod.GET)
-	public String register(@ModelAttribute("loginUser") User user) {
- 		return "register";
-	}
-	
-	@RequestMapping(value="/register", method = RequestMethod.POST)
-	public String add(@Valid @ModelAttribute("loginUser") User user, BindingResult result, 
-			RedirectAttributes redirectAttr) {
-		if(result.hasErrors()) {
-			return "register";
-		}
-		
-		userService.save(user);
-		redirectAttr.addFlashAttribute("success", "Successfully added new user!");
-	   	return "redirect:/register";
-	}
 	
 	@RequestMapping(value="/loginfailed", method = RequestMethod.GET)
 	public String loginerror(@ModelAttribute("loginUser") User user, Model model) {

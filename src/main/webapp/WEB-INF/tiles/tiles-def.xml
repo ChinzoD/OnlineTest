@@ -3,6 +3,7 @@
        
 <tiles-definitions>
 	<definition name="base-definition" template="/WEB-INF/tiles/baseLayout.jsp"> 
+		
 	</definition>
 	<definition name="login-definition" template="/WEB-INF/tiles/loginLayout.jsp">
 	</definition>
@@ -10,15 +11,24 @@
 	<definition name="login" extends="login-definition">
     	<put-attribute name="content"   value="/WEB-INF/views/login.jsp"/>       
     </definition>
-	<definition name="register" extends="base-definition">
-		<put-attribute name="content"   value="/WEB-INF/views/register.jsp"/> 
-	</definition>
+	
 	<definition name="home" extends="base-definition">
 		<put-attribute name="content"   value="/WEB-INF/views/home.jsp"/> 
 	</definition>
 	
 	<definition name="admin-home" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
 		<put-attribute name="content"   value="/WEB-INF/views/admin/home.jsp"/> 
+	</definition>
+	
+	<definition name="register" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/register.jsp"/> 
+	</definition>
+	
+	<definition name="users" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/users.jsp"/> 
 	</definition>
 	
 </tiles-definitions>

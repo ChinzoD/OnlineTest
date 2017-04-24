@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pm.onlinetest.domain.User;
 import com.pm.onlinetest.domain.Authority;
+import com.pm.onlinetest.service.AuthorityService;
 import com.pm.onlinetest.service.UserService;
 
 /**
@@ -29,6 +30,8 @@ public class HomeController {
 
 	@Autowired
 	UserService userService;
+	@Autowired
+	AuthorityService authorityService;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -45,13 +48,13 @@ public class HomeController {
 		String name = auth.getName();
 		User user = userService.findByUsername(name);
 
-		for (Authority authority : user.getAuthorities()) {
+		for (Authority authority : authorityService.findByUser(user)) {
 			if (authority.getAuthority().equals("ROLE_ADMIN")) {
-				return "/admin-home";
+				return "redirect:/admin/home";
 			} else if (authority.getAuthority().equals("ROLE_COACH")) {
-				return "/coach-home";
+				return "redirect:/coach/home";
 			} else if (authority.getAuthority().equals("ROLE_DBA")) {
-				return "/dba-home";
+				return "redirect:/dba/home";
 			}
 		}
 		return "home";

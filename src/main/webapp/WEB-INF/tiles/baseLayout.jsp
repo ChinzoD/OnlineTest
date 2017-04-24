@@ -10,41 +10,24 @@
 <meta charset="utf-8" />
 <title>Online Test</title>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css" />" />
-<link
-	href="<c:url value="/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css" />"
-	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value="/metronic/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" />"
-	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value="/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css" />"
-	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value="/metronic/assets/global/plugins/uniform/css/uniform.default.css" />"
-	rel="stylesheet" type="text/css" />
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link rel="stylesheet" type="text/css" href="<c:url value="/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css" />" />
+<link href="<c:url value="/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css" />" rel="stylesheet" type="text/css"/>
+<link href="<c:url value="/metronic/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" />" rel="stylesheet" type="text/css"/>
+<link href="<c:url value="/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css" />" rel="stylesheet" type="text/css"/>
+<link href="<c:url value="/metronic/assets/global/plugins/uniform/css/uniform.default.css" />" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL STYLES -->
-<link
-	href="<c:url value="/metronic/assets/admin/pages/css/profile.css" />"
-	rel="stylesheet" type="text/css" />
+<link href="<c:url value="/metronic/assets/admin/pages/css/profile.css" />" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="<c:url value="/metronic/assets/global/plugins/select2/select2.css" />" />
+<link rel="stylesheet" type="text/css" href="<c:url value="/metronic/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" />" />
 <!-- END PAGE LEVEL SCRIPTS -->
 <!-- BEGIN THEME STYLES -->
-<link
-	href="<c:url value="/metronic/assets/global/css/components.css" />"
-	id="style_components" rel="stylesheet" type="text/css" />
-<link href="<c:url value="/metronic/assets/global/css/plugins.css" />"
-	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value="/metronic/assets/admin/layout3/css/layout.css" />"
-	rel="stylesheet" type="text/css" />
-<link
-	href="<c:url value="/metronic/assets/admin/layout3/css/themes/default.css" />"
-	rel="stylesheet" type="text/css" id="style_color" />
-<link
-	href="<c:url value="/metronic/assets/admin/layout3/css/custom.css" />"
-	rel="stylesheet" type="text/css" />
+<link href="<c:url value="/metronic/assets/global/css/components.css" />" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="<c:url value="/metronic/assets/global/css/plugins.css" />" rel="stylesheet" type="text/css"/>
+<link href="<c:url value="/metronic/assets/admin/layout3/css/layout.css" />" rel="stylesheet" type="text/css"/>
+<link href="<c:url value="/metronic/assets/admin/layout3/css/themes/default.css" />" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="<c:url value="/metronic/assets/admin/layout3/css/custom.css" />" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico" />
 
@@ -102,12 +85,7 @@
 				<!-- BEGIN MEGA MENU -->
 				<!-- DOC: Apply "hor-menu-light" class after the "hor-menu" class below to have a horizontal menu with white background -->
 				<!-- DOC: Remove data-hover="dropdown" and data-close-others="true" attributes below to disable the dropdown opening on mouse hover -->
-				<div class="hor-menu ">
-					<ul class="nav navbar-nav">
-						<li><a href="<c:url value="/home" />">Home</a></li>
-						<li><a href="<c:url value="/register" />">Register</a></li>
-					</ul>
-				</div>
+				<tiles:insertAttribute name="menu" ignore="true"></tiles:insertAttribute>
 				<!-- END MEGA MENU -->
 			</div>
 		</div>
@@ -128,7 +106,6 @@
 							<div class="portlet light profile-sidebar-portlet">
 								<div class="panel-heading">
 									<h4>Left Sidebar</h4>
-
 								</div>
 								<div class="panel-body"></div>
 							</div>
@@ -174,75 +151,53 @@
 <script src="../../assets/global/plugins/respond.min.js"></script>
 <script src="../../assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/jquery.min.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/jquery-migrate.min.js" />"
-		type="text/javascript"></script>
-	<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/jquery.blockui.min.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/jquery.cokie.min.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/uniform/jquery.uniform.min.js" />"
-		type="text/javascript"></script>
-	<!-- END CORE PLUGINS -->
-	<!-- BEGIN PAGE LEVEL PLUGINS -->
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/select2/select2.min.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js" />"
-		type="text/javascript"></script>
-	<!-- END PAGE LEVEL PLUGINS -->
-	<script
-		src="<c:url value="/metronic/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" />"
-		type="text/javascript"></script>
-	<!-- BEGIN PAGE LEVEL SCRIPTS -->
-	<script
-		src="<c:url value="/metronic/assets/global/scripts/metronic.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/admin/layout3/scripts/layout.js" />"
-		type="text/javascript"></script>
-	<script
-		src="<c:url value="/metronic/assets/admin/layout3/scripts/demo.js" />"
-		type="text/javascript"></script>
-	<%-- <script src="<c:url value="/metronic/assets/admin/pages/scripts/profile.js" />" type="text/javascript"></script> --%>
-	<script
-		src="<c:url value="/metronic/assets/admin/pages/scripts/table-managed.js" />"></script>
-	<script
-		src="<c:url value="/metronic/assets/admin/pages/scripts/login.js" />"
-		type="text/javascript"></script>
-	<!-- END PAGE LEVEL SCRIPTS -->
+<script src="<c:url value="/metronic/assets/global/plugins/jquery.min.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/global/plugins/jquery-migrate.min.js" />" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="<c:url value="/metronic/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/global/plugins/jquery.blockui.min.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/global/plugins/jquery.cokie.min.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/global/plugins/uniform/jquery.uniform.min.js" />" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="<c:url value="/metronic/assets/global/plugins/select2/select2.min.js" />" type="text/javascript" ></script>
+<script src="<c:url value="/metronic/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js" />"  type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js" />"  type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="<c:url value="/metronic/assets/global/scripts/metronic.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/admin/layout3/scripts/layout.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/admin/layout3/scripts/demo.js" />" type="text/javascript"></script>
+<%-- <script src="<c:url value="/metronic/assets/admin/pages/scripts/profile.js" />" type="text/javascript"></script> --%>
+<%-- <script src="<c:url value="/metronic/assets/admin/pages/scripts/table-managed.js" />"></script> --%>
+<script src="<c:url value="/metronic/assets/admin/pages/scripts/table-editable.js" />"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
 	<script>
 		jQuery(document).ready(function() {
 			// initiate layout and plugins
 			Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
 			Demo.init(); // init demo features
-			Login.init();
-			TableManaged.init();
+			//Login.init();
+			//TableManaged.init();
+			TableEditable.init();
+			
+			$(".btnDelUser").live("click",function(){
+				var id = $(this).val();
+				$.ajax({
+					url: '/onlinetest/admin/deleteUser?userid=' + id,
+					method: 'POST'
+					}).done(function(data) {					
+				});
+				$("#user"+id).remove();
+			});
+			
 		});
+		
+		
 	</script>
 	<!-- END JAVASCRIPTS -->
 </body>
