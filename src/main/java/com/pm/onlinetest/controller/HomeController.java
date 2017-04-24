@@ -48,7 +48,7 @@ public class HomeController {
 		String name = auth.getName();
 		User user = userService.findByUsername(name);
 
-		for (Authority authority : authorityService.findByUser(user)) {
+		for (Authority authority : user.getAuthorities()) {
 			if (authority.getAuthority().equals("ROLE_ADMIN")) {
 				return "redirect:/admin/home";
 			} else if (authority.getAuthority().equals("ROLE_COACH")) {

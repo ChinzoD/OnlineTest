@@ -52,7 +52,6 @@
 		</div>
 		<div class="form-group">
 			<label class="control-label col-lg-2" for="authority">Role</label>
-<%-- 			<form:input class="form-control placeholder-no-fix" name="authorities[0].authority" path="authorities[0].authority" type="text" value="ROLE_ADMIN" /> --%>
 			<form:select path="authorities[0].authority" name="authorities[0].authority" class="form-control" >
 					<form:option value="ROLE_ADMIN">ROLE_ADMIN</form:option>
 					<form:option value="ROLE_COACH">ROLE_COACH</form:option>

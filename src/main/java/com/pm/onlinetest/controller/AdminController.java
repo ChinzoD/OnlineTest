@@ -21,7 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pm.onlinetest.domain.User;
 import com.pm.onlinetest.domain.Authority;
+import com.pm.onlinetest.domain.Student;
 import com.pm.onlinetest.service.AuthorityService;
+import com.pm.onlinetest.service.StudentService;
 import com.pm.onlinetest.service.UserService;
 
 /**
@@ -37,6 +39,8 @@ public class AdminController {
 	UserService userService;
 	@Autowired
 	AuthorityService authorityService;
+	@Autowired
+	StudentService studentService;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -47,7 +51,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String roleCheck(Locale locale, Model model) {
+	public String getUsers(Locale locale, Model model) {
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
 		return "users";
@@ -74,8 +78,13 @@ public class AdminController {
 	public void DeletePost(HttpServletRequest request) {
 		String id = request.getParameter("userid").toString();
 		User user = userService.findByUserId(Integer.parseInt(id));
-		authorityService.delete(authorityService.findByUser(user));
 		userService.delete(user);
 	}
 	
+	@RequestMapping(value = "/students", method = RequestMethod.GET)
+	public String getStudents(Locale locale, Model model) {
+		List<Student> students = studentService.findAll();
+		model.addAttribute("student", students);
+		return "students";
+	}
 }

@@ -28,12 +28,14 @@ public class UserServiceImpl implements UserService {
 
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
+		String role = user.getAuthorities().get(0).getAuthority();
+		user.setAuthorities(null);
 		user.setPassword(encodedPassword);
 		userRepository.save(user);
-		for(Authority authority: user.getAuthorities()){
-			authority.setUser(user);
-			authorityRepository.save(authority);
-		}
+		Authority authority = new Authority();
+		authority.setUserId(user.getUserId());
+		authority.setAuthority(role);
+		authorityRepository.save(authority);
 		
 	}
 

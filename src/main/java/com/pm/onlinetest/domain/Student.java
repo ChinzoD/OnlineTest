@@ -1,30 +1,27 @@
 package com.pm.onlinetest.domain;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 @Entity
-public class Student {
+public class Student extends User {
 
-	@Id
-	@GeneratedValue
-	private Integer studentId;
+	private String studentId;
 	private String entry;
-	
+
 	public String getEntry() {
 		return entry;
 	}
+
 	public void setEntry(String entry) {
 		this.entry = entry;
 	}
-	public Integer getStudentId() {
+
+	public String getStudentId() {
 		return studentId;
 	}
-	public void setStudentId(Integer studentId) {
+
+	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
-	
-	
-	
-	
+
 }

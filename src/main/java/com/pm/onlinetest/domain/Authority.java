@@ -16,14 +16,14 @@ import javax.persistence.ManyToOne;
 public class Authority{
 
 	private Integer id;
-	private User user;
+	private Integer userId;
 	private String authority;
 
 	public Authority() {
 	}
 
-	public Authority(User user, String authority) {
-		this.user = user;
+	public Authority(Integer userId, String authority) {
+		this.userId = userId;
 		this.authority = authority;
 	}
 
@@ -38,14 +38,14 @@ public class Authority{
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "userId", nullable = false)
-	public User getUser() {
-		return this.user;
+	//@ManyToOne(fetch = FetchType.LAZY)
+	//@JoinColumn(name = "userId", nullable = false)
+	public Integer getUserId() {
+		return this.userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	@Column(name = "authority", nullable = false)

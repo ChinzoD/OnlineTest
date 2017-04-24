@@ -24,7 +24,7 @@
 						<td>${user.username}</td>
 						<td>${user.firstName} ${user.lastName}</td>
 						<td>${user.email}</td>
-						<td class="center"><%-- ${user.authorities[0].authority} --%></td>
+						<td class="center">${user.authorities[0].authority}</td>
 						<!-- <td><a class="edit" href="javascript:;"> Edit </a></td> -->
 						<td><button  value="${user.userId}" type="button" class="btnDelUser btn btn-xs btn-default pull-right">Delete</button></td>
 					</tr>

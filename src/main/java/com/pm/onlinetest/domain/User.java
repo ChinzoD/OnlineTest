@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 public class User {
 
 	private Integer userId;
@@ -38,7 +39,7 @@ public class User {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userId")
 	public Integer getUserId() {
 		return this.userId;
@@ -97,8 +98,8 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	//@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "user")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "userId")
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	public List<Authority> getAuthorities() {
 		return this.authorities;
 	}
