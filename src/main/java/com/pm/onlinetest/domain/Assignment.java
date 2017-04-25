@@ -1,6 +1,7 @@
 package com.pm.onlinetest.domain;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,9 +18,10 @@ public class Assignment {
  	@Id
     @GeneratedValue
     private Integer id;
- 	private LocalDate start_date;
- 	private LocalDate end_date;
+ 	private LocalDateTime start_date;
+ 	private LocalDateTime end_date;
  	private Integer count;
+ 	private boolean started;
  	private boolean finished;
  	private String accesscode;
  	
@@ -39,20 +41,21 @@ public class Assignment {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	
 
-	public LocalDate getStart_date() {
+	public LocalDateTime getStart_date() {
 		return start_date;
 	}
 
-	public void setStart_date(LocalDate start_date) {
+	public void setStart_date(LocalDateTime start_date) {
 		this.start_date = start_date;
 	}
 
-	public LocalDate getEnd_date() {
+	public LocalDateTime getEnd_date() {
 		return end_date;
 	}
 
-	public void setEnd_date(LocalDate end_date) {
+	public void setEnd_date(LocalDateTime end_date) {
 		this.end_date = end_date;
 	}
 
@@ -72,6 +75,13 @@ public class Assignment {
 		this.finished = finished;
 	}
 
+	public boolean isStarted() {
+		return started;
+	}
+
+	public void setStarted(boolean started) {
+		this.started = started;
+	}
 
 	public User getStudentId() {
 		return studentId;
