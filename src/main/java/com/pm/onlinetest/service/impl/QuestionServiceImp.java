@@ -1,10 +1,14 @@
 package com.pm.onlinetest.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pm.onlinetest.domain.Category;
 import com.pm.onlinetest.domain.Question;
+import com.pm.onlinetest.repository.CategoryRepository;
 import com.pm.onlinetest.repository.QuestionRepository;
 import com.pm.onlinetest.service.QuestionService;
 
@@ -12,6 +16,10 @@ import com.pm.onlinetest.service.QuestionService;
 @Transactional
 public class QuestionServiceImp implements QuestionService {
 
+	@Autowired
+	CategoryRepository categoryRepository;
+	
+	
 	@Override
 	public void create(Question book) {
 		// TODO Auto-generated method stub
@@ -29,8 +37,7 @@ public class QuestionServiceImp implements QuestionService {
 		// TODO Auto-generated method stub
 		
 	}
-//	@Autowired
-//	QuestionRepository questionRepository;
+	
 //
 //	@Override
 //	public void create(Question question) {
@@ -49,5 +56,12 @@ public class QuestionServiceImp implements QuestionService {
 //	
 //
 //	}
+
+	@Override
+	public Iterable<Category> getAllCategories() {
+		// TODO Auto-generated method stub
+		
+		return categoryRepository.findAll();
+	}
 
 }

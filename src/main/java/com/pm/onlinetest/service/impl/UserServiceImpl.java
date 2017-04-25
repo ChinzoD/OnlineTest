@@ -20,8 +20,9 @@ import com.pm.onlinetest.service.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
-	@Autowired
-	private AuthorityRepository authorityRepository;
+	
+	//@Autowired
+	//private AuthorityRepository authorityRepository;
 
 	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void save(User user) {
@@ -29,11 +30,15 @@ public class UserServiceImpl implements UserService {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encodedPassword);
+		
+		Authority authority = new Authority(user, user.getRegistrationSelectedAuthority());
+		user.getAuthorities().add(authority);
 		userRepository.save(user);
-		for(Authority authority: user.getAuthorities()){
+		
+		/*for(Authority authority: user.getAuthorities()){
 			authority.setUser(user);
 			authorityRepository.save(authority);
-		}
+		}*/
 		
 	}
 

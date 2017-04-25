@@ -21,6 +21,7 @@ public class Assignment {
  	private LocalDate end_date;
  	private Integer count;
  	private boolean finished;
+ 	private String accesscode;
  	
  	@OneToOne(cascade = CascadeType.ALL)	
  	private User studentId;
@@ -95,5 +96,15 @@ public class Assignment {
 	public void setTests(Set<Test> tests) {
 		this.tests = tests;
 	}
+
+	public String getAccesscode() {
+		return accesscode;
+	}
+
+	public void setAccesscode(String accesscode) {
+		this.accesscode = accesscode;
+	}
+	
+	
 	
 }

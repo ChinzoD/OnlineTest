@@ -1,6 +1,8 @@
 package com.pm.onlinetest.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
+
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -14,8 +16,11 @@ public class User {
 	private String lastName;
 	private String password;
 	private boolean enabled;
+	
+	@Transient
+	private String registrationSelectedAuthority;
 
-	private List<Authority> authorities;
+	private List<Authority> authorities = new ArrayList<>();
 
 	public User() {
 	}
@@ -98,7 +103,7 @@ public class User {
 	}
 
 	//@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "user")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade=CascadeType.ALL)
 	public List<Authority> getAuthorities() {
 		return this.authorities;
 	}
@@ -106,5 +111,16 @@ public class User {
 	public void setAuthorities(List<Authority> authorities) {
 		this.authorities = authorities;
 	}
+
+
+	public String getRegistrationSelectedAuthority() {
+		return registrationSelectedAuthority;
+	}
+
+	public void setRegistrationSelectedAuthority(String registrationsSelectedAuthority) {
+		this.registrationSelectedAuthority = registrationsSelectedAuthority;
+	}
+	
+	
 
 }
