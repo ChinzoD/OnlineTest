@@ -171,6 +171,7 @@
 <script src="<c:url value="/metronic/assets/admin/layout3/scripts/demo.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/admin/pages/scripts/table-editable.js" />"></script>
 <script src="<c:url value="/metronic/assets/admin/pages/scripts/login.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/admin/pages/scripts/form-samples.js" />" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 	<script>
 		jQuery(document).ready(function() {
@@ -180,6 +181,7 @@
 			Login.init();
 			Demo.init();  
 			TableEditable.init();
+			FormSamples.init();
 			
 			$(".btnDelUser").live("click",function(){
 				var id = $(this).val();

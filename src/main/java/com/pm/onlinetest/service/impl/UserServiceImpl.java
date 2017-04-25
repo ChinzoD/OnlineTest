@@ -60,4 +60,10 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		userRepository.delete( user);
 	}
+
+	@Override
+	public List<User> findByAuthority(String authority) {
+		// TODO Auto-generated method stub
+		return userRepository.findByAuthority(authority);
+	}
 }

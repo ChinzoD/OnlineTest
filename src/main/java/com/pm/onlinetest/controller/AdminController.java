@@ -104,4 +104,15 @@ public class AdminController {
 		model.addAttribute("students", students);
 		return "students";
 	}
+	
+	@RequestMapping(value = "/assign", method = RequestMethod.GET)
+	public String assignCoach(Locale locale, Model model) {
+		List<Student> students = studentService.findAll();
+		List<User> coaches = userService.findByAuthority("ROLE_COACH");
+		
+		model.addAttribute("students", students);
+		model.addAttribute("coaches", coaches);
+		
+		return "assignCoach";
+	}
 }
