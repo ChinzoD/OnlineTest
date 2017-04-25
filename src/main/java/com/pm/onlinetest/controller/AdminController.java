@@ -21,7 +21,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pm.onlinetest.domain.User;
 import com.pm.onlinetest.domain.Authority;
+import com.pm.onlinetest.domain.Student;
 import com.pm.onlinetest.service.AuthorityService;
+import com.pm.onlinetest.service.StudentService;
 import com.pm.onlinetest.service.UserService;
 
 /**
@@ -37,6 +39,8 @@ public class AdminController {
 	UserService userService;
 	@Autowired
 	AuthorityService authorityService;
+	@Autowired
+	StudentService studentService;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -47,7 +51,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public String roleCheck(Locale locale, Model model) {
+	public String getUsers(Locale locale, Model model) {
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
 		return "users";
@@ -70,12 +74,34 @@ public class AdminController {
 	   	return "redirect:/admin/register";
 	}
 	
+	@RequestMapping(value="/registerStudent", method = RequestMethod.GET)
+	public String getStudent(@ModelAttribute("loginUser") Student student) {
+ 		return "registerStudent";
+	}
+	
+	@RequestMapping(value="/registerStudent", method = RequestMethod.POST)
+	public String registerStudent(@ModelAttribute("loginUser") Student student, BindingResult result, 
+			RedirectAttributes redirectAttr) {
+		if(result.hasErrors()) {
+			return "registerStudent";
+		}
+		
+		studentService.save(student);
+		redirectAttr.addFlashAttribute("success", "Successfully added new user!");
+	   	return "redirect:/admin/registerStudent";
+	}
+	
 	@RequestMapping(value = { "/deleteUser" }, method = RequestMethod.POST)
 	public void DeletePost(HttpServletRequest request) {
 		String id = request.getParameter("userid").toString();
 		User user = userService.findByUserId(Integer.parseInt(id));
-		authorityService.delete(authorityService.findByUser(user));
 		userService.delete(user);
 	}
 	
+	@RequestMapping(value = "/students", method = RequestMethod.GET)
+	public String getStudents(Locale locale, Model model) {
+		List<Student> students = studentService.findAll();
+		model.addAttribute("students", students);
+		return "students";
+	}
 }

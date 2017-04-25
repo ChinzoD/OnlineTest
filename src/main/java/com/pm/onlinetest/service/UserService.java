@@ -12,4 +12,5 @@ public interface UserService {
 	public List<User> findAll();
 	public User findByUsername(String username);
 	public User findByUserId(Integer userId);
+	public List<User> findByAuthority(String authority);
  }

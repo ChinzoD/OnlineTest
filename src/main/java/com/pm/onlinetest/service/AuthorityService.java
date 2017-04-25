@@ -11,5 +11,5 @@ public interface AuthorityService {
 	public void save(Authority authority);
 	public void delete(Authority authority);
 	public void delete(List<Authority> authorities);
-	public List<Authority> findByUser(User user);
+	//public List<Authority> findByUser(User user);
  }

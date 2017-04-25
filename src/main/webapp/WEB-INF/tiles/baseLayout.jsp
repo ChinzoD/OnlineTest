@@ -110,9 +110,6 @@
 								<div class="panel-body"></div>
 							</div>
 							<!-- END PORTLET MAIN -->
-							<!-- PORTLET MAIN -->
-							<div class="portlet light"></div>
-							<!-- END PORTLET MAIN -->
 						</div>
 						<!-- END BEGIN PROFILE SIDEBAR -->
 						<!-- BEGIN PROFILE CONTENT -->
@@ -166,23 +163,22 @@
 <script src="<c:url value="/metronic/assets/global/plugins/select2/select2.min.js" />" type="text/javascript" ></script>
 <script src="<c:url value="/metronic/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js" />"  type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js" />"  type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/global/plugins/jquery-validation/js/jquery.validate.min.js" />" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="<c:url value="/metronic/assets/global/scripts/metronic.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/admin/layout3/scripts/layout.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/admin/layout3/scripts/demo.js" />" type="text/javascript"></script>
-<%-- <script src="<c:url value="/metronic/assets/admin/pages/scripts/profile.js" />" type="text/javascript"></script> --%>
-<%-- <script src="<c:url value="/metronic/assets/admin/pages/scripts/table-managed.js" />"></script> --%>
 <script src="<c:url value="/metronic/assets/admin/pages/scripts/table-editable.js" />"></script>
+<script src="<c:url value="/metronic/assets/admin/pages/scripts/login.js" />" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 	<script>
 		jQuery(document).ready(function() {
 			// initiate layout and plugins
 			Metronic.init(); // init metronic core components
 			Layout.init(); // init current layout
-			Demo.init(); // init demo features
-			//Login.init();
-			//TableManaged.init();
+			Login.init();
+			Demo.init();  
 			TableEditable.init();
 			
 			$(".btnDelUser").live("click",function(){
@@ -194,6 +190,7 @@
 				});
 				$("#user"+id).remove();
 			});
+
 			
 		});
 		

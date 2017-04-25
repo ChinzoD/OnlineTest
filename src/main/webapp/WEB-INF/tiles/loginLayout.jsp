@@ -47,7 +47,7 @@
 </div>
 <tiles:insertAttribute name="content"></tiles:insertAttribute>
 <div class="copyright">
-	 2016 © 
+	 2017 © 
 </div>
 <!-- END LOGIN -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->

@@ -1,13 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 <div class="portlet box blue">
-	<div class="portlet-body">
-		<div class="portlet-title">
-			<div class="caption">
-				<i class="fa fa-edit"></i>User List
-			</div>
+	<div class="portlet-title">
+		<div class="caption">
+			<i class="fa fa-edit"></i>User List
 		</div>
-		<table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+	</div>
+	<div class="portlet-body">
+
+		<table class="table table-striped table-hover table-bordered"
+			id="sample_editable_1">
 			<thead>
 				<tr>
 					<th>Username</th>
@@ -20,14 +22,17 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${users}" var="user">
-					<tr id="user${user.userId}" >
-						<td>${user.username}</td>
-						<td>${user.firstName} ${user.lastName}</td>
-						<td>${user.email}</td>
-						<td class="center"><%-- ${user.authorities[0].authority} --%></td>
-						<!-- <td><a class="edit" href="javascript:;"> Edit </a></td> -->
-						<td><button  value="${user.userId}" type="button" class="btnDelUser btn btn-xs btn-default pull-right">Delete</button></td>
-					</tr>
+					<c:if test="${user.authorities[0].authority != null}">
+						<tr id="user${user.userId}">
+							<td>${user.username}</td>
+							<td>${user.firstName}${user.lastName}</td>
+							<td>${user.email}</td>
+							<td class="center">${user.authorities[0].authority}</td>
+							<!-- <td><a class="edit" href="javascript:;"> Edit </a></td> -->
+							<td><button value="${user.userId}" type="button"
+									class="btnDelUser btn btn-xs btn-default pull-right">Delete</button></td>
+						</tr>
+					</c:if>
 				</c:forEach>
 			</tbody>
 		</table>

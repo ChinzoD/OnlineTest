@@ -1,12 +1,11 @@
 package com.pm.onlinetest.domain;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 public class User {
 
 	private Integer userId;
@@ -16,11 +15,8 @@ public class User {
 	private String lastName;
 	private String password;
 	private boolean enabled;
-	
-	@Transient
-	private String registrationSelectedAuthority;
 
-	private List<Authority> authorities = new ArrayList<>();
+	private List<Authority> authorities;
 
 	public User() {
 	}
@@ -43,7 +39,7 @@ public class User {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "userId")
 	public Integer getUserId() {
 		return this.userId;
@@ -102,8 +98,8 @@ public class User {
 		this.enabled = enabled;
 	}
 
-	//@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "user")
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade=CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "userId")
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	public List<Authority> getAuthorities() {
 		return this.authorities;
 	}
@@ -111,16 +107,5 @@ public class User {
 	public void setAuthorities(List<Authority> authorities) {
 		this.authorities = authorities;
 	}
-
-
-	public String getRegistrationSelectedAuthority() {
-		return registrationSelectedAuthority;
-	}
-
-	public void setRegistrationSelectedAuthority(String registrationsSelectedAuthority) {
-		this.registrationSelectedAuthority = registrationsSelectedAuthority;
-	}
-	
-	
 
 }

@@ -13,6 +13,6 @@ import com.pm.onlinetest.domain.User;
 @Repository
 public interface AuthorityRepository extends CrudRepository<Authority, Integer> {
 
-	@Query("SELECT a FROM Authority a WHERE a.user =:user")
-	List<Authority> findByUser(@Param("user") User user);
+//	@Query("SELECT a FROM Authority a WHERE a.user =:user")
+//	List<Authority> findByUser(@Param("user") User user);
 }

@@ -38,11 +38,11 @@ public class AuthorityServiceImpl implements AuthorityService {
 		}
 	}
 
-	@Override
-	public List<Authority> findByUser(User user) {
-		// TODO Auto-generated method stub
-		return authorityRepository.findByUser(user);
-	}
+//	@Override
+//	public List<Authority> findByUser(User user) {
+//		// TODO Auto-generated method stub
+//		return authorityRepository.findByUser(user);
+//	}
 
 	
 }
