@@ -192,6 +192,16 @@
 				});
 				$("#user"+id).remove();
 			});
+			
+			$(".btnAssignCoach").live("click",function(){
+				var coachId = $(this).val();
+				$.ajax({
+					url: '/onlinetest/admin/deleteUser?userid=' + id,
+					method: 'POST'
+					}).done(function(data) {					
+				});
+				$("#user"+id).remove();
+			});
 
 			
 		});
