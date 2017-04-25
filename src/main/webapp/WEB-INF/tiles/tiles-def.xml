@@ -41,5 +41,10 @@
 		<put-attribute name="content"   value="/WEB-INF/views/admin/registerStudent.jsp"/> 
 	</definition>
 	
+	<definition name="assignCoach" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/assignCoach.jsp"/> 
+	</definition>
+	
 	
 </tiles-definitions>

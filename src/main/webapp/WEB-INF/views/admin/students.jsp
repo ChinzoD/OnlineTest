@@ -34,7 +34,7 @@
 				<c:forEach items="${students}" var="student">
 					<tr id="user${student.userId}">
 						<td>${student.studentId}</td>
-						<td>${student.firstName}${student.lastName}</td>
+						<td>${student.firstName} ${student.lastName}</td>
 						<td>${student.email}</td>
 						<td class="center">${student.entry}</td>
 						<!-- <td><a class="edit" href="javascript:;"> Edit </a></td> -->
