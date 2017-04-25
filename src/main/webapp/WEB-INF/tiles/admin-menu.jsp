@@ -6,7 +6,6 @@
 		<li><a href="<c:url value="/admin/home" />">Home</a></li>
 		<li><a href="<c:url value="/admin/register" />">User Register</a></li>
 		<li><a href="<c:url value="/admin/users" />">User List</a></li>
-		<li><a href="<c:url value="/admin/coaches" />">Coach List</a></li>
 		<li><a href="<c:url value="/admin/students" />">Student List</a></li>
 	</ul>
 </div>

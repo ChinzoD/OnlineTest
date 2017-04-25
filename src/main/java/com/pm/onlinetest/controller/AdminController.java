@@ -74,6 +74,23 @@ public class AdminController {
 	   	return "redirect:/admin/register";
 	}
 	
+	@RequestMapping(value="/registerStudent", method = RequestMethod.GET)
+	public String getStudent(@ModelAttribute("loginUser") Student student) {
+ 		return "registerStudent";
+	}
+	
+	@RequestMapping(value="/registerStudent", method = RequestMethod.POST)
+	public String registerStudent(@ModelAttribute("loginUser") Student student, BindingResult result, 
+			RedirectAttributes redirectAttr) {
+		if(result.hasErrors()) {
+			return "registerStudent";
+		}
+		
+		studentService.save(student);
+		redirectAttr.addFlashAttribute("success", "Successfully added new user!");
+	   	return "redirect:/admin/registerStudent";
+	}
+	
 	@RequestMapping(value = { "/deleteUser" }, method = RequestMethod.POST)
 	public void DeletePost(HttpServletRequest request) {
 		String id = request.getParameter("userid").toString();
@@ -84,7 +101,7 @@ public class AdminController {
 	@RequestMapping(value = "/students", method = RequestMethod.GET)
 	public String getStudents(Locale locale, Model model) {
 		List<Student> students = studentService.findAll();
-		model.addAttribute("student", students);
+		model.addAttribute("students", students);
 		return "students";
 	}
 }
