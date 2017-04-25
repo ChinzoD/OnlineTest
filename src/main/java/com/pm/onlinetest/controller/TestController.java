@@ -53,7 +53,7 @@ public class TestController {
 			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 			
 			attr.addFlashAttribute("assignment", assgnmentObj);
-			return "redirect:/categories";
+			return "redirect:/showcategories";
 			
 		}else{
 			//throw error/access denied page
