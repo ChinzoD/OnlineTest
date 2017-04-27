@@ -47,9 +47,6 @@ public class AdminController {
 	@Autowired
 	StudentRecordService studentRecordService;
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "admin-home";
