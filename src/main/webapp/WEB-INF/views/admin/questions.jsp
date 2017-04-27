@@ -31,6 +31,7 @@
 					<tr>
 						<td>${question.id}</td>
 						<td>${question.subcategory.name}</td>
+						<td>${question.subcategory.name}</td>
 						<td>${question.description}</td>
 						<td>
 						   <c:forEach items="${question.choices}" var="choice">
