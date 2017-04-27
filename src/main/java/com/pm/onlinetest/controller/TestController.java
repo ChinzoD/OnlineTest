@@ -1,5 +1,7 @@
 package com.pm.onlinetest.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,7 +38,7 @@ public class TestController {
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String showAccessPage(){
-		return "access";
+		return "test/access";
 	}
 	
 	@RequestMapping(value="/access", method=RequestMethod.POST)
@@ -46,27 +48,41 @@ public class TestController {
 		
 		Assignment assgnmentObj;
 		
+		//Check if Student has been assigned a test using the supplied Access Code
 		if ((assgnmentObj = testService.getAssignment(accesscode)) != null){
-			//Authenticate Student and navigate to test categories page
-			
-			Authentication authenticationToken = new UsernamePasswordAuthenticationToken(assgnmentObj.getStudentId(), accesscode);
-			SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-			
+			//Add Assignment Object to Page attributes
 			attr.addFlashAttribute("assignment", assgnmentObj);
-			return "redirect:/showcategories";
 			
-		}else{
-			//throw error/access denied page
-			return "redirect:/errorpage";
+			//Check if Student has previously finished test
+			if (assgnmentObj.isFinished())
+				return "redirect:/errorpage";
+			else { //If Student has not previously finished,
+				
+				if (assgnmentObj.isStarted()){//Check if Student has even started Test previously
+					//If Student has started previously, check if time is still remaining
+					LocalDateTime currentDate = LocalDateTime.now();
+					if (currentDate.compareTo(assgnmentObj.getEnd_date()) == -1){
+						//If time is remaining, authenticate Student and redirect to test page
+						Authentication authenticationToken = new UsernamePasswordAuthenticationToken(assgnmentObj.getStudentId(), accesscode);
+						SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+						
+						return "redirect:/showtest";
+					}
+				}else
+					//If Student has not previously started, show page to select Categories
+					return "redirect:/showcategories";
+			}				
+			
 		}
+		
+		//throw error/access denied page
+		return "redirect:/errorpage";
 	}
 	
 	
 	@RequestMapping(value="/setcategories", method=RequestMethod.POST)
 	public void setCategories(@ModelAttribute("categoryDto") CategorySelectDto dto){
-		for (String c : dto.getSelectedSubCategories()){
-			System.out.println(c);
-		}
+		//Use dto.getSelectedSubCategories() to get Categories selected by student and use it to generate Question Paper.
 		//Generate Questions and return "showtest.jsp"
 	}
 	
@@ -80,7 +96,7 @@ public class TestController {
 		
 		dto.setCategories(cats);
 		model.addAttribute("categoryDto", dto);	
-		return "categoryselect";
+		return "test/categoryselect";
 	}
 
 }
