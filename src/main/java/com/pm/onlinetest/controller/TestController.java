@@ -57,8 +57,10 @@ public class TestController {
 			attr.addFlashAttribute("assignment", assgnmentObj);
 			
 			//Check if Student has previously finished test
-			if (assgnmentObj.isFinished())
-				return "redirect:/test/errorpage";
+			if (assgnmentObj.isFinished()){
+				attr.addFlashAttribute("errormessage", "This Test has been completed.");
+				return "redirect:/test/error";
+			}
 			else { //If Student has not previously finished,
 				
 				if (assgnmentObj.isStarted()){//Check if Student has even started Test previously
@@ -73,6 +75,9 @@ public class TestController {
 						SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 						
 						return "redirect:/test/showtest";
+					}else{
+						attr.addFlashAttribute("errormessage", "This Test has expired.");
+						return "redirect:/test/error";
 					}
 				}else
 					//If Student has not previously started, show page to select Categories
@@ -82,7 +87,8 @@ public class TestController {
 		}
 		
 		//throw error/access denied page
-		return "redirect:/test/errorpage";
+		attr.addFlashAttribute("errormessage", "Invalid Access Code");
+		return "redirect:/test/error";
 	}
 	
 	
@@ -103,6 +109,13 @@ public class TestController {
 		dto.setCategories(cats);*/
 		model.addAttribute("categoryDto", dto);	
 		return "test/categoryselect";
+	}
+	
+	@RequestMapping(value="/error", method=RequestMethod.GET)
+	public String showErrorPage(Model model){
+		
+		
+		return "test/errorpage";
 	}
 
 }

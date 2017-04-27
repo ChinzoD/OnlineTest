@@ -16,6 +16,8 @@
 	<!-- security:http enables security filter mechanism...name space configuration 
 		is activated -->
 	<!-- use-expressions enables URL level authorization - allows SPEL syntax -->
+	
+	<!-- Security configuration for Student Access Code -->
 	<security:http pattern="/test/*" use-expressions="true">
 	    <security:csrf disabled="true"/>
 	
