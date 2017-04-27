@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -19,7 +20,16 @@ public class Question {
     private Integer id;
  
     private String description;
-    
+    @Transient
+	private String category;
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	@ManyToOne
  	@JoinColumn(name = "subcategory_id") 	   
     private Subcategory subcategory;

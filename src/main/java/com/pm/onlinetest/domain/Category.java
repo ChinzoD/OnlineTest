@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Category implements java.io.Serializable{
 
@@ -15,7 +17,7 @@ public class Category implements java.io.Serializable{
     @GeneratedValue
     private Integer id;
  	private String name;
- 	
+ 	@JsonBackReference
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)	
  	private Set<Subcategory> subcategories;
 
