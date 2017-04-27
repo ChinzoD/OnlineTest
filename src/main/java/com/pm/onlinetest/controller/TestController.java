@@ -2,12 +2,15 @@ package com.pm.onlinetest.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,7 +66,10 @@ public class TestController {
 					LocalDateTime currentDate = LocalDateTime.now();
 					if (currentDate.compareTo(assgnmentObj.getEnd_date()) == -1){
 						//If time is remaining, authenticate Student and redirect to test page
-						Authentication authenticationToken = new UsernamePasswordAuthenticationToken(assgnmentObj.getStudentId(), accesscode);
+						GrantedAuthority aut = new SimpleGrantedAuthority("ROLE_STUDENT");
+						List<GrantedAuthority> roles = new ArrayList<>();
+						roles.add(aut);
+						Authentication authenticationToken = new UsernamePasswordAuthenticationToken(assgnmentObj.getStudentId(), accesscode, roles);
 						SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 						
 						return "redirect:/showtest";
