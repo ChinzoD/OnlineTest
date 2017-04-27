@@ -67,12 +67,9 @@
 
 
 	</security:http>
-
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:password-encoder hash="bcrypt" />
-			
-			
+			<security:password-encoder hash="bcrypt" />	
 			<security:jdbc-user-service
 				data-source-ref="dataSource"
 				users-by-username-query="select username, password, enabled from user where username=?"

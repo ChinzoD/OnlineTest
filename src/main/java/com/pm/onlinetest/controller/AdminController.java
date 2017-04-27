@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,9 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pm.onlinetest.domain.User;
 import com.pm.onlinetest.domain.Authority;
 import com.pm.onlinetest.domain.Student;
-import com.pm.onlinetest.domain.Student_Record;
 import com.pm.onlinetest.service.AuthorityService;
-import com.pm.onlinetest.service.StudentRecordService;
 import com.pm.onlinetest.service.StudentService;
 import com.pm.onlinetest.service.UserService;
 
@@ -44,14 +43,12 @@ public class AdminController {
 	AuthorityService authorityService;
 	@Autowired
 	StudentService studentService;
-	@Autowired
-	StudentRecordService studentRecordService;
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "admin-home";
 	}
-
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String getUsers(Locale locale, Model model) {
 		List<User> users = userService.findAll();
@@ -118,35 +115,35 @@ public class AdminController {
 		return "assignCoach";
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/assign", method = RequestMethod.POST)
-	public String getAssignCoach(Locale locale, Model model, HttpServletRequest request,
-			RedirectAttributes redirectAttr) {
-		String coachId = request.getParameter("coachId").toString();
-		String studentId = request.getParameter("studentId").toString();
-		User coach = userService.findByUserId(Integer.parseInt(coachId));
-		Student student = studentService.findByStudentId(studentId);
-		Student_Record studentRecord = new Student_Record();
-		studentRecord.setCoach(coach);
-		studentRecord.setStudent(student);
-		studentRecordService.save(studentRecord);
+//	@ResponseBody
+//	@RequestMapping(value = "/assign", method = RequestMethod.POST)
+//	public String getAssignCoach(Locale locale, Model model, HttpServletRequest request,
+//			RedirectAttributes redirectAttr) {
+//		String coachId = request.getParameter("coachId").toString();
+//		String studentId = request.getParameter("studentId").toString();
+//		User coach = userService.findByUserId(Integer.parseInt(coachId));
+//		Student student = studentService.findByStudentId(studentId);
+//		Student_Record studentRecord = new Student_Record();
+//		studentRecord.setCoach(coach);
+//		studentRecord.setStudent(student);
+//		studentRecordService.save(studentRecord);
+//
+//		// redirectAttr.addFlashAttribute("success", "Successfully assigned!");
+//		// return "assigned";
+//		return "ok";
+//	}
 
-		// redirectAttr.addFlashAttribute("success", "Successfully assigned!");
-		// return "assigned";
-		return "ok";
-	}
-
-	@RequestMapping(value = "/assignedList", method = RequestMethod.GET)
-	public String getAssignedList(Locale locale, Model model) {
-		List<Student_Record> studentRecords = studentRecordService.findAll();
-		model.addAttribute("studentRecords", studentRecords);
-		return "assignedList";
-	}
-
-	@RequestMapping(value = { "/deleteAssign" }, method = RequestMethod.POST)
-	public void DeleteAssign(HttpServletRequest request) {
-		String id = request.getParameter("userid").toString();
-		Student_Record sr = studentRecordService.findById(Integer.parseInt(id));
-		studentRecordService.delete(sr);
-	}
+//	@RequestMapping(value = "/assignedList", method = RequestMethod.GET)
+//	public String getAssignedList(Locale locale, Model model) {
+//		List<Student_Record> studentRecords = studentRecordService.findAll();
+//		model.addAttribute("studentRecords", studentRecords);
+//		return "assignedList";
+//	}
+//
+//	@RequestMapping(value = { "/deleteAssign" }, method = RequestMethod.POST)
+//	public void DeleteAssign(HttpServletRequest request) {
+//		String id = request.getParameter("userid").toString();
+//		Student_Record sr = studentRecordService.findById(Integer.parseInt(id));
+//		studentRecordService.delete(sr);
+//	}
 }
