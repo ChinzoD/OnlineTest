@@ -194,15 +194,32 @@
 			});
 			
 			$(".btnAssignCoach").live("click",function(){
-				var coachId = $(this).val();
+				var coachId = $(".coachId").find('option:selected').val() ;
+				var studentId = $(".studentId").find('option:selected').val() ;
 				$.ajax({
-					url: '/onlinetest/admin/deleteUser?userid=' + id,
+					url: '/onlinetest/admin/assign?coachId=' + coachId +'&studentId='+studentId,
+					method: 'POST'
+					}).done(function(data) {
+						if(data == "ok"){
+							$(".alert-warning").hide();
+							$(".alert-success").show();
+						}else{
+							$(".alert-warning").show();
+							$(".alert-success").hide();
+						}
+				});
+
+			});
+
+			$(".btnDelStudentRecord").live("click",function(){
+				var id = $(this).val();
+				$.ajax({
+					url: '/onlinetest/admin/deleteAssign?userid=' + id,
 					method: 'POST'
 					}).done(function(data) {					
 				});
 				$("#user"+id).remove();
 			});
-
 			
 		});
 		

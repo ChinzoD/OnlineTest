@@ -8,10 +8,10 @@ public class Student_Record {
 	@GeneratedValue
 	private Integer id;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private Student student;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	private User coach;
 
 	public Integer getId() {

@@ -17,12 +17,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pm.onlinetest.domain.User;
 import com.pm.onlinetest.domain.Authority;
 import com.pm.onlinetest.domain.Student;
+import com.pm.onlinetest.domain.Student_Record;
 import com.pm.onlinetest.service.AuthorityService;
+import com.pm.onlinetest.service.StudentRecordService;
 import com.pm.onlinetest.service.StudentService;
 import com.pm.onlinetest.service.UserService;
 
@@ -41,6 +44,8 @@ public class AdminController {
 	AuthorityService authorityService;
 	@Autowired
 	StudentService studentService;
+	@Autowired
+	StudentRecordService studentRecordService;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -92,7 +97,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = { "/deleteUser" }, method = RequestMethod.POST)
-	public void DeletePost(HttpServletRequest request) {
+	public void DeleteUser(HttpServletRequest request) {
 		String id = request.getParameter("userid").toString();
 		User user = userService.findByUserId(Integer.parseInt(id));
 		userService.delete(user);
@@ -114,5 +119,36 @@ public class AdminController {
 		model.addAttribute("coaches", coaches);
 		
 		return "assignCoach";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/assign", method = RequestMethod.POST)
+	public String getAssignCoach(Locale locale, Model model, HttpServletRequest request, RedirectAttributes redirectAttr) {
+		String coachId = request.getParameter("coachId").toString();
+		String studentId = request.getParameter("studentId").toString();
+		User coach = userService.findByUserId(Integer.parseInt(coachId));
+		Student student = studentService.findByStudentId(studentId);
+		Student_Record studentRecord = new Student_Record();
+		studentRecord.setCoach(coach);
+		studentRecord.setStudent(student);
+		studentRecordService.save(studentRecord);
+		
+		//redirectAttr.addFlashAttribute("success", "Successfully assigned!");
+		//return "assigned";
+	   	return "ok";
+	}
+	
+	@RequestMapping(value = "/assignedList", method = RequestMethod.GET)
+	public String getAssignedList(Locale locale, Model model) {
+		List<Student_Record> studentRecords = studentRecordService.findAll();
+		model.addAttribute("studentRecords", studentRecords);
+		return "assignedList";
+	}
+	
+	@RequestMapping(value = { "/deleteAssign" }, method = RequestMethod.POST)
+	public void DeleteAssign(HttpServletRequest request) {
+		String id = request.getParameter("userid").toString();
+		Student_Record sr = studentRecordService.findById(Integer.parseInt(id));
+		studentRecordService.delete(sr);
 	}
 }
