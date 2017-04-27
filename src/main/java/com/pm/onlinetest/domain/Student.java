@@ -7,6 +7,8 @@ public class Student extends User {
 
 	private String studentId;
 	private String entry;
+	
+	private boolean jobSearchStatus;
 
 	public String getEntry() {
 		return entry;
@@ -24,4 +26,14 @@ public class Student extends User {
 		this.studentId = studentId;
 	}
 
+	public boolean isJobSearchStatus() {
+		return jobSearchStatus;
+	}
+
+	public void setJobSearchStatus(boolean jobSearchStatus) {
+		this.jobSearchStatus = jobSearchStatus;
+	}
+
+
+	
 }
