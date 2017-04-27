@@ -74,4 +74,8 @@
 			value="/WEB-INF/views/questions/viewquestion.jsp" />
 	</definition>
 	
+	
+	<definition name="access" extends="login-definition">
+    	<put-attribute name="content"   value="/WEB-INF/views/test/access.jsp"/>       
+    </definition>
 </tiles-definitions>

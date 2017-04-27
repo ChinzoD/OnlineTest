@@ -41,7 +41,7 @@ public class TestController {
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String showAccessPage(){
-		return "test/access";
+		return "access";
 	}
 	
 	@RequestMapping(value="/access", method=RequestMethod.POST)
@@ -58,7 +58,7 @@ public class TestController {
 			
 			//Check if Student has previously finished test
 			if (assgnmentObj.isFinished())
-				return "redirect:/errorpage";
+				return "redirect:/test/errorpage";
 			else { //If Student has not previously finished,
 				
 				if (assgnmentObj.isStarted()){//Check if Student has even started Test previously
@@ -72,17 +72,17 @@ public class TestController {
 						Authentication authenticationToken = new UsernamePasswordAuthenticationToken(assgnmentObj.getStudentId(), accesscode, roles);
 						SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 						
-						return "redirect:/showtest";
+						return "redirect:/test/showtest";
 					}
 				}else
 					//If Student has not previously started, show page to select Categories
-					return "redirect:/showcategories";
+					return "redirect:/test/showcategories";
 			}				
 			
 		}
 		
 		//throw error/access denied page
-		return "redirect:/errorpage";
+		return "redirect:/test/errorpage";
 	}
 	
 	
