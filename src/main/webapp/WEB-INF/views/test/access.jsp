@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="content">
-	<form method="POST" action="access">
+	<form method="POST" action="<c:url value="test/access"/>">
 		<label>Enter Access Code:</label><br/>
 		<input type="text" name="access_code"/>
 		<button type="submit">Submit</button>
