@@ -101,16 +101,16 @@
 				<div class="row margin-top-10">
 					<div class="col-md-12">
 						<!-- BEGIN PROFILE SIDEBAR -->
-						<div class="profile-sidebar" style="width: 250px;">
-							<!-- PORTLET MAIN -->
+<!-- 						<div class="profile-sidebar" style="width: 250px;">
+							PORTLET MAIN
 							<div class="portlet light profile-sidebar-portlet">
 								<div class="panel-heading">
 									<h4>Left Sidebar</h4>
 								</div>
 								<div class="panel-body"></div>
 							</div>
-							<!-- END PORTLET MAIN -->
-						</div>
+							END PORTLET MAIN
+						</div> -->
 						<!-- END BEGIN PROFILE SIDEBAR -->
 						<!-- BEGIN PROFILE CONTENT -->
 						<div class="profile-content">
