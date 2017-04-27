@@ -9,16 +9,15 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Choice {
 
+	@Id
+	@GeneratedValue
+	private Integer id;
+	private String description;
+	private String answer;
 
- 	@Id
-    @GeneratedValue
-    private Integer id;
- 	private String description;
- 	private String answer;
- 	
 	@ManyToOne
- 	@JoinColumn(name = "question_id")
- 	private Question question;
+	@JoinColumn(name = "question_id")
+	private Question question;
 
 	public Integer getId() {
 		return id;
@@ -52,7 +51,4 @@ public class Choice {
 		this.question = question;
 	}
 
-
- 	
-	
 }

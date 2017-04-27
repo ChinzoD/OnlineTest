@@ -97,10 +97,10 @@ public class TestController {
 		
 		CategorySelectDto dto = new CategorySelectDto();
 		
-		Iterator<Category> it = questionService.getAllCategories().iterator();
+		/*Iterator<Category> it = questionService.getAllCategories().iterator();
 		List<Category> cats = Lists.newArrayList(it);
 		
-		dto.setCategories(cats);
+		dto.setCategories(cats);*/
 		model.addAttribute("categoryDto", dto);	
 		return "test/categoryselect";
 	}
