@@ -21,7 +21,7 @@
 	<security:http pattern="/test/*" use-expressions="true">
 	    <security:csrf disabled="true"/>
 	
-	    <security:intercept-url pattern="/test/show*" access="hasRole('ROLE_STUDENT')" />
+	    <security:intercept-url pattern="/test/cat*" access="hasRole('ROLE_STUDENT')" />
 	
 	    <security:form-login login-page="/test" always-use-default-target="false" />
 	</security:http>

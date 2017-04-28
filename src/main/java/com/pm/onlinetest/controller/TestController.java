@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -99,10 +101,16 @@ public class TestController {
 	}
 	
 	@RequestMapping(value="/categories", method=RequestMethod.GET)
-	public String selectCategoriesView(Model model){
+	public String selectCategoriesView(Model model, HttpServletRequest request, RedirectAttributes attr){
+		
+		Assignment obj = (Assignment) request.getAttribute("asssignment");
+		
+		if (obj == null){
+			attr.addFlashAttribute("errormessage", "Invalid Request");
+			return "redirect:/error";
+		}
 		
 		CategorySelectDto dto = new CategorySelectDto();
-		
 		/*Iterator<Category> it = questionService.getAllCategories().iterator();
 		List<Category> cats = Lists.newArrayList(it);
 		

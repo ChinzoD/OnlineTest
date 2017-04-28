@@ -12,15 +12,16 @@
 
 <form:form modelAttribute="categoryDto" method="POST" action="setcategories">
 
-	<c:forEach items="categoryDto.categories" var="cats">
+	<h1>Select Categories</h1>
+	<%-- <c:forEach items="categoryDto.categories" var="cats">
 	
 		<c:out value="cats.name"/><br/>
 		
-		<%-- <c:forEach items="cats.subcategories" var="subcats">
+		<c:forEach items="cats.subcategories" var="subcats">
 			<form:checkbox path="selectedSubCategories" value="${subcats.name}"/>${subcats.name}<br/>
-		</c:forEach><hr/> --%>
+		</c:forEach><hr/>
 		
-	</c:forEach>
+	</c:forEach> --%>
 	<button type="submit">Submit</button>
 </form:form>
 
