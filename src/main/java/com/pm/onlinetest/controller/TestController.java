@@ -103,7 +103,7 @@ public class TestController {
 	@RequestMapping(value="/categories", method=RequestMethod.GET)
 	public String selectCategoriesView(Model model, HttpServletRequest request, RedirectAttributes attr){
 		
-		Assignment obj = (Assignment) request.getAttribute("asssignment");
+		Assignment obj = (Assignment) request.getAttribute("assignment");
 		
 		if (obj == null){
 			attr.addFlashAttribute("errormessage", "Invalid Request");
