@@ -7,7 +7,6 @@
     		<div class="panel panel-default">
 			  	<div class="panel-heading">
 			  		<c:if test="${ not empty errormessage }">
-			  			<h1>Unauthorized Access</h1><br/>
 			    		<h3>${errormessage}</h3>
 			  		</c:if>
 			 	</div>
