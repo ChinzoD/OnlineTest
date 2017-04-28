@@ -59,7 +59,7 @@ public class TestController {
 			//Check if Student has previously finished test
 			if (assgnmentObj.isFinished()){
 				attr.addFlashAttribute("errormessage", "This Test has been completed.");
-				return "redirect:/test/error";
+				return "redirect:/test";
 			}
 			else { //If Student has not previously finished,
 				
@@ -77,28 +77,28 @@ public class TestController {
 						return "redirect:/test/showtest";
 					}else{
 						attr.addFlashAttribute("errormessage", "This Test has expired.");
-						return "redirect:/test/error";
+						return "redirect:/test";
 					}
 				}else
 					//If Student has not previously started, show page to select Categories
-					return "redirect:/test/showcategories";
+					return "redirect:/test/categories";
 			}				
 			
 		}
 		
 		//throw error/access denied page
 		attr.addFlashAttribute("errormessage", "Invalid Access Code");
-		return "redirect:/test/error";
+		return "redirect:/test";
 	}
 	
 	
-	@RequestMapping(value="/setcategories", method=RequestMethod.POST)
+	@RequestMapping(value="/categories", method=RequestMethod.POST)
 	public void setCategories(@ModelAttribute("categoryDto") CategorySelectDto dto){
 		//Use dto.getSelectedSubCategories() to get Categories selected by student and use it to generate Question Paper.
 		//Generate Questions and return "showtest.jsp"
 	}
 	
-	@RequestMapping(value="/showcategories", method=RequestMethod.GET)
+	@RequestMapping(value="/categories", method=RequestMethod.GET)
 	public String selectCategoriesView(Model model){
 		
 		CategorySelectDto dto = new CategorySelectDto();
@@ -113,7 +113,6 @@ public class TestController {
 	
 	@RequestMapping(value="/error", method=RequestMethod.GET)
 	public String showErrorPage(Model model){
-		
 		
 		return "test/errorpage";
 	}

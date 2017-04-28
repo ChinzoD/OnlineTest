@@ -6,6 +6,10 @@
 		<div class="col-md-4 col-md-offset-4">
     		<div class="panel panel-default">
 			  	<div class="panel-heading">
+			  		<c:if test="${ not empty errormessage }">
+			  			<h1>Unauthorized Access</h1><br/>
+			    		<h3>${errormessage}</h3>
+			  		</c:if>
 			 	</div>
 			  	<div class="panel-body">
 			    	<form action="<c:url value="test/access"></c:url>" method="post">
