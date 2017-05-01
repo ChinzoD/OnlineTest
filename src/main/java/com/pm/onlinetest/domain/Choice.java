@@ -6,12 +6,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Choice {
 
 	@Id
 	@GeneratedValue
 	private Integer id;
+	//@NotEmpty(message="choice can not empty")
 	private String description;
 	private String answer;
 

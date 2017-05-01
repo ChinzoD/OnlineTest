@@ -1,5 +1,7 @@
 package com.pm.onlinetest.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,24 @@ public class QuestionServiceImp implements QuestionService {
 
 		questionRepository.save(question);
 
+	}
+
+	@Override
+	public List<Question> findAll() {
+				return (List<Question>) questionRepository.findAll();
+	}
+
+	@Override
+	public Question findQuestionById(Integer id) {
+		
+		return questionRepository.findOne(id);
+	}
+
+	@Override
+	public void delete(Question question) {
+		questionRepository.delete(question);
+	
+		
 	}
 
 }

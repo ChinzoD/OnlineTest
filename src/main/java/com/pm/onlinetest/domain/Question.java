@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
@@ -18,17 +21,11 @@ public class Question {
  	@Id
     @GeneratedValue
     private Integer id;
- 
+ @NotEmpty(message="Question can not empty")
     private String description;
     @Transient
 	private String category;
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
+	
 
 	@ManyToOne
  	@JoinColumn(name = "subcategory_id") 	   
@@ -36,10 +33,19 @@ public class Question {
 	
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)	   
 	private Set<Choice> choices;
-	
+    @Transient
+	private Set<String> listOfchoice;
 	@ManyToOne
  	@JoinColumn(name = "test_id") 	
 	private Test test;
+
+	public Set<String> getListOfchoice() {
+		return listOfchoice;
+	}
+
+	public void setListOfchoice(Set<String> listOfchoice) {
+		this.listOfchoice = listOfchoice;
+	}
 
 	public Integer getId() {
 		return id;
@@ -82,7 +88,13 @@ public class Question {
 	}
 
 	
+	public String getCategory() {
+		return category;
+	}
 
+	public void setCategory(String category) {
+		this.category = category;
+	}
     
     
 
