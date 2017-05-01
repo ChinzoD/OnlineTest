@@ -2,12 +2,17 @@ package com.pm.onlinetest.controller;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +43,7 @@ public class TestController {
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
 	public String showAccessPage(){
-		return "test/access";
+		return "access";
 	}
 	
 	@RequestMapping(value="/access", method=RequestMethod.POST)
@@ -54,8 +59,10 @@ public class TestController {
 			attr.addFlashAttribute("assignment", assgnmentObj);
 			
 			//Check if Student has previously finished test
-			if (assgnmentObj.isFinished())
-				return "redirect:/errorpage";
+			if (assgnmentObj.isFinished()){
+				attr.addFlashAttribute("errormessage", "This Test has been completed.");
+				return "redirect:/test";
+			}
 			else { //If Student has not previously finished,
 				
 				if (assgnmentObj.isStarted()){//Check if Student has even started Test previously
@@ -63,40 +70,59 @@ public class TestController {
 					LocalDateTime currentDate = LocalDateTime.now();
 					if (currentDate.compareTo(assgnmentObj.getEnd_date()) == -1){
 						//If time is remaining, authenticate Student and redirect to test page
-						Authentication authenticationToken = new UsernamePasswordAuthenticationToken(assgnmentObj.getStudentId(), accesscode);
+						GrantedAuthority aut = new SimpleGrantedAuthority("ROLE_STUDENT");
+						List<GrantedAuthority> roles = new ArrayList<>();
+						roles.add(aut);
+						Authentication authenticationToken = new UsernamePasswordAuthenticationToken(assgnmentObj.getStudentId(), accesscode, roles);
 						SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 						
-						return "redirect:/showtest";
+						return "redirect:/test/showtest";
+					}else{
+						attr.addFlashAttribute("errormessage", "This Test has expired.");
+						return "redirect:/test";
 					}
 				}else
 					//If Student has not previously started, show page to select Categories
-					return "redirect:/showcategories";
+					return "redirect:/test/categories";
 			}				
 			
 		}
 		
 		//throw error/access denied page
-		return "redirect:/errorpage";
+		attr.addFlashAttribute("errormessage", "Invalid Access Code");
+		return "redirect:/test";
 	}
 	
 	
-	@RequestMapping(value="/setcategories", method=RequestMethod.POST)
+	@RequestMapping(value="/categories", method=RequestMethod.POST)
 	public void setCategories(@ModelAttribute("categoryDto") CategorySelectDto dto){
 		//Use dto.getSelectedSubCategories() to get Categories selected by student and use it to generate Question Paper.
 		//Generate Questions and return "showtest.jsp"
 	}
 	
-	@RequestMapping(value="/showcategories", method=RequestMethod.GET)
-	public String selectCategoriesView(Model model){
+	@RequestMapping(value="/categories", method=RequestMethod.GET)
+	public String selectCategoriesView(Model model, HttpServletRequest request, RedirectAttributes attr){
+		
+		Assignment obj = (Assignment) request.getAttribute("assignment");
+		
+		if (obj == null){
+			attr.addFlashAttribute("errormessage", "Invalid Request");
+			return "redirect:/error";
+		}
 		
 		CategorySelectDto dto = new CategorySelectDto();
-		
 		/*Iterator<Category> it = questionService.getAllCategories().iterator();
 		List<Category> cats = Lists.newArrayList(it);
 		
 		dto.setCategories(cats);*/
 		model.addAttribute("categoryDto", dto);	
 		return "test/categoryselect";
+	}
+	
+	@RequestMapping(value="/error", method=RequestMethod.GET)
+	public String showErrorPage(Model model){
+		
+		return "test/errorpage";
 	}
 
 }

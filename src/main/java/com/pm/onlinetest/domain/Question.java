@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -31,7 +32,7 @@ public class Question {
  	@JoinColumn(name = "subcategory_id") 	   
     private Subcategory subcategory;
 	
-	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL)	   
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)	   
 	private Set<Choice> choices;
     @Transient
 	private Set<String> listOfchoice;
