@@ -131,7 +131,7 @@ public class CoachController {
 		User coachModel = userService.findByUsername(coachName);
 		System.out.println("coachModel.getUsername()t is: "+coachModel.getUsername());
 		
-		Student  student = studentService.findStudentById(Integer.parseInt(userId));
+		Student  student = studentService.findByStudentId(Integer.parseInt(userId));
 		System.out.println("student.getUsername() is: "+student.getUsername());
 		
 		Assignment assignment = new Assignment();
