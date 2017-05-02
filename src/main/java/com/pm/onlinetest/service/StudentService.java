@@ -11,4 +11,5 @@ public interface StudentService {
 	public void delete(Student student);
 	public List<Student> findAll();
 	public Student findByStudentId(String studentId);
+	public Student findByStudentId(Integer studentId);
 }
