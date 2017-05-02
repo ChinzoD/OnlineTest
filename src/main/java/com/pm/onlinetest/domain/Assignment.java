@@ -25,15 +25,12 @@ public class Assignment {
  	private boolean finished;
  	private String accesscode;
  	
- 	@OneToOne(cascade = CascadeType.ALL)	
+ 	@OneToOne	
  	private User studentId;
  	
- 	@OneToOne(cascade = CascadeType.ALL)	
+ 	@OneToOne	
  	private User coachId;
  	
- 	@OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL)  	
- 	private Set<Test> tests;
-
 	public Integer getId() {
 		return id;
 	}
@@ -99,13 +96,6 @@ public class Assignment {
 		this.coachId = coachId;
 	}
 
-	public Set<Test> getTests() {
-		return tests;
-	}
-
-	public void setTests(Set<Test> tests) {
-		this.tests = tests;
-	}
 
 	public String getAccesscode() {
 		return accesscode;
