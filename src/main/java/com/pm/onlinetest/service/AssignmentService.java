@@ -11,4 +11,15 @@ public interface AssignmentService {
 	public Boolean isExist(String accesscode);
 	public List<Assignment> findByStudent(Student student);
 	public void saveAssignment(Assignment assignment);
+	
+	//add by Joy start
+	// get Student
+	Student getStudentById(String studentId);
+	
+	// get Coach
+	//get Assignment
+	public Assignment findById(Integer id);
+	
+	public List<Assignment> findAll();
+	//add by Joy end
 }

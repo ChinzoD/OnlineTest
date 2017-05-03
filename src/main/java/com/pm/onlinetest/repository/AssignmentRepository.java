@@ -15,6 +15,9 @@ public interface AssignmentRepository extends CrudRepository<Assignment, Integer
 	@Query("SELECT a FROM Assignment a WHERE a.accesscode = :accesscode")
 	Assignment getAssignment(@Param("accesscode") String accesscode);
 	
+	@Query("SELECT a FROM Assignment a WHERE a.id =:id")
+	Assignment findById(@Param("id") Integer id);
+
 	/*@Query("SELECT u FROM User u WHERE u.username =:username")
 	Assignment findByStartDate(@Param("username") String username);*/
 	

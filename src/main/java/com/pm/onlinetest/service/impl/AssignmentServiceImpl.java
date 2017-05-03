@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pm.onlinetest.domain.Assignment;
 import com.pm.onlinetest.domain.Student;
+import com.pm.onlinetest.repository.StudentRepository;
 import com.pm.onlinetest.repository.AssignmentRepository;
 import com.pm.onlinetest.service.AssignmentService;
 
@@ -16,10 +17,11 @@ import com.pm.onlinetest.service.AssignmentService;
 @Service
 @Transactional
 public class AssignmentServiceImpl implements AssignmentService {
-	
+        @Autowired
+	private StudentRepository studentRepository;
 	@Autowired
-	AssignmentRepository assignmentRepository;
-
+	private AssignmentRepository assignmentRepository;
+	
 	@Override
 	public String generateAccesscode() {
 		String accesscode;
@@ -71,7 +73,21 @@ public class AssignmentServiceImpl implements AssignmentService {
 		// TODO Auto-generated method stub
 		assignmentRepository.save(assignment);
 	}
-		
+		@Override
+	public Student getStudentById(String studentId) {
+		return studentRepository.findByStudentId(studentId);
+	}
+
+	@Override
+	public Assignment findById(Integer id) {
+		return assignmentRepository.findById(id);
+	}
+
+	@Override
+	public List<Assignment> findAll() {
+		// TODO Auto-generated method stub
+		return (List<Assignment>) assignmentRepository.findAll();
+	}	
 		
 	
 }
