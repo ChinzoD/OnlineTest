@@ -38,15 +38,24 @@ public class QuestionsController {
 	QuestionService questionService;
 	@Autowired
 	CategoryService categoryService;
+//	private static List<Choice> choices = new ArrayList<Choice>(5);
 
 
+
+	
 	@RequestMapping(value = "/addquestion", method = RequestMethod.GET)
 	public String addQuestion(Model model) {
 		List<Category> listCategory = new ArrayList<>();
 		listCategory.addAll(categoryService.findAll());
 		Question q = new Question();
+		List<Choice> choices =new ArrayList<>();
+		 for(int i=0; i<5; i++) {
+			 choices.add(new Choice());
+		    }
+		 q.setChoices(choices);
 		model.addAttribute("question", q);
 		model.addAttribute("categories", listCategory);
+    	model.addAttribute("choices", choices);
 		return "questions/addquestion";
 	}
 
@@ -61,18 +70,19 @@ public class QuestionsController {
 		}
 
 		Set<String> choices = question.getListOfchoice();
-		Set<Choice> c = new HashSet<>();
-		Choice choice = null;
-
-		for (String choiceDesc : choices) {
-			choice = new Choice();
+		//Set<Choice> c = new HashSet<>();
+		//Choice choice = null;
+		for (Choice choice :question.getChoices()) {
+			//choice = new Choice();
 			choice.setQuestion(question);
-			choice.setDescription(choiceDesc);
-			c.add(choice);
+			//choice.setDescription(choiceDesc);
+		//	choice.setAnswer(answer);
+		//	c.add(choice);
 
 		}
+		
 
-		question.setChoices(c);
+	//	question.setChoices(c);
 		questionService.save(question);
 		redirectAttr.addFlashAttribute("success", "The question Successfully added !");
 		redirectAttr.addFlashAttribute("question", question);

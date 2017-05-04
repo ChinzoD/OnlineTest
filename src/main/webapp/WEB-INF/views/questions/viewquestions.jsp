@@ -16,8 +16,8 @@
 				<tr>
 					<th>Question Id</th>
 					<th>Question</th>
-				<!-- 	<th>Sub Category</th>
-					<th>Category</th>
+					<th>Choices </th>
+					<!-- 	<th>Category</th>
 					<th>Edit</th> -->
 					<th>Delete</th>
 				</tr>
@@ -27,8 +27,22 @@
 					<c:if test="${question!= null}">
 						<tr id="${question.id}">
 						<td>${question.id}</td>
-							<td>${question.description}</td>
-						
+							<td>${question.description}
+					
+							
+							</td>
+						<td><ol type="A">
+   <c:forEach items="${question.choices}" var="choice" varStatus="i"> <li> <c:choose>
+    <c:when test="${choice.answer== true}">
+     <p class="text-success">    ${choice.description} </p> 
+        <br />
+    </c:when>    
+    <c:otherwise>
+     <p>  ${choice.description} </p>
+        <br />
+    </c:otherwise>
+</c:choose>   </li></c:forEach>
+    </ol></td>
 							
 							<!-- <td><a class="edit" href="javascript:;"> Edit </a></td> -->
 							<td><button value="${question.id}" type="button"
