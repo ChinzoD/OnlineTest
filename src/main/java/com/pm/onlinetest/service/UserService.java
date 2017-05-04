@@ -9,7 +9,8 @@ public interface UserService {
 
 	public void save(User user);
 	public void delete(User user);
-	public List<User> findAll();
+	public void softDelete(Integer userId);
+	public List<User> findAllEnabled();
 	public User findByUsername(String username);
 	public User findByUserId(Integer userId);
 	public List<User> findByAuthority(String authority);

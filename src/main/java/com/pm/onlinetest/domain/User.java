@@ -1,6 +1,5 @@
 package com.pm.onlinetest.domain;
 
-import static javax.persistence.GenerationType.IDENTITY;
 import java.util.List;
 import javax.persistence.*;
 

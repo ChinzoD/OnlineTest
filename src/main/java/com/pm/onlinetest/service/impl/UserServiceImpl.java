@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private AuthorityRepository authorityRepository;
 
-	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_DBA')")
 	public void save(User user) {
 
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -40,8 +40,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findAll() {
-		return (List<User>) userRepository.findAll();
+	public List<User> findAllEnabled() {
+		return (List<User>) userRepository.findAllEnabled();
 	}
 
 	@Override
@@ -66,4 +66,11 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userRepository.findByAuthority(authority);
 	}
+
+	@Override
+	public void softDelete(Integer userId) {
+		// TODO Auto-generated method stub
+		userRepository.softDelete(userId);
+	}
+
 }

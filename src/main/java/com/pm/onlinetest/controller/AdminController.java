@@ -48,10 +48,10 @@ public class AdminController {
 	public String home(Locale locale, Model model) {
 		return "admin-home";
 	}
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String getUsers(Locale locale, Model model) {
-		List<User> users = userService.findAll();
+		List<User> users = userService.findAllEnabled();
 		model.addAttribute("users", users);
 		return "users";
 	}
@@ -84,17 +84,20 @@ public class AdminController {
 		if (result.hasErrors()) {
 			return "registerStudent";
 		}
-
-		studentService.save(student);
-		redirectAttr.addFlashAttribute("success", "Successfully added new user!");
-		return "redirect:/admin/registerStudent";
+		if(null != studentService.findByStudentId(student.getStudentId())){
+			redirectAttr.addFlashAttribute("msgType", "Error");
+			return "redirect:/admin/registerStudent";
+		}else{
+			studentService.save(student);
+			redirectAttr.addFlashAttribute("msgType", "Success");
+			return "redirect:/admin/registerStudent";
+		}
 	}
 
 	@RequestMapping(value = { "/deleteUser" }, method = RequestMethod.POST)
 	public void DeleteUser(HttpServletRequest request) {
 		String id = request.getParameter("userid").toString();
-		User user = userService.findByUserId(Integer.parseInt(id));
-		userService.delete(user);
+		userService.softDelete(Integer.parseInt(id));		
 	}
 
 	@RequestMapping(value = "/students", method = RequestMethod.GET)
