@@ -48,7 +48,7 @@ public class AdminController {
 	public String home(Locale locale, Model model) {
 		return "admin-home";
 	}
-
+	
 	@RequestMapping(value = "/users", method = RequestMethod.GET)
 	public String getUsers(Locale locale, Model model) {
 		List<User> users = userService.findAllEnabled();
@@ -117,7 +117,6 @@ public class AdminController {
 
 		return "assignCoach";
 	}
-
 //	@ResponseBody
 //	@RequestMapping(value = "/assign", method = RequestMethod.POST)
 //	public String getAssignCoach(Locale locale, Model model, HttpServletRequest request,

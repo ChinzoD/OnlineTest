@@ -1,14 +1,13 @@
 package com.pm.onlinetest.service;
 
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 
-import com.pm.onlinetest.domain.Category;
 import com.pm.onlinetest.domain.Question;
 
 public interface QuestionService {
 	public void save(Question question);
-
-	
+public List<Question> findAll();
+public Question findQuestionById(Integer id); 
+public void delete(Question question);
 	
 }

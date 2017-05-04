@@ -40,4 +40,10 @@ public class StudentServiceImpl implements StudentService {
 		studentRepository.delete(student);
 	}
 
+	@Override
+	public Student findByStudentId(Integer studentId) {
+		// TODO Auto-generated method stub
+		return studentRepository.findOne(studentId);
+	}
+
 }

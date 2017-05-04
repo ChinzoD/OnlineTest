@@ -6,14 +6,17 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 public class Choice {
 
 	@Id
 	@GeneratedValue
 	private Integer id;
+	//@NotEmpty(message="choice can not empty")
 	private String description;
-	private String answer;
+	private Boolean answer;
 
 	@ManyToOne
 	@JoinColumn(name = "question_id")
@@ -35,11 +38,11 @@ public class Choice {
 		this.description = description;
 	}
 
-	public String getAnswer() {
+	public Boolean getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer(String answer) {
+	public void setAnswer(Boolean answer) {
 		this.answer = answer;
 	}
 

@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private AuthorityRepository authorityRepository;
 
-	@PreAuthorize("hasRole('ROLE_DBA')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void save(User user) {
 
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
