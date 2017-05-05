@@ -41,8 +41,8 @@
 		<div class="page-header-top">
 			<div class="container">
 				<div class="page-logo">
-					<a href="index.html"><img
-						src="<c:url value="/metronic/assets/logo.png" />" width="250px;"
+					<a href="#"><img
+						src="<c:url value="/metronic/assets/logo.png" />" height="70px;"
 						alt="logo" class="logo-default"></a>
 				</div>
 				<!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -229,6 +229,26 @@
 					}).done(function(data) {					
 				});
 				$("#user"+id).remove();
+			});
+			
+			$(".btnDelCat").live("click",function(){
+				var id = $(this).val();
+				$.ajax({
+					url: '/onlinetest/admin/deleteCategory?id=' + id,
+					method: 'POST'
+					}).done(function(data) {					
+				});
+				$("#category"+id).remove();
+			});
+			
+			$(".btnDelSubCat").live("click",function(){
+				var id = $(this).val();
+				$.ajax({
+					url: '/onlinetest/admin/deleteSubCategory?id=' + id,
+					method: 'POST'
+					}).done(function(data) {					
+				});
+				$("#subCategory"+id).remove();
 			});
 			
 		});

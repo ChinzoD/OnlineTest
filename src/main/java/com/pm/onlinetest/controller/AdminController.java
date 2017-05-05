@@ -23,9 +23,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pm.onlinetest.domain.User;
 import com.pm.onlinetest.domain.Authority;
+import com.pm.onlinetest.domain.Category;
 import com.pm.onlinetest.domain.Student;
+import com.pm.onlinetest.domain.Subcategory;
 import com.pm.onlinetest.service.AuthorityService;
+import com.pm.onlinetest.service.CategoryService;
 import com.pm.onlinetest.service.StudentService;
+import com.pm.onlinetest.service.SubCategoryService;
 import com.pm.onlinetest.service.UserService;
 
 /**
@@ -43,6 +47,11 @@ public class AdminController {
 	AuthorityService authorityService;
 	@Autowired
 	StudentService studentService;
+	@Autowired
+	CategoryService categoryService;
+	@Autowired
+	SubCategoryService subCategoryService;
+	
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -101,14 +110,14 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/students", method = RequestMethod.GET)
-	public String getStudents(Locale locale, Model model) {
-		List<Student> students = studentService.findAll();
+	public String getStudents(Model model) {
+		List<Student> students = studentService.findAllEnabled();
 		model.addAttribute("students", students);
 		return "students";
 	}
 
 	@RequestMapping(value = "/assign", method = RequestMethod.GET)
-	public String assignCoach(Locale locale, Model model) {
+	public String assignCoach(Model model) {
 		List<Student> students = studentService.findAll();
 		List<User> coaches = userService.findByAuthority("ROLE_COACH");
 
@@ -117,6 +126,70 @@ public class AdminController {
 
 		return "assignCoach";
 	}
+	
+	@RequestMapping(value = "/categories", method = RequestMethod.GET)
+	public String getCategory(Model model) {
+		List<Category> categories = categoryService.findAllEnabled();
+		model.addAttribute("categories", categories);
+		return "categories";
+	}
+	
+	@RequestMapping(value = "/createCategory", method = RequestMethod.GET)
+	public String createCategory(@ModelAttribute("Category") Category category) {
+		return "createCategory";
+	}
+	
+	@RequestMapping(value = "/createCategory", method = RequestMethod.POST)
+	public String createCategoryPost(@ModelAttribute("Category") Category category, BindingResult result,
+			RedirectAttributes redirectAttr) {
+		if (result.hasErrors()) {
+			return "createCategory";
+		}
+		
+		categoryService.save(category);
+		redirectAttr.addFlashAttribute("success", "Successfully added new category!");
+		return "redirect:/admin/createCategory";
+	}
+	
+	@RequestMapping(value = "/subCategories", method = RequestMethod.GET)
+	public String getSubCategory(Model model) {
+		List<Subcategory> subCategories = subCategoryService.findAllEnabled();
+		model.addAttribute("subCategories", subCategories);
+		return "subCategories";
+	}
+	
+	@RequestMapping(value = { "/deleteCategory" }, method = RequestMethod.POST)
+	public void DeleteCategory(HttpServletRequest request) {
+		String id = request.getParameter("id").toString();
+		categoryService.softDelete(Integer.parseInt(id));		
+	}
+	
+	@RequestMapping(value = "/createSubCategory", method = RequestMethod.GET)
+	public String createSubCategory(@ModelAttribute("Subcategory") Subcategory subcategory, Model model) {
+		List<Category> categories = categoryService.findAllEnabled();
+		model.addAttribute("categories", categories);
+		return "createSubCategory";
+	}
+	
+	@RequestMapping(value = "/createSubCategory", method = RequestMethod.POST)
+	public String createSubCategoryPost(@ModelAttribute("Subcategory") Subcategory subcategory, BindingResult result,
+			RedirectAttributes redirectAttr) {
+		if (result.hasErrors()) {
+			return "createSubCategory";
+		}
+		
+		subcategory.setCategory(categoryService.findOne(subcategory.getCategoryId()));
+		subCategoryService.save(subcategory);
+		redirectAttr.addFlashAttribute("success", "Successfully added new Subcategory!");
+		return "redirect:/admin/createSubCategory";
+	}
+	
+	@RequestMapping(value = { "/deleteSubCategory" }, method = RequestMethod.POST)
+	public void DeleteSubCategory(HttpServletRequest request) {
+		String id = request.getParameter("id").toString();
+		subCategoryService.softDelete(Integer.parseInt(id));		
+	}
+	
 //	@ResponseBody
 //	@RequestMapping(value = "/assign", method = RequestMethod.POST)
 //	public String getAssignCoach(Locale locale, Model model, HttpServletRequest request,

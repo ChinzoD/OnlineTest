@@ -53,7 +53,7 @@
 					type="number" placeholder="Entry year" name="entry" />
 				<form:errors path="entry" cssClass="text-danger" />
 			</div>
-			<form:hidden path="enabled" value="FALSE" />
+			<form:hidden path="enabled" value="TRUE" />
 			<div class="form-actions">
 				<button type="submit" id="register-submit-btn"
 					class="btn btn-success uppercase pull-right">Submit</button>

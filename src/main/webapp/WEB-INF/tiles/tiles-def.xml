@@ -47,7 +47,7 @@
 		<put-attribute name="content"   value="/WEB-INF/views/admin/registerStudent.jsp"/> 
 	</definition>
 	
-	<definition name="assignCoach" extends="base-definition">
+	<!-- <definition name="assignCoach" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
 		<put-attribute name="content"   value="/WEB-INF/views/admin/assignCoach.jsp"/> 
 	</definition>
@@ -55,7 +55,27 @@
 	<definition name="assignedList" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
 		<put-attribute name="content"   value="/WEB-INF/views/admin/assignedList.jsp"/> 
+	</definition> -->
+	
+	<definition name="categories" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/categories.jsp"/> 
 	</definition>
+	<definition name="subCategories" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/subCategories.jsp"/> 
+	</definition>
+	
+	<definition name="createCategory" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/createCategory.jsp"/> 
+	</definition>
+	
+	<definition name="createSubCategory" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/createSubCategory.jsp"/> 
+	</definition>
+	
 	<definition name="questions/addquestion" extends="base-definition">
 	
 	<put-attribute name="menu" value="/WEB-INF/tiles/questionMenu.jsp"></put-attribute>

@@ -19,10 +19,25 @@ public class SubCategoryServiceImp implements SubCategoryService {
 
 	@Override
 	public List<Subcategory> findSubCategoryById(Integer catId) {
-	
 		return subCategoryRepository.findSubCategoryById(catId);
 	}
-	
 
+	@Override
+	public List<Subcategory> findAllEnabled() {
+		// TODO Auto-generated method stub
+		return subCategoryRepository.findAllEnabled();
+	}
+
+	@Override
+	public void save(Subcategory subcategory) {
+		// TODO Auto-generated method stub
+		subCategoryRepository.save(subcategory);
+	}
+
+	@Override
+	public void softDelete(Integer categoryId) {
+		// TODO Auto-generated method stub
+		subCategoryRepository.softDelete(categoryId);
+	}
 
 }
