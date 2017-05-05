@@ -1,14 +1,13 @@
 package com.pm.onlinetest.domain;
 
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 
 
 @Entity
@@ -21,12 +20,13 @@ public class Test {
 
 	private String answer;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
  	@JoinColumn(name = "assignment_id") 	
 	private Assignment assignment;
 	
-	@OneToMany(mappedBy = "test", cascade = CascadeType.ALL)	
-	private Set<Question> questions;
+	@ManyToOne(cascade = CascadeType.REMOVE)
+	@JoinColumn(name = "question_id")
+	private Question question;
 
 	public Integer getId() {
 		return id;
@@ -53,12 +53,12 @@ public class Test {
 		this.assignment = assignment;
 	}
 
-	public Set<Question> getQuestions() {
-		return questions;
+	public Question getQuestion() {
+		return question;
 	}
 
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
 

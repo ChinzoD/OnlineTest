@@ -48,7 +48,9 @@ public class QuestionsController {
 		List<Category> listCategory = new ArrayList<>();
 		listCategory.addAll(categoryService.findAll());
 		Question q = new Question();
-		List<Choice> choices =new ArrayList<>();
+	//	List<Choice> choices =new ArrayList<>();
+		 Set<Choice> choices = new HashSet<>();
+
 		 for(int i=0; i<5; i++) {
 			 choices.add(new Choice());
 		    }
