@@ -212,7 +212,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/importData", method = RequestMethod.POST)
-	public String processExcel2007(Model model, @RequestParam("ExcelFile") MultipartFile excelfile) {		
+	public String processExcel2007(Model model, @RequestParam("ExcelFile") MultipartFile excelfile, RedirectAttributes redirectAttr) {		
 		try {
 			List<Question> questions = new ArrayList<>();
 			int i = 0;
@@ -272,12 +272,13 @@ public class AdminController {
 				
 			}			
 			workbook.close();
-			model.addAttribute("questions", questions);
+			redirectAttr.addFlashAttribute("msgType", "Success");
 		} catch (Exception e) {
 			e.printStackTrace();
+			redirectAttr.addFlashAttribute("msgType", "Error");
 		}
- 
-		return "hello";
+		
+		return "redirect:/admin/importData";
 	}
 //	@ResponseBody
 //	@RequestMapping(value = "/assign", method = RequestMethod.POST)
