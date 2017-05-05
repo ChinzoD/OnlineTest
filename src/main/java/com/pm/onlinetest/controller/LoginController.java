@@ -1,6 +1,8 @@
 package com.pm.onlinetest.controller;
 
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,23 +21,23 @@ public class LoginController {
 
 	@Autowired
 	UserService userService;
-	
-	@RequestMapping(value="/login", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
- 		return "login";
+		return "login";
 	}
-	
-	
-	@RequestMapping(value="/loginfailed", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
 	public String loginerror(@ModelAttribute("loginUser") User user, Model model) {
- 
 		model.addAttribute("error", "true");
 		return "login";
- 
 	}
- 
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
-	public String logout(Model model) {
- 		return "redirect:/login";
- 	}
+
+	@RequestMapping(value = { "/logout" }, method = RequestMethod.GET)
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+
+		return "redirect:/login";
+	}
 }
