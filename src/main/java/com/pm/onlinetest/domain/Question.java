@@ -39,9 +39,8 @@ public class Question {
     @Transient
 	private Set<String> listOfchoice;
     
-    @ManyToOne
- 	@JoinColumn(name = "test_id") 	
-	private Test test;
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
+	private Set<Test> tests;
    /* @Transient
 	private Set<String> isAnswer;*/
     
@@ -100,16 +99,14 @@ public class Question {
 	public void setChoices(List<Choice> choices) {
 		this.choices = choices;
 	}
-
-	public Test getTest() {
-		return test;
+	public Set<Test> getTests() {
+		return tests;
 	}
 
-	public void setTest(Test test) {
-		this.test = test;
+	public void setTests(Set<Test> tests) {
+		this.tests = tests;
 	}
 
-	
 	public String getCategory() {
 		return category;
 	}

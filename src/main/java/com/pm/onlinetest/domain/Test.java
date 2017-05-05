@@ -25,8 +25,9 @@ public class Test {
  	@JoinColumn(name = "assignment_id") 	
 	private Assignment assignment;
 	
-	@OneToMany(mappedBy = "test", cascade = CascadeType.ALL)	
-	private Set<Question> questions;
+	@ManyToOne
+	@JoinColumn(name = "question_id") 
+	private Question question;
 
 	public Integer getId() {
 		return id;
@@ -53,14 +54,15 @@ public class Test {
 		this.assignment = assignment;
 	}
 
-	public Set<Question> getQuestions() {
-		return questions;
+	public Question getQuestion() {
+		return question;
 	}
 
-	public void setQuestions(Set<Question> questions) {
-		this.questions = questions;
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
+	
 
 	
 	
