@@ -189,8 +189,7 @@ public class AdminController {
 		String id = request.getParameter("id").toString();
 		subCategoryService.softDelete(Integer.parseInt(id));		
 	}
-	
-	
+		
 //	@ResponseBody
 //	@RequestMapping(value = "/assign", method = RequestMethod.POST)
 //	public String getAssignCoach(Locale locale, Model model, HttpServletRequest request,
