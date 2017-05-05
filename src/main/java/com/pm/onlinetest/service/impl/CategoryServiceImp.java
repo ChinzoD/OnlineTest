@@ -42,4 +42,10 @@ public class CategoryServiceImp implements CategoryService {
 		categoryRepository.softDelete(categoryId);
 	}
 
+	@Override
+	public List<Category> findCategoryByName(String name) {
+		// TODO Auto-generated method stub
+		return categoryRepository.findCategoryByName(name);
+	}
+
 }

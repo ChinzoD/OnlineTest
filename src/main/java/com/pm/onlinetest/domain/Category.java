@@ -1,5 +1,6 @@
 package com.pm.onlinetest.domain;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -26,7 +27,7 @@ public class Category implements java.io.Serializable {
 	private String name;
 	@JsonBackReference
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
-	private Set<Subcategory> subcategories;
+	private List<Subcategory> subcategories;
 	private boolean enabled;
 	@Transient
 	private Integer subCategoryCount;
@@ -40,18 +41,18 @@ public class Category implements java.io.Serializable {
 	}
 
 	public String getName() {
-		return name;
+		return name.trim().toUpperCase();
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public Set<Subcategory> getSubcategories() {
+	public List<Subcategory> getSubcategories() {
 		return subcategories;
 	}
 
-	public void setSubcategories(Set<Subcategory> subcategories) {
+	public void setSubcategories(List<Subcategory> subcategories) {
 		this.subcategories = subcategories;
 	}
 

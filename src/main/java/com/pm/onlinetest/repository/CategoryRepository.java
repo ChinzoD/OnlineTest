@@ -21,4 +21,7 @@ public interface CategoryRepository extends CrudRepository<Category, Integer> {
 	@Transactional
 	@Query("UPDATE Category c SET c.enabled = false WHERE c.id =:id")
 	void softDelete(@Param("id") Integer id);
+	
+	@Query("SELECT c FROM Category c WHERE c.name=:name AND c.enabled = true")
+	public List<Category> findCategoryByName(@Param("name") String name);
 }
