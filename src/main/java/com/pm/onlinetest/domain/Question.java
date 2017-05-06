@@ -1,5 +1,6 @@
 package com.pm.onlinetest.domain;
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -10,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Question {
@@ -17,10 +21,25 @@ public class Question {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	@NotEmpty(message="Question can not empty")
 	private String description;
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.REMOVE)
-	private Set<Choice> choices;
+	@Transient
+	private String category;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
+	private List<Choice> choices;
+	
+	public Set<String> getListOfchoice() {
+		return listOfchoice;
+	}
+
+	public void setListOfchoice(Set<String> listOfchoice) {
+		this.listOfchoice = listOfchoice;
+	}
+
+	@Transient
+	private Set<String> listOfchoice;
 
 	@ManyToOne
 	@JoinColumn(name = "subcategory_id")
@@ -37,11 +56,11 @@ public class Question {
 		this.id = id;
 	}
 
-	public Set<Choice> getChoices() {
+	public List<Choice> getChoices() {
 		return choices;
 	}
 
-	public void setChoices(Set<Choice> choices) {
+	public void setChoices(List<Choice> choices) {
 		this.choices = choices;
 	}
 
@@ -67,6 +86,13 @@ public class Question {
 
 	public void setTests(Set<Test> tests) {
 		this.tests = tests;
+	}
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }
