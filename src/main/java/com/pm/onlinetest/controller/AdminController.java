@@ -93,8 +93,13 @@ public class AdminController {
 			return "register";
 		}
 
-		userService.save(user);
-		redirectAttr.addFlashAttribute("success", "Successfully added new user!");
+		if(null != userService.findByUsername(user.getUsername())){
+			redirectAttr.addFlashAttribute("msgType", "Error");
+		}else{
+			user.setEnabled(true);
+			userService.save(user);
+			redirectAttr.addFlashAttribute("msgType", "Success");			
+		}
 		return "redirect:/admin/register";
 	}
 
@@ -111,12 +116,11 @@ public class AdminController {
 		}
 		if(null != studentService.findByStudentId(student.getStudentId())){
 			redirectAttr.addFlashAttribute("msgType", "Error");
-			return "redirect:/admin/registerStudent";
 		}else{
 			studentService.save(student);
-			redirectAttr.addFlashAttribute("msgType", "Success");
-			return "redirect:/admin/registerStudent";
+			redirectAttr.addFlashAttribute("msgType", "Success");		
 		}
+		return "redirect:/admin/registerStudent";
 	}
 
 	@RequestMapping(value = { "/deleteUser" }, method = RequestMethod.POST)

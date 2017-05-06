@@ -10,7 +10,7 @@
 		</c:if>
 		<c:if test="${msgType == 'Succes'}">
 		<div class="alert alert-success" >
-			<strong>Success!</strong> Successfully added new user!
+			<strong>Success!</strong> Successfully added new Student!
 		</div>
 		</c:if>
 		<!-- BEGIN REGISTRATION FORM -->
