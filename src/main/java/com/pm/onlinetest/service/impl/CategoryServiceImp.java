@@ -21,4 +21,10 @@ public class CategoryServiceImp implements CategoryService {
 
 	}
 
+	@Override
+	public Iterable<Category> getAllCategories() {
+		// TODO Auto-generated method stub
+		return categoryRepository.findAll();
+	}
+
 }
