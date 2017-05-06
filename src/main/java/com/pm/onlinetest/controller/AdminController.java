@@ -229,8 +229,29 @@ public class AdminController {
 				
 				question.setDescription(row.getCell(0).getStringCellValue());
 				
-				String catName = row.getCell(8).getStringCellValue();
-				String subCatName = row.getCell(9).getStringCellValue();
+				String catName = row.getCell(8).getStringCellValue().trim();
+				String subCatName = row.getCell(9).getStringCellValue().trim();
+				boolean error = false;
+				for(int j= 0; j<10; j++){
+					if(row.getCell(j).getStringCellValue().trim().length() == 0){
+						error = false;
+						redirectAttr.addFlashAttribute("error2", "");
+					}
+					if(j == 7){
+						String answer = row.getCell(j).getStringCellValue().toUpperCase();
+						if(65 > answer.charAt(0) || 70 < answer.charAt(0)){
+							error = false;
+							redirectAttr.addFlashAttribute("error2", "Please check answer column.");
+						}
+					}
+					if(error){
+						redirectAttr.addFlashAttribute("msgType", "Error");
+						redirectAttr.addFlashAttribute("error1", "Error on line: "+i);
+						return "redirect:/admin/importData";
+					}
+				}
+
+				
 				List<Subcategory> subcategories = subCategoryService.findSubCategoryByName(subCatName);
 				if(subcategories.size() == 0){
 					Subcategory subCategory = new Subcategory();
@@ -276,6 +297,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			redirectAttr.addFlashAttribute("msgType", "Error");
+			redirectAttr.addFlashAttribute("error2", "Error:\n\n"+e);
 		}
 		
 		return "redirect:/admin/importData";

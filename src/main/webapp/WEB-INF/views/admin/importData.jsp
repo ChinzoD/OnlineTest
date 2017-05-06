@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include.jsp"%>
-
-<div class="portlet box green">
+<div class="content">
+	<div class="portlet box green">
 		<c:if test="${msgType == 'Error'}">
 			<div class="alert alert-warning">
-				<strong>Warning!</strong> Please check excel file. 
+				<strong>Warning!</strong> ${error1} <br />
+				<br /> ${error2}
 			</div>
 		</c:if>
 		<c:if test="${msgType == 'Succes'}">
-		<div class="alert alert-success">
-			<strong>Success!</strong> Successfully imported Data!
-		</div>
+			<div class="alert alert-success">
+				<strong>Success!</strong> Successfully imported Data!
+			</div>
 		</c:if>
 		<div class="portlet-title">
 			<div class="caption">
@@ -45,4 +46,5 @@
 				</div>
 			</form:form>
 		</div>
+	</div>
 </div>
