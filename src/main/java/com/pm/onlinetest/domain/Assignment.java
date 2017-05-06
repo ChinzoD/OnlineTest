@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -31,7 +32,7 @@ public class Assignment {
  	@OneToOne	
  	private User coachId;
  	
- 	@OneToMany(mappedBy = "assignment") //cascade = CascadeType.ALL 	
+ 	@OneToMany(mappedBy = "assignment" ,fetch=FetchType.EAGER) //cascade = CascadeType.ALL 	
  	private Set<Test> tests;
 
 	public Integer getId() {
@@ -116,5 +117,24 @@ public class Assignment {
 	}
 	
 	
+	@Override
+	public boolean equals(Object object){
+		
+		if (object == null)
+			return false;
+		if (!object.getClass().equals(this.getClass()))
+			return false;
+		
+		Assignment assgn = (Assignment)object;
+		if (assgn.getId() == this.getId())
+			return true;
+		
+		return false;
+	}
 	
+	@Override
+	public int hashCode(){
+		
+		return this.getId();
+	}
 }

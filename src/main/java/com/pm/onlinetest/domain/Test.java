@@ -24,7 +24,7 @@ public class Test {
  	@JoinColumn(name = "assignment_id") 	
 	private Assignment assignment;
 	
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne(cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
 	@JoinColumn(name = "question_id")
 	private Question question;
 
@@ -61,6 +61,7 @@ public class Test {
 		this.question = question;
 	}
 
+	
 
 	
 	

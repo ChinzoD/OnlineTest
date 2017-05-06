@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.pm.onlinetest.domain.Choice;
+import com.pm.onlinetest.domain.Question;
 import com.pm.onlinetest.repository.ChoiceRepository;
 import com.pm.onlinetest.service.ChoiceService;
 
@@ -42,4 +42,11 @@ public class ChoiceServiceImpl implements ChoiceService {
 		choiceRepository.save(choices);
 	}
 
+	@Override
+	public Choice getAnswer(Question question) {
+		// TODO Auto-generated method stub
+		return choiceRepository.getQuestionAnswer(question);
+	}
+
+	
 }

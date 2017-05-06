@@ -35,8 +35,14 @@
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/admin/questions.jsp" />
 	</definition>
-
-
+	<definition name="result" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/result.jsp"/> 
+	</definition>
+	<definition name="resultDetail" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/resultdetail.jsp"/> 
+	</definition>
 	<definition name="students" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/admin/students.jsp" />
