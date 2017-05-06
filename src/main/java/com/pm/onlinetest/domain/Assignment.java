@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -31,6 +32,9 @@ public class Assignment {
  	@OneToOne	
  	private User coachId;
  	
+ 	@OneToMany(mappedBy = "assignment" ,fetch=FetchType.EAGER) //cascade = CascadeType.ALL 	
+ 	private Set<Test> tests;
+
 	public Integer getId() {
 		return id;
 	}
@@ -96,6 +100,13 @@ public class Assignment {
 		this.coachId = coachId;
 	}
 
+	public Set<Test> getTests() {
+		return tests;
+	}
+
+	public void setTests(Set<Test> tests) {
+		this.tests = tests;
+	}
 
 	public String getAccesscode() {
 		return accesscode;

@@ -60,13 +60,13 @@
 									${sessionScope.username} !</span>
 						</a>
 							<ul class="dropdown-menu dropdown-menu-default">
-								<li><a href="<c:url value="/user/profile" />"> <i
+								<%-- <li><a href="<c:url value="/user/profile" />"> <i
 										class="icon-user"></i> My Profile
 								</a></li>
 								<li class="divider"></li>
 								<li><a href="<c:url value="/register" />"> <i
 										class="icon-key"></i> Register
-								</a></li>
+								</a></li> --%>
 								<li class="divider"></li>
 								<li><a href="<c:url value="/logout" />"> <i
 										class="icon-key"></i> Log Out

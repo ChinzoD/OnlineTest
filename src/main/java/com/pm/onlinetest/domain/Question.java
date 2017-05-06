@@ -1,7 +1,5 @@
 package com.pm.onlinetest.domain;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,24 +33,13 @@ public class Question {
     private Subcategory subcategory;
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)	   
-	private List<Choice> choices;
+	private Set<Choice> choices;
     @Transient
 	private Set<String> listOfchoice;
-    
+
     @OneToMany(fetch=FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
 	private Set<Test> tests;
-   /* @Transient
-	private Set<String> isAnswer;*/
-    
-    
-	//private List<Choice> choicesAsList;
-
-	
- // to bind with controller
-	/*public List<Choice> getChoicesAsList() {
-		return new ArrayList<Choice> (choices);
-	}*/
-
+  
 	public Set<String> getListOfchoice() {
 		return listOfchoice;
 	}
@@ -60,14 +47,7 @@ public class Question {
 	public void setListOfchoice(Set<String> listOfchoice) {
 		this.listOfchoice = listOfchoice;
 	}
-	/*public Set<String> getAnswer() {
-		return isAnswer;
-	}
-
-	public void setAnswer(Set<String> answer) {
-		this.isAnswer = answer;
-	}
-*/
+	
 	public Integer getId() {
 		return id;
 	}
@@ -92,13 +72,14 @@ public class Question {
 		this.subcategory = subcategory;
 	}
 
-	public List<Choice> getChoices() {
+	public Set<Choice> getChoices() {
 		return choices;
 	}
 
-	public void setChoices(List<Choice> choices) {
+	public void setChoices(Set<Choice> choices) {
 		this.choices = choices;
 	}
+
 	public Set<Test> getTests() {
 		return tests;
 	}

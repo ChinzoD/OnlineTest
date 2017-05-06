@@ -1,14 +1,13 @@
 package com.pm.onlinetest.domain;
 
-import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 
 
 @Entity
@@ -21,12 +20,12 @@ public class Test {
 
 	private String answer;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
  	@JoinColumn(name = "assignment_id") 	
 	private Assignment assignment;
 	
-	@ManyToOne
-	@JoinColumn(name = "question_id") 
+	@ManyToOne(cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
+	@JoinColumn(name = "question_id")
 	private Question question;
 
 	public Integer getId() {

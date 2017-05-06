@@ -53,6 +53,17 @@
 					type="number" placeholder="Entry year" name="entry" />
 				<form:errors path="entry" cssClass="text-danger" />
 			</div>
+			<div class="form-group">
+				<form:label class="control-label" path="jobSearchStatus">Job search status</form:label> 
+				<form:select
+					class="select2_category form-control category"
+					path="jobSearchStatus" name="jobSearchStatus"
+					data-placeholder="Choose a status" tabindex="1">
+						<form:option value="True">Active</form:option>
+						<form:option value="False">Inactive</form:option>
+				</form:select>
+				<form:errors path="jobSearchStatus" cssClass="text-danger" />
+			</div>			
 			<form:hidden path="enabled" value="TRUE" />
 			<div class="form-actions">
 				<button type="submit" id="register-submit-btn"
