@@ -88,7 +88,7 @@ public class User {
 		this.password = password;
 	}
 
-	@Column(name = "enabled", nullable = false, columnDefinition = "BIT", length = 1)
+	@Column(name = "enabled", nullable = false, columnDefinition = "BIT default TRUE", length = 1)
 	public boolean isEnabled() {
 		return this.enabled;
 	}

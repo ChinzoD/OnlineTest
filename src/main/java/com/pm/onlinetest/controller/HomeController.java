@@ -50,7 +50,7 @@ public class HomeController {
 
 		for (Authority authority : user.getAuthorities()) {
 			if (authority.getAuthority().equals("ROLE_ADMIN")) {
-				return "redirect:/admin/home";
+				return "redirect:/admin/users";
 			} else if (authority.getAuthority().equals("ROLE_COACH")) {
 				return "redirect:/coach/home";
 			} else if (authority.getAuthority().equals("ROLE_DBA")) {

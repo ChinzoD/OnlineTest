@@ -3,8 +3,15 @@
 <%@ include file="/WEB-INF/views/include.jsp"%>
 <div class="content">
 	<div class="portlet light">
-		<c:if test="${not empty success}">
-			<c:out value="${success}" />
+		<c:if test="${msgType == 'Error'}">
+		<div class="alert alert-warning" >
+			<strong>Warning!</strong> Username is duplicated!
+		</div>
+		</c:if>
+		<c:if test="${msgType == 'Succes'}">
+		<div class="alert alert-success" >
+			<strong>Success!</strong> Successfully added new user!
+		</div>
 		</c:if>
 		<!-- BEGIN REGISTRATION FORM -->
 		<form:form method="POST" class="register-form" action="register"

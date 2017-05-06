@@ -55,7 +55,11 @@
 		class="org.springframework.context.support.MessageSourceAccessor">
 		<constructor-arg ref="messageSource" />
 	</bean>
-
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- maxUploadSize=10MB -->
+		<property name="maxUploadSize" value="10240000" />
+	</bean>
 
 
 </beans>

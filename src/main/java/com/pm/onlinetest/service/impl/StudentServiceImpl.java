@@ -46,4 +46,10 @@ public class StudentServiceImpl implements StudentService {
 		return studentRepository.findOne(studentId);
 	}
 
+	@Override
+	public List<Student> findAllEnabled() {
+		// TODO Auto-generated method stub
+		return (List<Student>) studentRepository.findAllEnabled();
+	}
+
 }

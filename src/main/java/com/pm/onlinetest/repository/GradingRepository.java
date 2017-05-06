@@ -12,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pm.onlinetest.domain.User;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface GradingRepository extends CrudRepository<User, Integer> {
+	
+	@Query("SELECT u FROM User u WHERE u.username =:username")
+	User findByUsername(@Param("username") String username);
 	
 	@Query("SELECT u FROM User u WHERE u.userId =:userId")
 	User findByUserId(@Param("userId") Integer userId);
@@ -28,6 +31,4 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query("UPDATE User u SET u.enabled = false WHERE u.userId =:userId")
 	void softDelete(@Param("userId") Integer userId);
 	
-	@Query("SELECT u FROM User u WHERE u.username=:username AND u.enabled = true")
-	User findByUsername(@Param("username") String username);
 }

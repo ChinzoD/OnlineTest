@@ -1,101 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
-       
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
 <tiles-definitions>
-	<definition name="base-definition" template="/WEB-INF/tiles/baseLayout.jsp"> 
-		
+	<definition name="base-definition" template="/WEB-INF/tiles/baseLayout.jsp">
+
 	</definition>
 	<definition name="login-definition" template="/WEB-INF/tiles/loginLayout.jsp">
 	</definition>
-	
+
 	<definition name="login" extends="login-definition">
-    	<put-attribute name="content"   value="/WEB-INF/views/login.jsp"/>       
-    </definition>
-	
-	<definition name="home" extends="base-definition">
-		<put-attribute name="content"   value="/WEB-INF/views/home.jsp"/> 
+		<put-attribute name="content" value="/WEB-INF/views/login.jsp" />
 	</definition>
-	
+
+	<definition name="home" extends="base-definition">
+		<put-attribute name="content" value="/WEB-INF/views/home.jsp" />
+	</definition>
+
 	<definition name="admin-home" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/home.jsp"/> 
+		<put-attribute name="content" value="/WEB-INF/views/admin/home.jsp" />
 	</definition>
-	
+
 	<definition name="register" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/register.jsp"/> 
+		<put-attribute name="content" value="/WEB-INF/views/admin/register.jsp" />
 	</definition>
-	
+
 	<definition name="users" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/users.jsp"/> 
+		<put-attribute name="content" value="/WEB-INF/views/admin/users.jsp" />
 	</definition>
-	
+
 	<definition name="questions" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/questions.jsp"/> 
+		<put-attribute name="content" value="/WEB-INF/views/admin/questions.jsp" />
 	</definition>
-	
-	
+	<definition name="result" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/result.jsp"/> 
+	</definition>
+	<definition name="resultDetail" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/resultdetail.jsp"/> 
+	</definition>
 	<definition name="students" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/students.jsp"/> 
+		<put-attribute name="content" value="/WEB-INF/views/admin/students.jsp" />
 	</definition>
-	
+
 	<definition name="registerStudent" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/registerStudent.jsp"/> 
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/registerStudent.jsp" />
+	</definition>
+
+	<definition name="importData" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/admin/importData.jsp" />
 	</definition>
 	
-	<definition name="assignCoach" extends="base-definition">
+	<!-- <definition name="assignCoach" extends="base-definition"> <put-attribute 
+		name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute> <put-attribute 
+		name="content" value="/WEB-INF/views/admin/assignCoach.jsp"/> </definition> 
+		<definition name="assignedList" extends="base-definition"> <put-attribute 
+		name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute> <put-attribute 
+		name="content" value="/WEB-INF/views/admin/assignedList.jsp"/> </definition> -->
+
+	<definition name="categories" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/assignCoach.jsp"/> 
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/categories.jsp" />
 	</definition>
-	
-	<definition name="assignedList" extends="base-definition">
+	<definition name="subCategories" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/assignedList.jsp"/> 
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/subCategories.jsp" />
 	</definition>
+
+	<definition name="createCategory" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/createCategory.jsp" />
+	</definition>
+
+	<definition name="createSubCategory" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/views/admin/createSubCategory.jsp" />
+	</definition>
+
 	<definition name="questions/addquestion" extends="base-definition">
-	
-	<put-attribute name="menu" value="/WEB-INF/tiles/questionMenu.jsp"></put-attribute>
-	
+
+		<put-attribute name="menu" value="/WEB-INF/tiles/questionMenu.jsp"></put-attribute>
+
 		<put-attribute name="content"
 			value="/WEB-INF/views/questions/addquestion.jsp" />
 	</definition>
-	 
-	
-	
+
+
+
 	<definition name="question/testme" extends="base-definition">
 		<put-attribute name="content" value="/WEB-INF/views/question/testme.jsp" />
 	</definition>
-	
-	
+
+
 	<definition name="questions/viewquestions" extends="base-definition">
-	<put-attribute name="menu" value="/WEB-INF/tiles/questionMenu.jsp"></put-attribute>
+		<put-attribute name="menu" value="/WEB-INF/tiles/questionMenu.jsp"></put-attribute>
 		<put-attribute name="content"
 			value="/WEB-INF/views/questions/viewquestions.jsp" />
 	</definition>
-	
-	
+
+
 	<definition name="access" extends="login-definition">
-    	<put-attribute name="content"   value="/WEB-INF/views/test/access.jsp"/>       
-    </definition>
-    
-    	<definition name="coach" extends="base-definition">
-		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>	
-		<put-attribute name="content"   value="/WEB-INF/views/coach/coach.jsp"/> 
+		<put-attribute name="content" value="/WEB-INF/views/test/access.jsp" />
 	</definition>
-	
+
+	<definition name="coach" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/coach/coach.jsp" />
+	</definition>
+
 	<definition name="studentAssignmentHistory" extends="base-definition">
-		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>	
-		<put-attribute name="content"   value="/WEB-INF/views/coach/studentAssignmentHistory.jsp"/> 
+		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/views/coach/studentAssignmentHistory.jsp" />
 	</definition>
-	
-	
+
+
 	<definition name="studentAssignmentDetail" extends="base-definition">
-		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>		
-		<put-attribute name="content"   value="/WEB-INF/views/coach/studentAssignmentDetail.jsp"/> 
+		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>
+		<put-attribute name="content"
+			value="/WEB-INF/views/coach/studentAssignmentDetail.jsp" />
 	</definition>
-    
+
 </tiles-definitions>

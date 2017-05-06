@@ -9,6 +9,7 @@ public interface StudentService {
 
 	public void save(Student student);
 	public void delete(Student student);
+	public List<Student> findAllEnabled();
 	public List<Student> findAll();
 	public Student findByStudentId(String studentId);
 	public Student findByStudentId(Integer studentId);

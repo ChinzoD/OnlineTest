@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
 		String role = user.getAuthorities().get(0).getAuthority();
 		user.setAuthorities(null);
 		user.setPassword(encodedPassword);
+		user.setEnabled(true);
 		userRepository.save(user);
 		Authority authority = new Authority();
 		authority.setUserId(user.getUserId());
