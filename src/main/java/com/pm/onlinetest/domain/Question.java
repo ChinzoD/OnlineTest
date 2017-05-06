@@ -21,6 +21,7 @@ public class Question {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
 	@NotEmpty(message="Question can not empty")
 	private String description;
 
@@ -30,6 +31,9 @@ public class Question {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
 	private List<Choice> choices;
 	
+	@Transient
+	private Set<String> listOfchoice;
+	
 	public Set<String> getListOfchoice() {
 		return listOfchoice;
 	}
@@ -38,8 +42,7 @@ public class Question {
 		this.listOfchoice = listOfchoice;
 	}
 
-	@Transient
-	private Set<String> listOfchoice;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "subcategory_id")
