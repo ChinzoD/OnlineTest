@@ -1,5 +1,6 @@
 package com.pm.onlinetest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +24,22 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pm.onlinetest.domain.User;
 import com.pm.onlinetest.domain.Authority;
 import com.pm.onlinetest.domain.Category;
+import com.pm.onlinetest.domain.Choice;
+import com.pm.onlinetest.domain.Question;
 import com.pm.onlinetest.domain.Student;
 import com.pm.onlinetest.domain.Subcategory;
 import com.pm.onlinetest.service.AuthorityService;
 import com.pm.onlinetest.service.CategoryService;
+import com.pm.onlinetest.service.ChoiceService;
+import com.pm.onlinetest.service.QuestionService;
 import com.pm.onlinetest.service.StudentService;
 import com.pm.onlinetest.service.SubCategoryService;
 import com.pm.onlinetest.service.UserService;
@@ -53,6 +63,10 @@ public class AdminController {
 	CategoryService categoryService;
 	@Autowired
 	SubCategoryService subCategoryService;
+	@Autowired
+	QuestionService questionService;
+	@Autowired
+	ChoiceService choiceService;
 	
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
@@ -79,8 +93,13 @@ public class AdminController {
 			return "register";
 		}
 
-		userService.save(user);
-		redirectAttr.addFlashAttribute("success", "Successfully added new user!");
+		if(null != userService.findByUsername(user.getUsername())){
+			redirectAttr.addFlashAttribute("msgType", "Error");
+		}else{
+			user.setEnabled(true);
+			userService.save(user);
+			redirectAttr.addFlashAttribute("msgType", "Success");			
+		}
 		return "redirect:/admin/register";
 	}
 
@@ -97,12 +116,11 @@ public class AdminController {
 		}
 		if(null != studentService.findByStudentId(student.getStudentId())){
 			redirectAttr.addFlashAttribute("msgType", "Error");
-			return "redirect:/admin/registerStudent";
 		}else{
 			studentService.save(student);
-			redirectAttr.addFlashAttribute("msgType", "Success");
-			return "redirect:/admin/registerStudent";
+			redirectAttr.addFlashAttribute("msgType", "Success");		
 		}
+		return "redirect:/admin/registerStudent";
 	}
 
 	@RequestMapping(value = { "/deleteUser" }, method = RequestMethod.POST)
@@ -192,6 +210,102 @@ public class AdminController {
 		subCategoryService.softDelete(Integer.parseInt(id));		
 	}
 		
+	@RequestMapping(value = "/importData", method = RequestMethod.GET)
+	public String importDataGet() {
+		return "importData";
+	}
+	
+	@RequestMapping(value = "/importData", method = RequestMethod.POST)
+	public String processExcel2007(Model model, @RequestParam("ExcelFile") MultipartFile excelfile, RedirectAttributes redirectAttr) {		
+		try {
+			List<Question> questions = new ArrayList<>();
+			int i = 0;
+			// Creates a workbook object from the uploaded excelfile
+			XSSFWorkbook workbook = new XSSFWorkbook(excelfile.getInputStream());
+			// Creates a worksheet object representing the first sheet
+			XSSFSheet worksheet = workbook.getSheetAt(0);
+			// Reads the data in excel file until last row is encountered
+			while (i <= worksheet.getLastRowNum()) {
+				Question question = new Question();
+				List<Choice> choices = new ArrayList<>();
+				
+				XSSFRow row = worksheet.getRow(i++);
+				
+				question.setDescription(row.getCell(0).getStringCellValue());
+				
+				String catName = row.getCell(8).getStringCellValue().trim();
+				String subCatName = row.getCell(9).getStringCellValue().trim();
+				boolean error = false;
+				for(int j= 0; j<10; j++){
+					if(row.getCell(j).getStringCellValue().trim().length() == 0){
+						error = false;
+						redirectAttr.addFlashAttribute("error2", "");
+					}
+					if(j == 7){
+						String answer = row.getCell(j).getStringCellValue().toUpperCase();
+						if(65 > answer.charAt(0) || 70 < answer.charAt(0)){
+							error = false;
+							redirectAttr.addFlashAttribute("error2", "Please check answer column.");
+						}
+					}
+					if(error){
+						redirectAttr.addFlashAttribute("msgType", "Error");
+						redirectAttr.addFlashAttribute("error1", "Error on line: "+i);
+						return "redirect:/admin/importData";
+					}
+				}
+
+				
+				List<Subcategory> subcategories = subCategoryService.findSubCategoryByName(subCatName);
+				if(subcategories.size() == 0){
+					Subcategory subCategory = new Subcategory();
+					subCategory.setName(subCatName);
+					subCategory.setEnabled(true);
+					
+					List<Category> categories = categoryService.findCategoryByName(subCatName);
+					if(categories.size() == 0){
+						Category category = new Category();
+						category.setName(catName);
+						category.setEnabled(true);
+						categoryService.save(category);
+						subCategory.setCategory(category);
+					}else{
+						subCategory.setCategory(categories.get(0));
+					}
+					subCategoryService.save(subCategory);
+					question.setSubcategory(subCategory);
+				}else{
+					question.setSubcategory(subcategories.get(0));
+				}
+
+				questionService.save(question);
+				String answer = row.getCell(7).getStringCellValue().toUpperCase();
+				int correctAnswerPos = answer.charAt(0) - 65;
+				
+				for(int k=1; k < 7; k++){
+					Choice choice = new Choice();
+					choice.setQuestion(question);
+					choice.setDescription(row.getCell(k).getStringCellValue().trim());
+					if(correctAnswerPos == k){
+						choice.setAnswer(true);
+					}else{
+						choice.setAnswer(false);
+					}
+					choices.add(choice);
+				}
+				choiceService.save(choices);
+				
+			}			
+			workbook.close();
+			redirectAttr.addFlashAttribute("msgType", "Success");
+		} catch (Exception e) {
+			e.printStackTrace();
+			redirectAttr.addFlashAttribute("msgType", "Error");
+			redirectAttr.addFlashAttribute("error2", "Error:\n\n"+e);
+		}
+		
+		return "redirect:/admin/importData";
+	}
 //	@ResponseBody
 //	@RequestMapping(value = "/assign", method = RequestMethod.POST)
 //	public String getAssignCoach(Locale locale, Model model, HttpServletRequest request,

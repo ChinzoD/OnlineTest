@@ -11,6 +11,7 @@ public interface CategoryService {
 	public Category findOne(Integer categoryId);
 	public void softDelete(Integer categoryId);
 	public void save(Category category);
+	public List<Category> findCategoryByName(String name);
 	// void update(long id,Question book);
 	// void delete(long id);
 }

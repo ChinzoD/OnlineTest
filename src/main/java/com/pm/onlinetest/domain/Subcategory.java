@@ -35,7 +35,7 @@ public class Subcategory {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.trim().toUpperCase();
 	}
 
 	public Category getCategory() {

@@ -4,14 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.pm.onlinetest.domain.Choice;
 import com.pm.onlinetest.domain.Question;
 import com.pm.onlinetest.repository.ChoiceRepository;
-import com.pm.onlinetest.repository.QuestionRepository;
 import com.pm.onlinetest.service.ChoiceService;
-import com.pm.onlinetest.service.QuestionService;
 
 @Service
 
@@ -20,27 +16,30 @@ public class ChoiceServiceImpl implements ChoiceService {
 	ChoiceRepository choiceRepository;
 
 	@Override
-	public void save(Choice question) {
-		// TODO Auto-generated method stub
-		
+	public void save(Choice choice) {
+		choiceRepository.save(choice);
 	}
 
 	@Override
 	public List<Choice> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Choice>) choiceRepository.findAll();
 	}
 
 	@Override
-	public Choice findQuestionById(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Choice findOne(Integer id) {
+		return choiceRepository.findOne(id);
 	}
 
 	@Override
-	public void delete(Choice question) {
+	public void delete(Choice choice) {
+		choiceRepository.delete(choice);
+
+	}
+
+	@Override
+	public void save(List<Choice> choices) {
 		// TODO Auto-generated method stub
-		
+		choiceRepository.save(choices);
 	}
 
 	@Override
@@ -50,5 +49,4 @@ public class ChoiceServiceImpl implements ChoiceService {
 	}
 
 	
-
 }

@@ -24,4 +24,7 @@ public interface SubCategoryRepository extends CrudRepository<Subcategory, Integ
 	@Transactional
 	@Query("UPDATE Subcategory sc SET sc.enabled = false WHERE sc.id =:id")
 	void softDelete(@Param("id") Integer id);
+	
+	@Query("SELECT sc FROM Subcategory sc WHERE sc.name=:name AND sc.enabled = true")
+	public List<Subcategory> findSubCategoryByName(@Param("name") String name);
 }
