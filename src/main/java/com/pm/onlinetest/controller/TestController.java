@@ -76,18 +76,18 @@ public class TestController {
 			}
 			else { //If Student has not previously finished,
 				
-				if (assgnmentObj.isStarted()){//Check if Student has started Test previously
+                //Check if maximum number of attempts has not been exceeded
+				if (assgnmentObj.getCount() < 3){
 					
-					//Check if maximum number of attempts has not been exceeded
-					if (assgnmentObj.getCount() < 3){
+                    //Update Count attribute of Assignment object in database
+				    assgnmentObj.setCount(assgnmentObj.getCount() + 1);
+				    assignmentService.updateAccessCount(assgnmentObj);
+                    
+					if (assgnmentObj.isStarted()){//Check if Student has started Test previously
 						
 						//Check if time is still remaining
 						LocalDateTime currentDate = LocalDateTime.now();
 						if (currentDate.compareTo(assgnmentObj.getEnd_date()) == -1){
-							
-							//Update Count attribute of Assignment object in database
-							assgnmentObj.setCount(assgnmentObj.getCount() + 1);
-							assignmentService.updateAccessCount(assgnmentObj);
 							
 							//Authenticate Student and redirect to test page
 							GrantedAuthority aut = new SimpleGrantedAuthority("ROLE_STUDENT");
@@ -101,14 +101,14 @@ public class TestController {
 							attr.addFlashAttribute("errormessage", "No more time remaining for this test.");
 							return "redirect:/test";
 						}
-					}else{
-						attr.addFlashAttribute("errormessage", "This test has expired.");
-						return "redirect:/test";
-					}
-					
-				}else
+					}else
 					//If Student has not previously started, show page to select Categories
 					return "redirect:/test/categories";
+					
+				}else{
+				    attr.addFlashAttribute("errormessage", "This test has expired.");
+					return "redirect:/test";
+				}
 			}				
 			
 		}
