@@ -16,6 +16,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +27,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.common.collect.Lists;
 import com.pm.onlinetest.domain.Assignment;
 import com.pm.onlinetest.domain.Category;
+import com.pm.onlinetest.service.AssignmentService;
+import com.pm.onlinetest.service.CategoryService;
 import com.pm.onlinetest.service.QuestionService;
 import com.pm.onlinetest.service.TestService;
 
@@ -38,7 +42,14 @@ public class TestController {
 	QuestionService questionService;
 	
 	@Autowired
+	CategoryService categoryService;
+	
+	@Autowired
 	TestService testService;
+	
+	@Autowired
+	AssignmentService assignmentService;
+
 	
 	
 	@RequestMapping(value="", method=RequestMethod.GET)
@@ -55,7 +66,7 @@ public class TestController {
 		
 		//Check if Student has been assigned a test using the supplied Access Code
 		if ((assgnmentObj = testService.getAssignment(accesscode)) != null){
-			//Add Assignment Object to Page attributes
+			//Add Assignment Object to Request attributes
 			attr.addFlashAttribute("assignment", assgnmentObj);
 			
 			//Check if Student has previously finished test
@@ -65,25 +76,39 @@ public class TestController {
 			}
 			else { //If Student has not previously finished,
 				
-				if (assgnmentObj.isStarted()){//Check if Student has even started Test previously
-					//If Student has started previously, check if time is still remaining
-					LocalDateTime currentDate = LocalDateTime.now();
-					if (currentDate.compareTo(assgnmentObj.getEnd_date()) == -1){
-						//If time is remaining, authenticate Student and redirect to test page
-						GrantedAuthority aut = new SimpleGrantedAuthority("ROLE_STUDENT");
-						List<GrantedAuthority> roles = new ArrayList<>();
-						roles.add(aut);
-						Authentication authenticationToken = new UsernamePasswordAuthenticationToken(assgnmentObj.getStudentId(), accesscode, roles);
-						SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+                //Check if maximum number of attempts has not been exceeded
+				if (assgnmentObj.getCount() < 3){
+					
+                    //Update Count attribute of Assignment object in database
+				    assgnmentObj.setCount(assgnmentObj.getCount() + 1);
+				    assignmentService.updateAccessCount(assgnmentObj);
+                    
+					if (assgnmentObj.isStarted()){//Check if Student has started Test previously
 						
-						return "redirect:/test/showtest";
-					}else{
-						attr.addFlashAttribute("errormessage", "This Test has expired.");
-						return "redirect:/test";
-					}
-				}else
+						//Check if time is still remaining
+						LocalDateTime currentDate = LocalDateTime.now();
+						if (currentDate.compareTo(assgnmentObj.getEnd_date()) == -1){
+							
+							//Authenticate Student and redirect to test page
+							GrantedAuthority aut = new SimpleGrantedAuthority("ROLE_STUDENT");
+							List<GrantedAuthority> roles = new ArrayList<>();
+							roles.add(aut);
+							Authentication authenticationToken = new UsernamePasswordAuthenticationToken(assgnmentObj.getStudentId(), accesscode, roles);
+							SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+							
+							return "redirect:/test/showtest";
+						}else{
+							attr.addFlashAttribute("errormessage", "No more time remaining for this test.");
+							return "redirect:/test";
+						}
+					}else
 					//If Student has not previously started, show page to select Categories
 					return "redirect:/test/categories";
+					
+				}else{
+				    attr.addFlashAttribute("errormessage", "This test has expired.");
+					return "redirect:/test";
+				}
 			}				
 			
 		}
@@ -95,9 +120,12 @@ public class TestController {
 	
 	
 	@RequestMapping(value="/categories", method=RequestMethod.POST)
-	public void setCategories(@ModelAttribute("categoryDto") CategorySelectDto dto){
+	public String setCategories(@ModelAttribute("categoryDto") CategorySelectDto dto, BindingResult resultDto,
+			HttpServletRequest request, @ModelAttribute("ass_Id") final Integer ass_Id){
 		//Use dto.getSelectedSubCategories() to get Categories selected by student and use it to generate Question Paper.
 		//Generate Questions and return "showtest.jsp"
+		
+		return null;
 	}
 	
 	@RequestMapping(value="/categories", method=RequestMethod.GET)
@@ -111,12 +139,18 @@ public class TestController {
 		}
 		
 		CategorySelectDto dto = new CategorySelectDto();
-		/*Iterator<Category> it = questionService.getAllCategories().iterator();
+		Iterator<Category> it = categoryService.getAllCategories().iterator();
 		List<Category> cats = Lists.newArrayList(it);
 		
-		dto.setCategories(cats);*/
+		dto.setCategories(cats);
 		model.addAttribute("categoryDto", dto);	
 		return "test/categoryselect";
+	}
+	
+	@RequestMapping(value = "/showtest", method = RequestMethod.GET)
+	public String test(ModelMap model, @ModelAttribute("ass_Id") final Integer ass_Id) {
+
+		return "test/test";
 	}
 	
 	@RequestMapping(value="/error", method=RequestMethod.GET)

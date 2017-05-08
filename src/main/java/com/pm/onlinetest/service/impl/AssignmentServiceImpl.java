@@ -87,6 +87,12 @@ public class AssignmentServiceImpl implements AssignmentService {
 	public List<Assignment> findAll() {
 		// TODO Auto-generated method stub
 		return (List<Assignment>) assignmentRepository.findAll();
+	}
+
+	@Override
+	public void updateAccessCount(Assignment assignment) {
+		// TODO Auto-generated method stub
+		assignmentRepository.save(assignment);
 	}	
 		
 	

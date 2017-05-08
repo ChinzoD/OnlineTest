@@ -7,6 +7,8 @@ import com.pm.onlinetest.domain.Category;
 public interface CategoryService {
 
 	public List<Category> findAll();
+	public Iterable<Category> getAllCategories();
+	// public void save(Question question);
 	public List<Category> findAllEnabled();
 	public Category findOne(Integer categoryId);
 	public void softDelete(Integer categoryId);
