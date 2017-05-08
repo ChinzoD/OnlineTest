@@ -134,8 +134,8 @@ public class TestController {
 		Assignment obj = (Assignment) request.getAttribute("assignment");
 		
 		if (obj == null){
-			attr.addFlashAttribute("errormessage", "Invalid Request");
-			return "redirect:/error";
+			attr.addFlashAttribute("errormessage", "Invalid Operation");
+			return "redirect:/test/error";
 		}
 		
 		CategorySelectDto dto = new CategorySelectDto();
@@ -150,13 +150,20 @@ public class TestController {
 	@RequestMapping(value = "/showtest", method = RequestMethod.GET)
 	public String test(ModelMap model, @ModelAttribute("ass_Id") final Integer ass_Id) {
 
-		return "test/test";
+		return "test/testpage";
+	}
+	
+	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	public String test403(Model model) {
+
+		model.addAttribute("errormessage", "You are not authorized to perform this operation.");
+		return "test/403";
 	}
 	
 	@RequestMapping(value="/error", method=RequestMethod.GET)
 	public String showErrorPage(Model model){
 		
-		return "test/errorpage";
+		return "test/error";
 	}
 
 }

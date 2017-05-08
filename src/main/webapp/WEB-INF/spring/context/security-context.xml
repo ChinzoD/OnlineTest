@@ -21,6 +21,7 @@
 	<security:http pattern="/test/*" use-expressions="true">
 	    <security:csrf disabled="true"/>
 	
+		<security:access-denied-handler error-page="/test/403" />
 	    <security:intercept-url pattern="/test/cat*" access="hasRole('ROLE_STUDENT')" />
 	    <security:intercept-url pattern="/test/show*" access="hasRole('ROLE_STUDENT')" />
 	
