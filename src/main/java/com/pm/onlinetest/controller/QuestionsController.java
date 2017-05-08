@@ -48,11 +48,13 @@ public class QuestionsController {
 		List<Category> listCategory = new ArrayList<>();
 		listCategory.addAll(categoryService.findAll());
 		Question q = new Question();
-		List<Choice> choices =new ArrayList<>();
+	//	List<Choice> choices =new ArrayList<>();
+		 Set<Choice> choices = new HashSet<>();
+
 		 for(int i=0; i<5; i++) {
 			 choices.add(new Choice());
 		    }
-		 q.setChoices(choices);
+		 //q.setChoices(choices);
 		model.addAttribute("question", q);
 		model.addAttribute("categories", listCategory);
     	model.addAttribute("choices", choices);
@@ -69,7 +71,7 @@ public class QuestionsController {
 			return "questions/addquestion";
 		}
 
-		Set<String> choices = question.getListOfchoice();
+		//Set<String> choices = question.getListOfchoice();
 		//Set<Choice> c = new HashSet<>();
 		//Choice choice = null;
 		for (Choice choice :question.getChoices()) {

@@ -23,7 +23,7 @@ public class RestQuestionController {
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody List<Subcategory> subCategories(@RequestParam("catId") Integer catId, Model model) {
 		List<Subcategory> listSubCategory = new ArrayList<>();
-		listSubCategory.addAll(subCategoryService.findSubCategoryById(catId));
+		listSubCategory.addAll(subCategoryService.findByCategoryId(catId));
 		return listSubCategory;
 	}
 }

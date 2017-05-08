@@ -11,8 +11,8 @@ public interface AssignmentService {
 	public Boolean isExist(String accesscode);
 	public List<Assignment> findByStudent(Student student);
 	public void saveAssignment(Assignment assignment);
+	public Assignment getAssignment(String accesscode);
 	public void updateAccessCount(Assignment assignment);
-	
 	//add by Joy start
 	// get Student
 	Student getStudentById(String studentId);

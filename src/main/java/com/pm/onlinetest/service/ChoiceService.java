@@ -9,5 +9,6 @@ public interface ChoiceService {
 	public List<Choice> findAll();
 	public Choice findOne(Integer id);
 	public void delete(Choice choice);
-	public Choice getAnswer(Question question);
+	public Choice getTrueAnswer(Question question);
+	public List<Choice> findByQuestions(Question question);
 }

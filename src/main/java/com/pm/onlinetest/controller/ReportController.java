@@ -60,9 +60,9 @@ public class ReportController {
 				if(testQuestion.getQuestion().getSubcategory().equals(subcat)){
 					totalQuestionsPerCategory++;
 					System.out.println(testQuestion.getAnswer());
-					System.out.println(choiceService.getAnswer(testQuestion.getQuestion()).getId());
+					System.out.println(choiceService.getTrueAnswer(testQuestion.getQuestion()).getId());
 					
-					if(Integer.parseInt(testQuestion.getAnswer()) == choiceService.getAnswer(testQuestion.getQuestion()).getId()){
+					if(Integer.parseInt(testQuestion.getAnswer()) == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()){
 						overAllTotal++;
 						scorePerCategory++;
 					}
@@ -88,7 +88,7 @@ public class ReportController {
 
 			for(Test testQuestion : tests){
 				boolean answer = false ;
-					if(Integer.parseInt(testQuestion.getAnswer()) == choiceService.getAnswer(testQuestion.getQuestion()).getId()){
+					if(Integer.parseInt(testQuestion.getAnswer()) == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()){
 						answer=true;
 						reportDetail.put(testQuestion, answer);
 					}
