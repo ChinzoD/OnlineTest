@@ -2,8 +2,6 @@ package com.pm.onlinetest.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -27,9 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.common.collect.Lists;
 import com.pm.onlinetest.domain.Assignment;
-import com.pm.onlinetest.domain.Category;
 import com.pm.onlinetest.domain.Choice;
 import com.pm.onlinetest.domain.Question;
 import com.pm.onlinetest.domain.Subcategory;
@@ -44,120 +40,125 @@ import helpers.CategorySelectDto;
 import helpers.CurrentQuestion;
 
 @Controller
-@RequestMapping(value="/test")
+@RequestMapping(value = "/test")
 public class TestController {
-	
+
 	@Autowired
 	QuestionService questionService;
-	@Autowired
-	AssignmentService assignmentService;
-	@Autowired
-	TestService testService;
+
 	@Autowired
 	CategoryService categoryService;
+
+	@Autowired
+	TestService testService;
+
+	@Autowired
+	AssignmentService assignmentService;
+
 	@Autowired
 	SubCategoryService subCategoryService;
-	
-	
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String showAccessPage() {
 		return "access";
 	}
-	
+
 	@RequestMapping(value = "/access", method = RequestMethod.POST)
-	public String verifyAccess(@RequestParam("access_code") String accesscode, final RedirectAttributes attr, 
+	public String verifyAccess(@RequestParam("access_code") String accesscode, RedirectAttributes attr,
 			HttpServletRequest request) {
 
-		System.out.println("Accesscode" + accesscode);
+		System.out.println(accesscode);
 
 		Assignment assgnmentObj;
 
 		// Check if Student has been assigned a test using the supplied Access
 		// Code
 		if ((assgnmentObj = assignmentService.getAssignment(accesscode)) != null) {
-			// Add Assignment Object to Page attributes
-
-			attr.addFlashAttribute("assignmentId", assgnmentObj.getId());
+			// Add Assignment Object to Request attributes
+			attr.addFlashAttribute("assignment", assgnmentObj);
 			request.getSession().setAttribute("assignmentId", assgnmentObj.getId());
-
 			// Check if Student has previously finished test
-			if (assgnmentObj.isFinished()){
+			if (assgnmentObj.isFinished()) {
 				attr.addFlashAttribute("errormessage", "This Test has been completed.");
 				return "redirect:/test";
-			}
-			else { //If Student has not previously finished,
-				
-                //Check if maximum number of attempts has not been exceeded
-				if (assgnmentObj.getCount() < 3){
-					
-                    //Update Count attribute of Assignment object in database
-				    assgnmentObj.setCount(assgnmentObj.getCount() + 1);
-				    assignmentService.updateAccessCount(assgnmentObj);
-                    
-					if (assgnmentObj.isStarted()){//Check if Student has started Test previously
-						
-						//Check if time is still remaining
+			} else { // If Student has not previously finished,
+
+				// Check if maximum number of attempts has not been exceeded
+				if (assgnmentObj.getCount() < 3) {
+
+					// Update Count attribute of Assignment object in database
+					assgnmentObj.setCount(assgnmentObj.getCount() + 1);
+					assignmentService.updateAccessCount(assgnmentObj);
+
+					if (assgnmentObj.isStarted()) {// Check if Student has
+													// started Test previously
+
+						// Check if time is still remaining
 						LocalDateTime currentDate = LocalDateTime.now();
-						if (currentDate.compareTo(assgnmentObj.getEnd_date()) == -1){
-							
-							//Authenticate Student and redirect to test page
+						if (currentDate.compareTo(assgnmentObj.getEnd_date()) == -1) {
+
+							// Authenticate Student and redirect to test page
 							GrantedAuthority aut = new SimpleGrantedAuthority("ROLE_STUDENT");
 							List<GrantedAuthority> roles = new ArrayList<>();
 							roles.add(aut);
-							Authentication authenticationToken = new UsernamePasswordAuthenticationToken(assgnmentObj.getStudentId(), accesscode, roles);
+							Authentication authenticationToken = new UsernamePasswordAuthenticationToken(
+									assgnmentObj.getStudentId(), accesscode, roles);
 							SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-							
+
 							return "redirect:/test/test";
-						}else{
+						} else {
 							attr.addFlashAttribute("errormessage", "No more time remaining for this test.");
 							return "redirect:/test";
 						}
-					}else{
-					//If Student has not previously started, show page to select Categories
-					return "redirect:/test/showcategories";
-					}
-					
-				}else{
-				    attr.addFlashAttribute("errormessage", "This test has expired.");
+					} else
+						// If Student has not previously started, show page to
+						// select Categories
+						return "redirect:/test/showcategories";
+
+				} else {
+					attr.addFlashAttribute("errormessage", "This test has expired.");
 					return "redirect:/test";
 				}
 			}
 
 		}
 
-		// throw error/access denied page
-		return "redirect:/errorpage";
+		// throw error if access code isnot found
+		attr.addFlashAttribute("errormessage", "Invalid Access Code");
+		return "redirect:/test";
 	}
-	
-//	@RequestMapping(value="/categories", method=RequestMethod.GET)
-//	public String selectCategoriesViewGet(Model model, HttpServletRequest request, RedirectAttributes attr){
-//		
-//		Assignment obj = (Assignment) request.getAttribute("assignment");
-//		
-//		if (obj == null){
-//			attr.addFlashAttribute("errormessage", "Invalid Request");
-//			return "redirect:/error";
-//		}
-//		
-//		CategorySelectDto dto = new CategorySelectDto();
-//		Iterator<Category> it = categoryService.findAllEnabled().iterator();
-//		List<Category> cats = Lists.newArrayList(it);
-//		
-//		dto.setCategories(cats);
-//		model.addAttribute("categoryDto", dto);	
-//		return "test/categoryselect";
-//	}
-	
+
+	// Access denied page mapping
+	@RequestMapping(value = "/403", method = RequestMethod.GET)
+	public String test403(Model model) {
+
+		model.addAttribute("errormessage", "You are not authorized to perform this operation.");
+		return "test/403";
+	}
+
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	public String showErrorPage(Model model) {
+
+		return "test/error";
+	}
+
 	@RequestMapping(value = "/showcategories", method = RequestMethod.GET)
-	public String selectCategoriesView(Model model) {
-		
+	public String selectCategoriesView(Model model, HttpServletRequest request, RedirectAttributes attr) {
+
+		Assignment obj = (Assignment) request.getAttribute("assignment");
+
+		if (obj == null) {
+			attr.addFlashAttribute("errormessage", "Invalid Operation");
+			return "redirect:/test/error";
+		}
+
 		CategorySelectDto dto = new CategorySelectDto();
 
 		dto.setCategories(categoryService.findAllEnabled());
 		model.addAttribute("categoryDto", dto);
 		return "test/categoryselect";
 	}
-	
+
 	@RequestMapping(value = "/setcategories", method = RequestMethod.POST)
 	public String setCategories(@ModelAttribute("categoryDto") CategorySelectDto dto, BindingResult resultDto,
 			HttpServletRequest request) {
@@ -196,13 +197,6 @@ public class TestController {
 
 	}
 
-	
-	@RequestMapping(value="/error", method=RequestMethod.GET)
-	public String showErrorPage(Model model){
-		
-		return "test/errorpage";
-	}
-	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test(Model model, HttpServletRequest request) {
 		Integer assignmentId = Integer.parseInt(request.getSession().getAttribute("assignmentId").toString());
@@ -227,9 +221,9 @@ public class TestController {
 		CurrentQuestion currentQuestion = jsonString;
 		List<Test> tests = (List<Test>) request.getSession().getAttribute("tests");
 		Test test = tests.get(currentQuestion.getQuestionNum());
-		if(currentQuestion.getAnswer() == null){
+		if (currentQuestion.getAnswer() == null) {
 			test.setAnswer(null);
-		}else{
+		} else {
 			test.setAnswer(Integer.parseInt(currentQuestion.getAnswer()));
 		}
 		testService.save(test);
@@ -238,15 +232,15 @@ public class TestController {
 		JSONObject obj = new JSONObject();
 		obj.put("description", nextTest.getQuestion().getDescription());
 		int i = 1;
-		for(Choice ch: nextTest.getQuestion().getChoices()){
-			obj.put("ch"+i, ch.getDescription());
-			obj.put("ch"+i+"_id", ch.getId());
+		for (Choice ch : nextTest.getQuestion().getChoices()) {
+			obj.put("ch" + i, ch.getDescription());
+			obj.put("ch" + i + "_id", ch.getId());
 			i++;
 		}
 		obj.put("answer", nextTest.getAnswer());
 		return obj;
 	}
-	
+
 	@RequestMapping(value = "/finishTest", method = RequestMethod.POST)
 	@ResponseBody
 	public void finishTest(HttpServletRequest request, @RequestBody CurrentQuestion jsonString) {
@@ -254,9 +248,9 @@ public class TestController {
 		CurrentQuestion currentQuestion = jsonString;
 		List<Test> tests = (List<Test>) request.getSession().getAttribute("tests");
 		Test test = tests.get(currentQuestion.getQuestionNum());
-		if(currentQuestion.getAnswer() == null){
+		if (currentQuestion.getAnswer() == null) {
 			test.setAnswer(null);
-		}else{
+		} else {
 			test.setAnswer(Integer.parseInt(currentQuestion.getAnswer()));
 		}
 		testService.save(test);
@@ -267,9 +261,10 @@ public class TestController {
 		assignment.setEnd_date(LocalDateTime.now());
 		assignmentService.saveAssignment(assignment);
 	}
-	
+
 	@RequestMapping(value = "/completed", method = RequestMethod.GET)
 	public String completede() {
 		return "completed";
 	}
+
 }

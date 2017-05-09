@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div class="content">
-		<form:form modelAttribute="categoryDto" method="POST" action="setcategories/">
+		<form:form modelAttribute="categoryDto" method="POST" action="categories/">
 			<c:forEach items="${categoryDto.categories}" var="cats">
 		        ${cats.name}<br />
 				<c:forEach items="${cats.subcategories}" var="subcats">
