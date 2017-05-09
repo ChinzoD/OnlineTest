@@ -143,6 +143,22 @@
 
 	<!-- Mehdi Begin -->
 
+
+	<definition name="inventory" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/inventory/inventory.jsp"/> 
+	</definition>
+	
+	<definition name="addInventory" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/inventory/add.jsp"/> 
+	</definition>
+	
+	<definition name="updateInventory" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/inventory/update.jsp"/> 
+	</definition>
+
 	<definition name="grading" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
 		<put-attribute name="content"   value="/WEB-INF/views/grading/index.jsp"/> 
