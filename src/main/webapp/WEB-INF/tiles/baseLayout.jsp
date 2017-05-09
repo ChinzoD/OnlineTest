@@ -31,6 +31,17 @@
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico" />
 
+
+
+<!-- 
+		Mehdi : 
+			 1) This Jquery is old Maybe we should change it 
+			 2) I moved this in the top because i will need it to be loaded before I execute  some of my scripts  
+-->
+					
+<script src="<c:url value="/metronic/assets/global/plugins/jquery.min.js" />" type="text/javascript"></script>
+<script src="<c:url value="/metronic/assets/global/plugins/jquery-migrate.min.js" />" type="text/javascript"></script>
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -159,7 +170,7 @@
 <script src="../../assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
 
-<<<<<<< HEAD
+
 
 <%-- <script type="text/javascript" src="<c:url value="https://cdn.rawgit.com/unconditional/jquery-table2excel/master/src/jquery.table2excel.js"/>"></script> --%>
 
@@ -178,16 +189,6 @@
 
 
 
-=======
-<!-- This jquery dont work with ion-range-slider I change it -->
-<!--
->>>>>>> branch 'master' of https://github.com/ChinzoD/OnlineTest.git
-<script src="<c:url value="/metronic/assets/global/plugins/jquery.min.js" />" type="text/javascript"></script>
-<script src="<c:url value="/metronic/assets/global/plugins/jquery-migrate.min.js" />" type="text/javascript"></script>
--->
-
-<!-- Replaced by this One-->
-<script src="<c:url value="/metronic/ion-range-slider/js/vendor/jquery-1.12.3.min.js" />" type="text/javascript" ></script>
 
 <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="<c:url value="/metronic/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" />" type="text/javascript"></script>
