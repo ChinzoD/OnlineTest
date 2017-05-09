@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,16 +41,13 @@ public class CoachController {
 	
 	@Autowired
 	StudentService studentService;
-	
-	
+
+    @Autowired
+    private MailSender mailSender;
 	
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {		
-		/*String coachName =  SecurityContextHolder.getContext().getAuthentication().getName();
-		User coachModel = userService.findByUsername(coachName);
-		Integer coachId = coachModel.getUserId();
-*/
 		List<Student> students = coachService.findStudentByAcitveJobStatus();
 		model.addAttribute("students", students);
 		return "coach";
@@ -58,10 +57,6 @@ public class CoachController {
 	
 	@RequestMapping(value = "/home1", method = RequestMethod.POST)
 	public String home1(Locale locale, Model model) {		
-		/*String coachName =  SecurityContextHolder.getContext().getAuthentication().getName();
-		User coachModel = userService.findByUsername(coachName);
-		Integer coachId = coachModel.getUserId();
-*/
 		List<Student> students = coachService.findStudentByAcitveJobStatus();
 		model.addAttribute("students", students);
 		return "coach";
@@ -76,7 +71,26 @@ public class CoachController {
 		
 		Integer studentId= Integer.parseInt(userId);
 		Student student = coachService.findStudentById(studentId);
+		Assignment assignment = assignmentService.findByStudentIdByFinish(student);
+		if(assignment !=null)
+		System.out.println("assignment of finish false is: "+assignment.isFinished());
+		
 		model.addAttribute("student",student);
+		
+		if(assignment !=null && assignment.getAccesscode()!=null){
+		System.out.println("assignment details accessocde"+ assignment.getAccesscode());
+			
+			model.addAttribute("assignment",assignment);
+			
+			System.out.println("assignment is not null");
+		}
+		else{
+			assignment=null;
+			model.addAttribute("assignment",assignment);
+			System.out.println("making assignment null");
+		}
+		
+		System.out.println("assignment details accessocde"+ assignment);
 		return "studentAssignmentDetail";
 	
 	}
@@ -85,7 +99,7 @@ public class CoachController {
 	
 	@RequestMapping(value = "/studentAssignmentHistory/{userId}", method = RequestMethod.GET)
 	public String studentAssignmentHistory(@PathVariable("userId") String userId,Locale locale, Model model) {
-		Student student = studentService.findByStudentId(userId);
+		Student student = studentService.findByStudentId(Integer.parseInt(userId));
 		List<Assignment> assignments = assignmentService.findByStudent(student);
 		model.addAttribute("assignments",assignments);
 		model.addAttribute("student",student);
@@ -93,40 +107,13 @@ public class CoachController {
 	
 	}
 	
-	
-	@RequestMapping(value = "/studentsNeededAssignment", method = RequestMethod.GET)
-	public String studentsNeededAssignment(Locale locale, Model model) {
-/*		String coachName =  SecurityContextHolder.getContext().getAuthentication().getName();
-		User coachModel = userService.findByUsername(coachName);
-		Integer coachId = coachModel.getUserId();
-
-		System.out.println("Coach Id is:" + coachId);
-		List<Student> students = coachService.findStudentsNeededAssignmentByCoach(coachId);
-		if(students !=null){
-			System.out.println("students not null");
-			Iterator<Student> it =students.iterator();
-	
-			while(it.hasNext())
-			System.out.println(it.next().getFirstName());
-			
-		}
-		
-		else {
-			System.out.println("students null");
-		}
-		model.addAttribute("students",students);*/
-		return "studentsNeededAssignment";
-	
-	}
-	
-
 	@RequestMapping(value = "/saveAssignment", method = RequestMethod.POST)
 	public @ResponseBody String saveAssignment(RedirectAttributes redirectAttr,@RequestParam("userId") String userId,@RequestParam("accessLink") String accessLink,@RequestParam("accessCode") String accessCode) {		
 		System.out.println("Student Id in save ASsignment is: "+userId);
 		System.out.println("accesscode in save ASsignment is: "+accessCode);
 		System.out.println("accessLink in save ASsignment is: "+accessLink);
 		
-		
+		Assignment assignment ;
 		String coachName =  SecurityContextHolder.getContext().getAuthentication().getName();
 		User coachModel = userService.findByUsername(coachName);
 		System.out.println("coachModel.getUsername()t is: "+coachModel.getUsername());
@@ -134,13 +121,20 @@ public class CoachController {
 		Student  student = studentService.findByStudentId(Integer.parseInt(userId));
 		System.out.println("student.getUsername() is: "+student.getUsername());
 		
-		Assignment assignment = new Assignment();
+		assignment = assignmentService.findByAccesscode(accessCode);
+		if(assignment !=null ) {
+			System.out.println("Assignment Already exist");
+			
+		}
+		
+		else {
+			assignment = new Assignment();
+			System.out.println("Assignment not exist create new one");
+		}
 		assignment.setAccesscode(accessCode);
 		assignment.setCoachId(coachModel);
 		assignment.setStudentId(student);
 		assignment.setCount(0);
-		assignment.setStart_date(LocalDateTime.now());
-		assignment.setEnd_date(LocalDateTime.now());
 		assignment.setFinished(false);
 		
 		System.out.println(" Assignment get access codeis: "+assignment.getAccesscode());
@@ -152,5 +146,43 @@ public class CoachController {
 		return "success";
 	}
 	
+	
+	
+	@RequestMapping(value = "/sendEmail", method = RequestMethod.GET)
+	public @ResponseBody String sendEmail(@RequestParam("userId") String userId,@RequestParam("accessLink") String accessLink,@RequestParam("accessCode") String accessCode, @RequestParam("email") String email,Locale locale, Model model) {
+		SimpleMailMessage message = new SimpleMailMessage();
+	    message.setTo(email);
+	    message.setReplyTo("false");
+	 
+	    message.setFrom("mumtestlink@gmail.com");
+	    message.setSubject("Test Link");
+	    message.setText("The test you can take at this particular link. To access the test you need to enter the access code provided below.  Please find the link and the access code below: \n"+ "Access Link: "+accessLink +"\n"+"Access Code: "+ accessCode +"\nAll the best!");
+    	mailSender.send(message);
+    	String result ="success";
+	    return result;
+	    
+	    
+      
+	}
+	
+	@RequestMapping(value = "/changeStudentJobSearchStatus", method = RequestMethod.POST)
+	public @ResponseBody String changeStudentJobStatus(@RequestParam("userId") String studentId,@RequestParam("jobSearchStatus") String jobSearchStatus){
+		System.out.println("Inside job chnange status in coach controller studentId" +studentId);
+		System.out.println("job search status is: "+jobSearchStatus);	
+		boolean jobStatus =false;
+		if(jobSearchStatus.equals("active")){
+			jobStatus=true;
+		}
+		System.out.println("Inside job chnange status in coach controller studentId" +studentId);
+		System.out.println("job search status is: "+jobSearchStatus);		
+		Student student = studentService.findByStudentId(Integer.parseInt(studentId));
+		student.setJobSearchStatus(jobStatus);
+		studentService.save(student);
+		return "success";
+	}
+	
+	
+	
  
 }
+
