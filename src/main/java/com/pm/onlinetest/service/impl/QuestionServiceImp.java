@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pm.onlinetest.domain.Question;
+import com.pm.onlinetest.domain.Subcategory;
 import com.pm.onlinetest.repository.QuestionRepository;
 import com.pm.onlinetest.service.QuestionService;
 
@@ -18,27 +19,28 @@ public class QuestionServiceImp implements QuestionService {
 
 	@Override
 	public void save(Question question) {
-
 		questionRepository.save(question);
-
 	}
 
 	@Override
 	public List<Question> findAll() {
-				return (List<Question>) questionRepository.findAll();
+		return (List<Question>) questionRepository.findAll();
 	}
 
 	@Override
 	public Question findQuestionById(Integer id) {
-		
 		return questionRepository.findOne(id);
 	}
 
 	@Override
 	public void delete(Question question) {
 		questionRepository.delete(question);
-	
-		
+	}
+
+	@Override
+	public List<Question> findBySubcategory(Subcategory subcategory) {
+		List<Question> questions = questionRepository.findBySubcategory(subcategory);
+		return questions;
 	}
 
 }

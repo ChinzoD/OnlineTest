@@ -68,7 +68,6 @@ public class AdminController {
 	@Autowired
 	ChoiceService choiceService;
 	
-	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "admin-home";

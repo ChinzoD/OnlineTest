@@ -62,9 +62,15 @@ public class ReportController {
 				if (testQuestion.getQuestion().getSubcategory().equals(subcat)) {
 					totalQuestionsPerCategory++;
 					System.out.println(testQuestion.getAnswer());
+<<<<<<< HEAD
 					System.out.println(choiceService.getAnswer(testQuestion.getQuestion()).getId());
 
 					if (testQuestion.getAnswer() == choiceService.getAnswer(testQuestion.getQuestion()).getId()) {
+=======
+					System.out.println(choiceService.getTrueAnswer(testQuestion.getQuestion()).getId());
+					
+					if(testQuestion.getAnswer() == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()){
+>>>>>>> branch 'master' of https://github.com/ChinzoD/OnlineTest.git
 						overAllTotal++;
 						scorePerCategory++;
 					}
@@ -84,6 +90,7 @@ public class ReportController {
 		model.addAttribute("studentAssignment", assignment);
 		return "result";
 
+<<<<<<< HEAD
 	}
 
 	@RequestMapping(value = "/resultDetail/{id}", method = RequestMethod.GET)
@@ -104,6 +111,18 @@ public class ReportController {
 			reportDetail.put(testQuestion, answer);
 		}
 
+=======
+			for(Test testQuestion : tests){
+				boolean answer = false ;
+					if(testQuestion.getAnswer() == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()){
+						answer=true;
+						reportDetail.put(testQuestion, answer);
+					}
+					reportDetail.put(testQuestion, answer);
+				}
+			
+			
+>>>>>>> branch 'master' of https://github.com/ChinzoD/OnlineTest.git
 		model.addAttribute("answers", reportDetail);
 		model.addAttribute("student", assignmentService.findById(1).getStudentId());
 		model.addAttribute("score", score + "/" + tests.size());

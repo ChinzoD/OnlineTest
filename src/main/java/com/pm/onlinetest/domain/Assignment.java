@@ -121,24 +121,5 @@ public class Assignment {
 	}
 	
 	
-	@Override
-	public boolean equals(Object object){
-		
-		if (object == null)
-			return false;
-		if (!object.getClass().equals(this.getClass()))
-			return false;
-		
-		Assignment assgn = (Assignment)object;
-		if (assgn.getId() == this.getId())
-			return true;
-		
-		return false;
-	}
 	
-	@Override
-	public int hashCode(){
-		
-		return this.getId();
-	}
 }

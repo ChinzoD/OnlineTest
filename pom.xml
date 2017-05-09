@@ -23,7 +23,6 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
@@ -40,14 +39,14 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>4.0.1.RELEASE</version>
 		</dependency>
-		
+
 		<!-- excel -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.12</version>
 		</dependency>
-		<!-- excel 2007 over-->
+		<!-- excel 2007 over -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
@@ -59,7 +58,13 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.2.2</version>
 		</dependency>
-
+		
+		<!-- JSON -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1</version>
+		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-io</artifactId>
@@ -106,10 +111,10 @@
 			<version>4.0.1.Final</version>
 		</dependency>
 		<dependency>
-        <groupId>org.hibernate</groupId>
-        <artifactId>hibernate-commons-annotations</artifactId>
-        <version>3.2.0.Final</version>
-    </dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>3.2.0.Final</version>
+		</dependency>
 
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -147,6 +152,20 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.21</version>
 		</dependency>
+		<!--  email Sending jars -->
+		<dependency>
+   			 <groupId>javax.mail</groupId>
+   			 <artifactId>mail</artifactId>
+    		 <version>1.4</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-context-support</artifactId>
+    		<version>3.2.8.RELEASE</version>
+		</dependency>
+		
+		
 	</dependencies>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>

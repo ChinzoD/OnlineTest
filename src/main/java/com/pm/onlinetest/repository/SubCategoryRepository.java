@@ -14,8 +14,8 @@ import com.pm.onlinetest.domain.Subcategory;
 @Repository
 public interface SubCategoryRepository extends CrudRepository<Subcategory, Integer> {
 
-	@Query("from Subcategory sc join sc.category c  where c.id=:catId")
-	public List<Subcategory> findSubCategoryById(@Param("catId") Integer catId);
+	@Query("FROM Subcategory sc join sc.category c  where c.id=:catId AND sc.enabled = true")
+	public List<Subcategory> findByCategoryId(@Param("catId") Integer catId);
 	
 	@Query("FROM Subcategory sc WHERE sc.enabled = true")
 	public List<Subcategory> findAllEnabled();

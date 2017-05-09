@@ -1,9 +1,12 @@
+
 package com.pm.onlinetest.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Grading {
@@ -13,8 +16,8 @@ public class Grading {
     @GeneratedValue
     private Integer id;
  	
- 	private double fromScale;
- 	private double toScale;
+ 	private double scaleFrom;
+ 	private double toFrom;
  	private String value;
  	
 	public Integer getId() {
@@ -23,18 +26,17 @@ public class Grading {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public double getFromScale() {
-		return fromScale;
+	public double getFrom() {
+		return scaleFrom;
 	}
-	public void setFromScale(double fromScale) {
-		this.fromScale = fromScale;
+	public void setFrom(double from) {
+		this.scaleFrom = from;
 	}
-	public double getToScale() {
-		return toScale;
+	public double getTo() {
+		return toFrom;
 	}
-	public void setToScale(double toScale) {
-		this.toScale = toScale;
+	public void setTo(double to) {
+		this.toFrom = to;
 	}
 	public String getValue() {
 		return value;
@@ -47,3 +49,4 @@ public class Grading {
  	
  	
 }
+

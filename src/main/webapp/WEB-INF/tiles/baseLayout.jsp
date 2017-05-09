@@ -159,6 +159,7 @@
 <script src="../../assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
 
+<<<<<<< HEAD
 
 <%-- <script type="text/javascript" src="<c:url value="https://cdn.rawgit.com/unconditional/jquery-table2excel/master/src/jquery.table2excel.js"/>"></script> --%>
 
@@ -177,8 +178,17 @@
 
 
 
+=======
+<!-- This jquery dont work with ion-range-slider I change it -->
+<!--
+>>>>>>> branch 'master' of https://github.com/ChinzoD/OnlineTest.git
 <script src="<c:url value="/metronic/assets/global/plugins/jquery.min.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/global/plugins/jquery-migrate.min.js" />" type="text/javascript"></script>
+-->
+
+<!-- Replaced by this One-->
+<script src="<c:url value="/metronic/ion-range-slider/js/vendor/jquery-1.12.3.min.js" />" type="text/javascript" ></script>
+
 <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="<c:url value="/metronic/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js" />" type="text/javascript"></script>
@@ -272,9 +282,142 @@
 				$("#subCategory"+id).remove();
 			});
 			
-		});
-		
-		
+			$(".btnNext").live("click",function(){
+				var qNum = parseInt($(this).attr("id"));
+				$(".btnPrev").show();
+				if(parseInt(qNum) == 78){
+					$(".btnNext").hide();
+					$(".btnTestSubmit").show();
+				}else{
+					$(".btnNext").show();
+					$(".btnTestSubmit").hide();
+				}
+				setAnswer(qNum, 1);
+			});
+			
+			$(".btnPrev").live("click",function(){
+				var qNum = parseInt($(this).attr("id"));
+				if(parseInt(qNum) == 1){
+					$(".btnPrev").hide();
+				}
+				if(parseInt(qNum) == 79){
+					$(".btnNext").show();
+					$(".btnTestSubmit").hide();
+				}
+				setAnswer(qNum, 2);
+			});
+			
+			function setAnswer(arg1, arg2) {
+								
+				var qNum = parseInt(arg1);
+				var qNewNum = 0;
+
+				$(".questionNumber").empty();
+								
+				if(parseInt(arg2) == 1){
+					qNewNum = parseInt(qNum)+1;
+					var num = qNewNum+1;
+					$(".questionNumber").append("Questions "+num+"/80");
+					$(".btnNext").attr("id", qNum+1);
+					$(".btnPrev").attr("id", qNum+1);
+				}else{
+					qNewNum = parseInt(qNum)-1;
+					var num = qNewNum+1;
+					$(".questionNumber").append("Questions "+num+"/80");
+					$(".btnNext").attr("id", qNum-1);
+					$(".btnPrev").attr("id", qNum-1);
+				}
+				
+				var CurrentQuestion = {}; //The Object to Send Data Back to the Controller
+				CurrentQuestion.questionNum = qNum;
+			    CurrentQuestion.newQuestionNum = qNewNum;
+				CurrentQuestion.answer = $('#radOption input:radio:checked').val();
+
+				$.ajax({
+					type: 'POST',
+					url: '/onlinetest/test/setAnswer',
+					contentType : 'application/json; charset=utf-8',
+				    dataType : 'json',
+	                data: JSON.stringify(CurrentQuestion),
+	                success: function (data) {
+	                	$("#description").empty();
+	                	$("#description").append("<h4>"+data.description+"</h4>");
+	                	var str = "<label><input type='radio' name='question'  value='"+data.ch1_id+"'"; 
+	                	if(data.answer == data.ch1_id){
+	                		str+="checked";
+	                	}
+	                	str += "/> " + data.ch1+"</label>";
+	                	
+	                	str += "<label><input type='radio' name='question'  value='"+data.ch2_id+"'"; 
+	                	if(data.answer == data.ch2_id){
+	                		str+="checked";
+	                	}
+	                	str += "/> " + data.ch2+"</label>";
+	                	
+	                	str += "<label><input type='radio' name='question'  value='"+data.ch3_id+"'"; 
+	                	if(data.answer == data.ch3_id){
+	                		str+="checked";
+	                	}
+	                	str += "/> " + data.ch3+"</label>";
+	                	
+	                	str += "<label><input type='radio' name='question'  value='"+data.ch4_id+"'"; 
+	                	if(data.answer == data.ch4_id){
+	                		str+="checked";
+	                	}
+	                	str += "/> " + data.ch4+"</label>";
+	                	
+	                	str += "<label><input type='radio' name='question'  value='"+data.ch5_id+"'"; 
+	                	if(data.answer == data.ch5_id){
+	                		str+="checked";
+	                	}
+	                	str += "/> " + data.ch5+"</label>";
+	                	
+	                	str += "<label><input type='radio' name='question'  value='"+data.ch6_id+"'"; 
+	                	if(data.answer == data.ch6_id){
+	                		str+="checked";
+	                	}
+	                	str += "/> " + data.ch6+"</label>";
+	                	
+	                	
+						$("#qList").empty();
+	                	$("#qList").append(str).fadeIn(10000);
+	                	Metronic.init(); // init metronic core components
+	        			Layout.init(); 
+	                },error: function(jqXHR, status, err){
+	                   /*  alert(jqXHR.responseText); */
+	                }
+				});
+			}
+			
+			$(".btnTestFinish").live("click",function(){
+
+			 	var qNum = parseInt($(".btnPrev").attr("id"));
+				$(".btnPrev").hide();
+				$(".btnNext").hide();
+				$(".btnTestSubmit").hide();
+				
+				var CurrentQuestion = {}; //The Object to Send Data Back to the Controller
+				CurrentQuestion.questionNum = qNum;
+				CurrentQuestion.answer = $('#radOption input:radio:checked').val();
+				
+				$.ajax({
+					type: 'POST',
+					url: '/onlinetest/test/finishTest',
+					contentType : 'application/json; charset=utf-8',
+				    dataType : 'json',
+	                data: JSON.stringify(CurrentQuestion),
+	                success: function (data) {
+
+	                },error: function(jqXHR, status, err){
+
+	                }
+				});
+				
+				window.location.replace("http://localhost:8080/onlinetest/test/completed");
+
+			});
+
+		});		
 	</script>
 	
 	

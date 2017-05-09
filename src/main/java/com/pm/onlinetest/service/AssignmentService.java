@@ -11,8 +11,8 @@ public interface AssignmentService {
 	public Boolean isExist(String accesscode);
 	public List<Assignment> findByStudent(Student student);
 	public void saveAssignment(Assignment assignment);
+	public Assignment getAssignment(String accesscode);
 	public void updateAccessCount(Assignment assignment);
-	
 	//add by Joy start
 	// get Student
 	Student getStudentById(String studentId);
@@ -23,4 +23,11 @@ public interface AssignmentService {
 	
 	public List<Assignment> findAll();
 	//add by Joy end
+	
+	Assignment findByStudentIdByFinish(Student student);
+	//added by shehza
+	
+	Assignment findByAccesscode(String accessCode);
+	//check if the assignment exist already so don't create new one just override it if user save it again
+	
 }

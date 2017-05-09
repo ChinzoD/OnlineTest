@@ -48,10 +48,4 @@ public class CategoryServiceImp implements CategoryService {
 		return categoryRepository.findCategoryByName(name);
 	}
 
-	@Override
-	public Iterable<Category> getAllCategories() {
-		// TODO Auto-generated method stub
-		return categoryRepository.findAll();
-	}
-
 }

@@ -81,6 +81,16 @@
 		name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute> <put-attribute 
 		name="content" value="/WEB-INF/views/admin/assignedList.jsp"/> </definition> -->
 
+	<definition name="test" extends="base-definition">
+		<put-attribute name="content" value="/WEB-INF/views/test/test.jsp" />
+	</definition>
+	<definition name="categoryselect" extends="base-definition">
+		<put-attribute name="content" value="/WEB-INF/views/test/test.jsp" />
+	</definition>
+	<definition name="completed" extends="base-definition">
+		<put-attribute name="content" value="/WEB-INF/views/test/completed.jsp" />
+	</definition>
+	
 	<definition name="categories" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
 		<put-attribute name="content"
@@ -147,5 +157,30 @@
 		<put-attribute name="content"
 			value="/WEB-INF/views/coach/studentAssignmentDetail.jsp" />
 	</definition>
+
+	<!-- Mehdi Begin -->
+
+
+	<definition name="inventory" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/inventory/inventory.jsp"/> 
+	</definition>
+	
+	<definition name="addInventory" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/inventory/add.jsp"/> 
+	</definition>
+	
+	<definition name="updateInventory" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/inventory/update.jsp"/> 
+	</definition>
+
+	<definition name="grading" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/grading/index.jsp"/> 
+	</definition>
+
+	<!-- Mehdi Endi -->
 
 </tiles-definitions>

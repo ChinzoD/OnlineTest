@@ -26,5 +26,9 @@ public interface AssignmentRepository extends CrudRepository<Assignment, Integer
 
 	@Query("SELECT a from Assignment a where a.studentId=:student")
 	List<Assignment> findByStudent(@Param("student") Student student);
+	
+	@Query("SELECT a from Assignment a where a.studentId=:student and a.finished=false")
+	Assignment findByStudentIdByFinish(@Param("student") Student student);
+
 
 }
