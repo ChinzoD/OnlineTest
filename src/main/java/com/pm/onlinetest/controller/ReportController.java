@@ -21,7 +21,7 @@ import com.pm.onlinetest.domain.Subcategory;
 import com.pm.onlinetest.domain.Test;
 import com.pm.onlinetest.service.AssignmentService;
 import com.pm.onlinetest.service.ChoiceService;
-import com.pm.onlinetest.service.GradingService;
+import com.pm.onlinetest.service.GradeService;
 import com.pm.onlinetest.service.SearchService;
 
 @Controller
@@ -30,11 +30,13 @@ public class ReportController {
 
 	@Autowired
 	SearchService searchService;
-	@Autowired
-	GradingService gradingService;
+	
 	@Autowired
 	AssignmentService assignmentService;
 
+	@Autowired
+	GradeService gradeService;
+	
 	@Autowired
 	ChoiceService choiceService;
 
@@ -62,15 +64,9 @@ public class ReportController {
 				if (testQuestion.getQuestion().getSubcategory().equals(subcat)) {
 					totalQuestionsPerCategory++;
 					System.out.println(testQuestion.getAnswer());
-<<<<<<< HEAD
-					System.out.println(choiceService.getAnswer(testQuestion.getQuestion()).getId());
-
-					if (testQuestion.getAnswer() == choiceService.getAnswer(testQuestion.getQuestion()).getId()) {
-=======
 					System.out.println(choiceService.getTrueAnswer(testQuestion.getQuestion()).getId());
-					
-					if(testQuestion.getAnswer() == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()){
->>>>>>> branch 'master' of https://github.com/ChinzoD/OnlineTest.git
+
+					if (testQuestion.getAnswer() == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()) {
 						overAllTotal++;
 						scorePerCategory++;
 					}
@@ -80,7 +76,7 @@ public class ReportController {
 			report.put(subcat,
 					scorePerCategory + " / " + totalQuestionsPerCategory + "  |   "
 							+ scorePerCategory * 100 / totalQuestionsPerCategory + "%  |  Grade : "
-							+ gradingService.findGrade(scorePerCategory * 100 / totalQuestionsPerCategory));
+							+ gradeService.getGradeAsStringFromInteger(scorePerCategory * 100 / totalQuestionsPerCategory));
 			overAllAverage = 0;
 			totalQuestionsPerCategory = 0;
 		}
@@ -90,7 +86,6 @@ public class ReportController {
 		model.addAttribute("studentAssignment", assignment);
 		return "result";
 
-<<<<<<< HEAD
 	}
 
 	@RequestMapping(value = "/resultDetail/{id}", method = RequestMethod.GET)
@@ -103,7 +98,7 @@ public class ReportController {
 
 		for (Test testQuestion : tests) {
 			boolean answer = false;
-			if (testQuestion.getAnswer() == choiceService.getAnswer(testQuestion.getQuestion()).getId()) {
+			if (testQuestion.getAnswer() == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()) {
 				answer = true;
 				score++;
 				reportDetail.put(testQuestion, answer);
@@ -111,18 +106,6 @@ public class ReportController {
 			reportDetail.put(testQuestion, answer);
 		}
 
-=======
-			for(Test testQuestion : tests){
-				boolean answer = false ;
-					if(testQuestion.getAnswer() == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()){
-						answer=true;
-						reportDetail.put(testQuestion, answer);
-					}
-					reportDetail.put(testQuestion, answer);
-				}
-			
-			
->>>>>>> branch 'master' of https://github.com/ChinzoD/OnlineTest.git
 		model.addAttribute("answers", reportDetail);
 		model.addAttribute("student", assignmentService.findById(1).getStudentId());
 		model.addAttribute("score", score + "/" + tests.size());
@@ -159,7 +142,7 @@ public class ReportController {
 		int score = 0;
 		for (Assignment assignment : finisedAssignmentList) {
 			for (Test testQuestion : assignment.getTests()) {
-				if (testQuestion.getAnswer() == choiceService.getAnswer(testQuestion.getQuestion()).getId()) {
+				if (testQuestion.getAnswer() == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()) {
 					score++;
 
 				}
