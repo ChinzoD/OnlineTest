@@ -126,12 +126,13 @@ public class TestController {
 			
 		}
 		
-		//throw error/access denied page
+		//throw error  if access code isnot found
 		attr.addFlashAttribute("errormessage", "Invalid Access Code");
 		return "redirect:/test";
 	}
 	
 	
+	//Access denied page mapping
 	@RequestMapping(value = "/403", method = RequestMethod.GET)
 	public String test403(Model model) {
 
@@ -145,7 +146,7 @@ public class TestController {
 		return "test/error";
 	}
 	
-	@RequestMapping(value = "/showcategories", method = RequestMethod.GET)
+	@RequestMapping(value = "/categories", method = RequestMethod.GET)
 	public String selectCategoriesView(Model model, HttpServletRequest request, RedirectAttributes attr) {
 		
 		Assignment obj = (Assignment) request.getAttribute("assignment");
@@ -162,7 +163,7 @@ public class TestController {
 		return "test/categoryselect";
 	}
 	
-	@RequestMapping(value = "/setcategories", method = RequestMethod.POST)
+	@RequestMapping(value = "/categories", method = RequestMethod.POST)
 	public String setCategories(@ModelAttribute("categoryDto") CategorySelectDto dto, BindingResult resultDto,
 			HttpServletRequest request) {
 
