@@ -255,34 +255,46 @@
 			
 			$(".btnNext").live("click",function(){
 				var qNum = parseInt($(this).attr("id"));
+				$(".btnPrev").show();
+				if(parseInt(qNum) == 78){
+					$(".btnNext").hide();
+					$(".btnTestSubmit").show();
+				}else{
+					$(".btnNext").show();
+					$(".btnTestSubmit").hide();
+				}
 				setAnswer(qNum, 1);
 			});
 			
 			$(".btnPrev").live("click",function(){
 				var qNum = parseInt($(this).attr("id"));
+				if(parseInt(qNum) == 1){
+					$(".btnPrev").hide();
+				}
+				if(parseInt(qNum) == 79){
+					$(".btnNext").show();
+					$(".btnTestSubmit").hide();
+				}
 				setAnswer(qNum, 2);
-				$(".btnPrev").hide();
 			});
 			
 			function setAnswer(arg1, arg2) {
-				
-				
+								
 				var qNum = parseInt(arg1);
 				var qNewNum = 0;
-				
-				if(parseInt(qNum) == 1){
-					$(".btnPrev").hide();
-				}else{
-					$(".btnPrev").show();
-				}
-				
+
+				$(".questionNumber").empty();
+								
 				if(parseInt(arg2) == 1){
-					
 					qNewNum = parseInt(qNum)+1;
+					var num = qNewNum+1;
+					$(".questionNumber").append("Questions "+num+"/80");
 					$(".btnNext").attr("id", qNum+1);
 					$(".btnPrev").attr("id", qNum+1);
 				}else{
 					qNewNum = parseInt(qNum)-1;
+					var num = qNewNum+1;
+					$(".questionNumber").append("Questions "+num+"/80");
 					$(".btnNext").attr("id", qNum-1);
 					$(".btnPrev").attr("id", qNum-1);
 				}
@@ -290,7 +302,8 @@
 				var CurrentQuestion = {}; //The Object to Send Data Back to the Controller
 				CurrentQuestion.questionNum = qNum;
 			    CurrentQuestion.newQuestionNum = qNewNum;
-				CurrentQuestion.answer = $('input:radio[name=optionsRadios]:checked').val();
+				CurrentQuestion.answer = $('#radOption input:radio:checked').val();
+
 				$.ajax({
 					type: 'POST',
 					url: '/onlinetest/test/setAnswer',
@@ -299,54 +312,82 @@
 	                data: JSON.stringify(CurrentQuestion),
 	                success: function (data) {
 	                	$("#description").empty();
-	                	$("#description").append(data.description);
-	                	var str = "<label><input type='radio' name='question'  value='A'";
-	                	if(data.answer == "A"){
-	                		str+=" checked ";
+	                	$("#description").append("<h4>"+data.description+"</h4>");
+	                	var str = "<label><input type='radio' name='question'  value='"+data.ch1_id+"'"; 
+	                	if(data.answer == data.ch1_id){
+	                		str+="checked";
 	                	}
-	                	str += ">" + data.q1+"</label>";
+	                	str += "/> " + data.ch1+"</label>";
 	                	
-	                	str += "<label><input type='radio' name='question'  value='B'";
-	                	if(data.answer == "B"){
-	                		str+=" checked ";
+	                	str += "<label><input type='radio' name='question'  value='"+data.ch2_id+"'"; 
+	                	if(data.answer == data.ch2_id){
+	                		str+="checked";
 	                	}
-	                	str += ">" + data.q2+"</label>";
+	                	str += "/> " + data.ch2+"</label>";
 	                	
-	                	str += "<label><input type='radio' name='question'  value='C'";
-	                	if(data.answer == "C"){
-	                		str+=" checked ";
+	                	str += "<label><input type='radio' name='question'  value='"+data.ch3_id+"'"; 
+	                	if(data.answer == data.ch3_id){
+	                		str+="checked";
 	                	}
-	                	str += ">" + data.q3+"</label>";
+	                	str += "/> " + data.ch3+"</label>";
 	                	
-	                	str += "<label><input type='radio' name='question'  value='D'";
-	                	if(data.answer == "D"){
-	                		str+=" checked ";
+	                	str += "<label><input type='radio' name='question'  value='"+data.ch4_id+"'"; 
+	                	if(data.answer == data.ch4_id){
+	                		str+="checked";
 	                	}
-	                	str += ">" + data.q4+"</label>";
+	                	str += "/> " + data.ch4+"</label>";
 	                	
-	                	str += "<label><input type='radio' name='question'  value='E'";
-	                	if(data.answer == "E"){
-	                		str+=" checked ";
+	                	str += "<label><input type='radio' name='question'  value='"+data.ch5_id+"'"; 
+	                	if(data.answer == data.ch5_id){
+	                		str+="checked";
 	                	}
-	                	str += ">" + data.q5+"</label>";
+	                	str += "/> " + data.ch5+"</label>";
 	                	
-	                	str += "<label><input type='radio' name='question'  value='F'";
-	                	if(data.answer == "F"){
-	                		str+=" checked ";
+	                	str += "<label><input type='radio' name='question'  value='"+data.ch6_id+"'"; 
+	                	if(data.answer == data.ch6_id){
+	                		str+="checked";
 	                	}
-	                	str += ">" + data.q6+"</label>";
+	                	str += "/> " + data.ch6+"</label>";
+	                	
 	                	
 						$("#qList").empty();
 	                	$("#qList").append(str).fadeIn(10000);
 	                	Metronic.init(); // init metronic core components
-	        			Layout.init(); // init current layout
-	        			Demo.init();  
+	        			Layout.init(); 
 	                },error: function(jqXHR, status, err){
-	                    alert(jqXHR.responseText);
+	                   /*  alert(jqXHR.responseText); */
 	                }
 				});
 			}
 			
+			$(".btnTestFinish").live("click",function(){
+
+			 	var qNum = parseInt($(".btnPrev").attr("id"));
+				$(".btnPrev").hide();
+				$(".btnNext").hide();
+				$(".btnTestSubmit").hide();
+				
+				var CurrentQuestion = {}; //The Object to Send Data Back to the Controller
+				CurrentQuestion.questionNum = qNum;
+				CurrentQuestion.answer = $('#radOption input:radio:checked').val();
+				
+				$.ajax({
+					type: 'POST',
+					url: '/onlinetest/test/finishTest',
+					contentType : 'application/json; charset=utf-8',
+				    dataType : 'json',
+	                data: JSON.stringify(CurrentQuestion),
+	                success: function (data) {
+
+	                },error: function(jqXHR, status, err){
+
+	                }
+				});
+				
+				window.location.replace("http://localhost:8080/onlinetest/test/completed");
+
+			});
+
 		});
 		
 		

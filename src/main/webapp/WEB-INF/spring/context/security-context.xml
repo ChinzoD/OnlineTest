@@ -25,6 +25,7 @@
 	    <security:intercept-url pattern="/test/show*" access="hasRole('ROLE_STUDENT')" /> -->
 	
 	    <security:form-login login-page="/test" always-use-default-target="false" />
+	    <security:access-denied-handler error-page="/403" />
 	</security:http>
 	
 	

@@ -70,6 +70,10 @@
 		<put-attribute name="content" value="/WEB-INF/views/test/test.jsp" />
 	</definition>
 	
+	<definition name="completed" extends="base-definition">
+		<put-attribute name="content" value="/WEB-INF/views/test/completed.jsp" />
+	</definition>
+	
 	<definition name="categories" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
 		<put-attribute name="content"

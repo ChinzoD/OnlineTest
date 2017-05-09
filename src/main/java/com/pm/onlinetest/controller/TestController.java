@@ -2,6 +2,7 @@ package com.pm.onlinetest.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -170,7 +171,7 @@ public class TestController {
 			List<Integer> subcategories = dto.getSelectedSubCategories();
 
 			Subcategory subcategory = null;
-			Integer totalQuestions = 5;
+			Integer totalQuestions = 80;
 			Random rand = new Random();
 			for (Integer subcat_id : subcategories) {
 				subcategory = subCategoryService.findOne(subcat_id);
@@ -206,13 +207,16 @@ public class TestController {
 	public String test(Model model, HttpServletRequest request) {
 		Integer assignmentId = Integer.parseInt(request.getSession().getAttribute("assignmentId").toString());
 		Assignment assignment = assignmentService.findById(assignmentId);
+		assignment.setStart_date(LocalDateTime.now());
+		assignment.setStarted(true);
+		assignmentService.saveAssignment(assignment);
 		List<Test> tests = new ArrayList<Test>();
 
 		tests = testService.findByAssignment(assignment);
 		request.getSession().setAttribute("tests", tests);
 		model.addAttribute("test", tests.get(0));
 		model.addAttribute("indexCount", tests.get(0).getId());
-
+		model.addAttribute("assignment", assignment);
 		return "test";
 	}
 
@@ -223,18 +227,49 @@ public class TestController {
 		CurrentQuestion currentQuestion = jsonString;
 		List<Test> tests = (List<Test>) request.getSession().getAttribute("tests");
 		Test test = tests.get(currentQuestion.getQuestionNum());
-		test.setAnswer(currentQuestion.getAnswer());
+		if(currentQuestion.getAnswer() == null){
+			test.setAnswer(null);
+		}else{
+			test.setAnswer(Integer.parseInt(currentQuestion.getAnswer()));
+		}
 		testService.save(test);
 		Test nextTest = testService.findOne(tests.get(currentQuestion.getNewQuestionNum()).getId());
 
 		JSONObject obj = new JSONObject();
 		obj.put("description", nextTest.getQuestion().getDescription());
-		int i = 0;
+		int i = 1;
 		for(Choice ch: nextTest.getQuestion().getChoices()){
-			obj.put("q"+i, ch.getDescription());
+			obj.put("ch"+i, ch.getDescription());
+			obj.put("ch"+i+"_id", ch.getId());
 			i++;
 		}
 		obj.put("answer", nextTest.getAnswer());
 		return obj;
+	}
+	
+	@RequestMapping(value = "/finishTest", method = RequestMethod.POST)
+	@ResponseBody
+	public void finishTest(HttpServletRequest request, @RequestBody CurrentQuestion jsonString) {
+
+		CurrentQuestion currentQuestion = jsonString;
+		List<Test> tests = (List<Test>) request.getSession().getAttribute("tests");
+		Test test = tests.get(currentQuestion.getQuestionNum());
+		if(currentQuestion.getAnswer() == null){
+			test.setAnswer(null);
+		}else{
+			test.setAnswer(Integer.parseInt(currentQuestion.getAnswer()));
+		}
+		testService.save(test);
+
+		Integer assignmentId = Integer.parseInt(request.getSession().getAttribute("assignmentId").toString());
+		Assignment assignment = assignmentService.findById(assignmentId);
+		assignment.setFinished(true);
+		assignment.setEnd_date(LocalDateTime.now());
+		assignmentService.saveAssignment(assignment);
+	}
+	
+	@RequestMapping(value = "/completed", method = RequestMethod.GET)
+	public String completede() {
+		return "completed";
 	}
 }

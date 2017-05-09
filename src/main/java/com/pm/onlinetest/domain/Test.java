@@ -18,7 +18,7 @@ public class Test {
     @GeneratedValue
     private Integer id;
 
-	private String answer;
+	private Integer answer;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
  	@JoinColumn(name = "assignment_id") 	
@@ -37,11 +37,11 @@ public class Test {
 	}
 
 
-	public String getAnswer() {
+	public Integer getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer(String answer) {
+	public void setAnswer(Integer answer) {
 		this.answer = answer;
 	}
 
