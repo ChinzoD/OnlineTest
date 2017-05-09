@@ -8,6 +8,8 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8" />
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <title>Online Test</title>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -250,6 +252,100 @@
 				});
 				$("#subCategory"+id).remove();
 			});
+			
+			$(".btnNext").live("click",function(){
+				var qNum = parseInt($(this).attr("id"));
+				setAnswer(qNum, 1);
+			});
+			
+			$(".btnPrev").live("click",function(){
+				var qNum = parseInt($(this).attr("id"));
+				setAnswer(qNum, 2);
+				$(".btnPrev").hide();
+			});
+			
+			function setAnswer(arg1, arg2) {
+				
+				
+				var qNum = parseInt(arg1);
+				var qNewNum = 0;
+				
+				if(parseInt(qNum) == 1){
+					$(".btnPrev").hide();
+				}else{
+					$(".btnPrev").show();
+				}
+				
+				if(parseInt(arg2) == 1){
+					
+					qNewNum = parseInt(qNum)+1;
+					$(".btnNext").attr("id", qNum+1);
+					$(".btnPrev").attr("id", qNum+1);
+				}else{
+					qNewNum = parseInt(qNum)-1;
+					$(".btnNext").attr("id", qNum-1);
+					$(".btnPrev").attr("id", qNum-1);
+				}
+				
+				var CurrentQuestion = {}; //The Object to Send Data Back to the Controller
+				CurrentQuestion.questionNum = qNum;
+			    CurrentQuestion.newQuestionNum = qNewNum;
+				CurrentQuestion.answer = $('input:radio[name=optionsRadios]:checked').val();
+				$.ajax({
+					type: 'POST',
+					url: '/onlinetest/test/setAnswer',
+					contentType : 'application/json; charset=utf-8',
+				    dataType : 'json',
+	                data: JSON.stringify(CurrentQuestion),
+	                success: function (data) {
+	                	$("#description").empty();
+	                	$("#description").append(data.description);
+	                	var str = "<label><input type='radio' name='question'  value='A'";
+	                	if(data.answer == "A"){
+	                		str+=" checked ";
+	                	}
+	                	str += ">" + data.q1+"</label>";
+	                	
+	                	str += "<label><input type='radio' name='question'  value='B'";
+	                	if(data.answer == "B"){
+	                		str+=" checked ";
+	                	}
+	                	str += ">" + data.q2+"</label>";
+	                	
+	                	str += "<label><input type='radio' name='question'  value='C'";
+	                	if(data.answer == "C"){
+	                		str+=" checked ";
+	                	}
+	                	str += ">" + data.q3+"</label>";
+	                	
+	                	str += "<label><input type='radio' name='question'  value='D'";
+	                	if(data.answer == "D"){
+	                		str+=" checked ";
+	                	}
+	                	str += ">" + data.q4+"</label>";
+	                	
+	                	str += "<label><input type='radio' name='question'  value='E'";
+	                	if(data.answer == "E"){
+	                		str+=" checked ";
+	                	}
+	                	str += ">" + data.q5+"</label>";
+	                	
+	                	str += "<label><input type='radio' name='question'  value='F'";
+	                	if(data.answer == "F"){
+	                		str+=" checked ";
+	                	}
+	                	str += ">" + data.q6+"</label>";
+	                	
+						$("#qList").empty();
+	                	$("#qList").append(str).fadeIn(10000);
+	                	Metronic.init(); // init metronic core components
+	        			Layout.init(); // init current layout
+	        			Demo.init();  
+	                },error: function(jqXHR, status, err){
+	                    alert(jqXHR.responseText);
+	                }
+				});
+			}
 			
 		});
 		

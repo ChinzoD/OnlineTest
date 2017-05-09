@@ -45,7 +45,7 @@ public class Category implements java.io.Serializable {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.trim().toUpperCase();
 	}
 
 	public List<Subcategory> getSubcategories() {
