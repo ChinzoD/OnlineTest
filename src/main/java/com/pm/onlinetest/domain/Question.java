@@ -30,19 +30,7 @@ public class Question {
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
 	private List<Choice> choices;
-	
-	@Transient
-	private Set<String> listOfchoice;
-	
-	public Set<String> getListOfchoice() {
-		return listOfchoice;
-	}
-
-	public void setListOfchoice(Set<String> listOfchoice) {
-		this.listOfchoice = listOfchoice;
-	}
-
-	
+		
 
 	@ManyToOne
 	@JoinColumn(name = "subcategory_id")
@@ -97,5 +85,15 @@ public class Question {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+	//@Transient
+		//private Set<String> listOfchoice;
+		
+		/*public Set<String> getListOfchoice() {
+			return listOfchoice;
+		}
 
+		public void setListOfchoice(Set<String> listOfchoice) {
+			this.listOfchoice = listOfchoice;
+		}
+	*/
 }

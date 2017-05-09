@@ -6,6 +6,7 @@ import com.pm.onlinetest.domain.Question;
 
 public interface QuestionService {
 	public void save(Question question);
+	public void update(Question question);
 
 	public List<Question> findAll();
 

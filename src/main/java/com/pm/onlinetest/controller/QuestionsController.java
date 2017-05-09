@@ -1,11 +1,7 @@
 package com.pm.onlinetest.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -13,7 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
+
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pm.onlinetest.domain.Question;
-import com.pm.onlinetest.domain.User;
+
 import com.pm.onlinetest.domain.Category;
 import com.pm.onlinetest.domain.Choice;
 import com.pm.onlinetest.service.CategoryService;
 import com.pm.onlinetest.service.QuestionService;
+
+
 
 
 @Controller
@@ -38,11 +36,6 @@ public class QuestionsController {
 	QuestionService questionService;
 	@Autowired
 	CategoryService categoryService;
-//	private static List<Choice> choices = new ArrayList<Choice>(5);
-
-
-
-	
 	@RequestMapping(value = "/addquestion", method = RequestMethod.GET)
 	public String addQuestion(Model model) {
 		List<Category> listCategory = new ArrayList<>();
@@ -55,7 +48,7 @@ public class QuestionsController {
 		 q.setChoices(choices);
 		model.addAttribute("question", q);
 		model.addAttribute("categories", listCategory);
-    	model.addAttribute("choices", choices);
+    	//model.addAttribute("choices", choices);
 		return "questions/addquestion";
 	}
 
@@ -69,29 +62,53 @@ public class QuestionsController {
 			return "questions/addquestion";
 		}
 
-		Set<String> choices = question.getListOfchoice();
-		//Set<Choice> c = new HashSet<>();
-		//Choice choice = null;
+	
 		for (Choice choice :question.getChoices()) {
-			//choice = new Choice();
+			
 			choice.setQuestion(question);
-			//choice.setDescription(choiceDesc);
-		//	choice.setAnswer(answer);
-		//	c.add(choice);
+			
 
 		}
-		
-
-	//	question.setChoices(c);
-		questionService.save(question);
+				questionService.save(question);
 		redirectAttr.addFlashAttribute("success", "The question Successfully added !");
 		redirectAttr.addFlashAttribute("question", question);
 		return "redirect:/questions/addquestion";
 
 	}
 
+	
+	@RequestMapping(value = "/editquestion/{question_id}", method = RequestMethod.GET)
+	public String editQuestion(@PathVariable  Integer question_id, Model model) {
+		List<Category> listCategory = new ArrayList<>();
+		listCategory.addAll(categoryService.findAll());
+		
+		 Question question = questionService.findQuestionById(question_id) ;
+	        model.addAttribute("question", question);
+	        model.addAttribute("categories", listCategory);
+	 
+		return "questions/editquestion";
+	}
+
+	@RequestMapping(value = "/editquestion/{question_id}", method = RequestMethod.POST)
+	public String editQuestion(@Valid @ModelAttribute("question")Question question, BindingResult result, RedirectAttributes redirectAttr,Model model) {
+
+		if (result.hasErrors()) {
+			System.out.println("the error ");
+
+			return "questions/editquestion";
+		}
+
+	
+	
+				questionService.update(question);
+		redirectAttr.addFlashAttribute("success", "The question Successfully added !");
+	
+		return "redirect:/questions/viewquestion";
+
+	}
+
 	@RequestMapping(value = "/viewquestions", method = RequestMethod.GET)
-	public String addQuestion1(Model m) {
+	public String viewQuestions(Model m) {
 	List<Question> questions= questionService.findAll();	
 	
 		m.addAttribute("questions", questions);

@@ -73,7 +73,7 @@
 									</div>
 									<div class="col-md-10">
 
-										<form:label path="listOfchoice"
+										<form:label path="choices[${i.index}].description"
 											class="control-label visible-ie8 visible-ie9">Question</form:label>
 										<form:input path="choices[${i.index}].description"
 											class="form-control placeholder-no-fix"
@@ -85,8 +85,9 @@
 
 									</div>
 									<div class="col-md-1 ">
-										<span class="col-md-2 col-md-offset-1"><form:checkbox
-												class="icheck" path="choices[${i.index}].answer" /> </span>
+										<span class="col-md-2 col-md-offset-1">
+										<form:checkbox
+												class="icheck" path="choices[${i.index}].answer"/> </span>
 									</div>
 
 								</div>
@@ -117,10 +118,7 @@
 
 											var producer = $('#idCategory')
 													.val();
-											// alert(producer);
-											/*  var model = $('#model').val();
-											 var price = $('#price').val();
-											 var json = { "producer" : producer, "model" : model, "price": price}; */
+											
 											$
 													.getJSON(
 															"http://localhost:8080/onlinetest/subcategories",
