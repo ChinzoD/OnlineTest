@@ -150,6 +150,7 @@ public class CoachController {
 	
 	@RequestMapping(value = "/sendEmail", method = RequestMethod.GET)
 	public @ResponseBody String sendEmail(@RequestParam("userId") String userId,@RequestParam("accessLink") String accessLink,@RequestParam("accessCode") String accessCode, @RequestParam("email") String email,Locale locale, Model model) {
+		System.out.println("email sending");
 		SimpleMailMessage message = new SimpleMailMessage();
 	    message.setTo(email);
 	    message.setReplyTo("false");
