@@ -84,8 +84,6 @@ function sendEmail(userId){
 	
 	$("#errorMessage").addClass("hidden");
 	
-	alert("accessLink:$('#accessLink').val(),"+$('#accessLink').val());
-	
 	$.ajax({
 		url:'http://localhost:8080/onlinetest/coach/sendEmail',
 		data:{
@@ -96,9 +94,7 @@ function sendEmail(userId){
 		},
 		type:"GET",
 		success:function(data){
-			alert("data"+data)
 			if(data=="success"){
-				alert("email sent success")
 				$("#errorMessage").empty();
 				msg ="<strong>Success!</strong> Email has been sent successfully! "
 				$("#errorMessage").append(msg);

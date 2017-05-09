@@ -23,7 +23,7 @@
 				
 					<tr>
 						<td><label class="control-label">Student Email:</label></td>
-						<td><label class="control-label">${student.email}  </label></td>
+						<td><label class="control-label" id="email" name="email">${student.email}  </label></td>
 					</tr>
 	
 				
