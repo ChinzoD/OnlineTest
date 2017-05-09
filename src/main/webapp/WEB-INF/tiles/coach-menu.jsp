@@ -4,6 +4,5 @@
 <div class="hor-menu ">
 	<ul class="nav navbar-nav">
 		<li><a href="<c:url value="/coach/home" />">Home</a></li>
-		<li><a href="<c:url value="/coach/studentsNeededAssignment" />">Students Assignment</a></li>
 	</ul>
 </div>

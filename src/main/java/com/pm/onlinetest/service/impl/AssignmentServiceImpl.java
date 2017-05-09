@@ -99,4 +99,17 @@ public class AssignmentServiceImpl implements AssignmentService {
 		// TODO Auto-generated method stub
 		assignmentRepository.save(assignment);
 	}
+	
+	@Override
+	public Assignment findByStudentIdByFinish(Student student) {
+		// TODO Auto-generated method stub
+		return assignmentRepository.findByStudentIdByFinish(student);
+	}
+
+	@Override
+	public Assignment findByAccesscode(String accessCode) {
+		// TODO Auto-generated method stub
+		return assignmentRepository.findByAccesscode(accessCode);
+	}	
+
 }

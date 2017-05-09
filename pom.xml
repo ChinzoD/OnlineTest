@@ -152,6 +152,20 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.7.21</version>
 		</dependency>
+		<!--  email Sending jars -->
+		<dependency>
+   			 <groupId>javax.mail</groupId>
+   			 <artifactId>mail</artifactId>
+    		 <version>1.4</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.springframework</groupId>
+    		<artifactId>spring-context-support</artifactId>
+    		<version>3.2.8.RELEASE</version>
+		</dependency>
+		
+		
 	</dependencies>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>

@@ -23,4 +23,11 @@ public interface AssignmentService {
 	
 	public List<Assignment> findAll();
 	//add by Joy end
+	
+	Assignment findByStudentIdByFinish(Student student);
+	//added by shehza
+	
+	Assignment findByAccesscode(String accessCode);
+	//check if the assignment exist already so don't create new one just override it if user save it again
+	
 }
