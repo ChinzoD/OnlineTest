@@ -13,8 +13,8 @@ public class Grading {
     @GeneratedValue
     private Integer id;
  	
- 	private double scaleFrom;
- 	private double toFrom;
+ 	private double fromScale;
+ 	private double toScale;
  	private String value;
  	
 	public Integer getId() {
@@ -23,17 +23,18 @@ public class Grading {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public double getFrom() {
-		return scaleFrom;
+	
+	public double getFromScale() {
+		return fromScale;
 	}
-	public void setFrom(double from) {
-		this.scaleFrom = from;
+	public void setFromScale(double fromScale) {
+		this.fromScale = fromScale;
 	}
-	public double getTo() {
-		return toFrom;
+	public double getToScale() {
+		return toScale;
 	}
-	public void setTo(double to) {
-		this.toFrom = to;
+	public void setToScale(double toScale) {
+		this.toScale = toScale;
 	}
 	public String getValue() {
 		return value;
