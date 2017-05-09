@@ -160,8 +160,16 @@
 <script src="../../assets/global/plugins/respond.min.js"></script>
 <script src="../../assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
+
+<!-- This jquery dont work with ion-range-slider I change it -->
+<!--
 <script src="<c:url value="/metronic/assets/global/plugins/jquery.min.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/global/plugins/jquery-migrate.min.js" />" type="text/javascript"></script>
+-->
+
+<!-- Replaced by this One-->
+<script src="<c:url value="/metronic/ion-range-slider/js/vendor/jquery-1.12.3.min.js" />" type="text/javascript" ></script>
+
 <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="<c:url value="/metronic/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js" />" type="text/javascript"></script>

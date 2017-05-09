@@ -141,4 +141,13 @@
 			value="/WEB-INF/views/coach/studentAssignmentDetail.jsp" />
 	</definition>
 
+	<!-- Mehdi Begin -->
+
+	<definition name="grading" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/grading/index.jsp"/> 
+	</definition>
+
+	<!-- Mehdi Endi -->
+
 </tiles-definitions>
