@@ -27,8 +27,7 @@
       <!--  provider-specific initialization,etc. -->
       <property name="jpaVendorAdapter">
          <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
-      </property>
-      
+      </property>     
       <property name="jpaProperties">
          <props>
 	<!-- validate: validate the schema, makes no changes to the database. update: 

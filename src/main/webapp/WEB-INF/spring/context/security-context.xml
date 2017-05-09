@@ -40,12 +40,10 @@
 		<!-- Other Options to redirect exception for web authorization -->
 		<!-- <security:access-denied-handler error-page="/error-forbidden" /> <security:access-denied-handler 
 			ref="controllerExceptionHandler" /> -->
-
 		<!-- Implemented with Web based URL - Controller "METHOD" level authorization -->
 		<!-- the more specific rules need to come first, followed by the more general 
 			ones. -->
-		<!-- COMMENT out the following to see @Service METHOD level authorization -->
-		
+		<!-- COMMENT out the following to see @Service METHOD level authorization -->	
 		<!--  <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />-->
 		<security:intercept-url pattern="/coach/**" access="hasRole('ROLE_COACH')" />
 		<security:intercept-url pattern="/dba/**" access="hasRole('ROLE_DBA')" />
@@ -69,14 +67,12 @@
 		<!-- -->
 		<security:logout logout-success-url="/logout"
 			delete-cookies="JSESSIONID" logout-url="/doLogout" />
-
 		<!-- BY DEFAULT the URL /j_spring_security_logout triggers logout logout-url= 
 			"/doLogout" REPLACES it NOTE: is it JUST a URL naming convention - no mapping 
 			occurs -->
 		<!-- enable remember me -->
 		<security:remember-me data-source-ref="dataSource"
 			token-validity-seconds="86400" remember-me-parameter="keepMe" />
-
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>

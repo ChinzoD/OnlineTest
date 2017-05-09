@@ -156,7 +156,7 @@ public class TestController {
 
 		dto.setCategories(categoryService.findAllEnabled());
 		model.addAttribute("categoryDto", dto);
-		return "test/categoryselect";
+		return "categoryselect";
 	}
 
 	@RequestMapping(value = "/setcategories", method = RequestMethod.POST)

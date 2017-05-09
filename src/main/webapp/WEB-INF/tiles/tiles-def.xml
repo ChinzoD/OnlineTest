@@ -69,7 +69,9 @@
 	<definition name="test" extends="base-definition">
 		<put-attribute name="content" value="/WEB-INF/views/test/test.jsp" />
 	</definition>
-	
+	<definition name="categoryselect" extends="base-definition">
+		<put-attribute name="content" value="/WEB-INF/views/test/test.jsp" />
+	</definition>
 	<definition name="completed" extends="base-definition">
 		<put-attribute name="content" value="/WEB-INF/views/test/completed.jsp" />
 	</definition>
