@@ -9,7 +9,8 @@
 			</div>
 		</div>
 		<div class="portlet-body form">
-		<div id="errorMessage" class="alert alert-warning hidden"></div>
+		<div id="errorMessage" class="alert alert-warning" style="display:none;"></div>
+		<div id="successMessage" class="alert alert-success" style="display:none;"></div>
 		<input type="hidden" value="${assignment.accesscode}" id="sentEmail" />
 		<form action="#" class="form-horizontal">
 		<div class="form-body">

@@ -75,15 +75,19 @@ function sendEmail(userId){
 	if( !$('#accessCode').val() ) {
 		$("#errorMessage").empty();
 		msg ="<strong>Warning!</strong> access Code is empty, you can not send email please generate code "
-	
+		$("#successMessage").hide();
 		$("#errorMessage").append(msg);
-		$("#errorMessage").removeClass("hidden");
+//		$("#errorMessage").removeClass("hidden");
 		$("#errorMessage").show();
 		return false;
 	}
 	
-	$("#errorMessage").addClass("hidden");
-	
+	$("#errorMessage").hide();
+	$("#successMessage").empty();
+	msg ="<strong>Success!</strong> Email has been sent successfully! "
+	$("#successMessage").append(msg);
+	$("#successMessage").show();
+	$("#sentEmail").val(true);
 	$.ajax({
 		url:'http://localhost:8080/onlinetest/coach/sendEmail',
 		data:{
@@ -95,11 +99,7 @@ function sendEmail(userId){
 		type:"GET",
 		success:function(data){
 			if(data=="success"){
-				$("#errorMessage").empty();
-				msg ="<strong>Success!</strong> Email has been sent successfully! "
-				$("#errorMessage").append(msg);
-				$("#errorMessage").removeClass("hidden");
-				$("#sentEmail").val(true);
+				
 			}
 			
 				 
