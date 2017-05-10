@@ -8,6 +8,8 @@
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8" />
+<meta name="_csrf" content="${_csrf.token}"/>
+<meta name="_csrf_header" content="${_csrf.headerName}"/>
 <title>Online Test</title>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
@@ -32,15 +34,13 @@
 <link rel="shortcut icon" href="favicon.ico" />
 
 
-
-<!-- 
-		Mehdi : 
-			 1) This Jquery is old Maybe we should change it 
-			 2) I moved this in the top because i will need it to be loaded before I execute  some of my scripts  
--->
-					
+<!-- Mehdi : I moved this in the top because i will need it to be loaded before I execute  some of my scripts  -->
 <script src="<c:url value="/metronic/assets/global/plugins/jquery.min.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/global/plugins/jquery-migrate.min.js" />" type="text/javascript"></script>
+
+
+<!-- Replaced by this One-->
+<!--  <script src="<c:url value="/metronic/ion-range-slider/js/vendor/jquery-1.12.3.min.js" />" type="text/javascript" ></script>-->
 
 </head>
 <!-- END HEAD -->
@@ -172,24 +172,6 @@
 
 
 
-<%-- <script type="text/javascript" src="<c:url value="https://cdn.rawgit.com/unconditional/jquery-table2excel/master/src/jquery.table2excel.js"/>"></script> --%>
-
-<script src="<c:url value="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"/>"></script>
-<script  src="<c:url value="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"/>"></script>
-<script type="text/javascript" src="<c:url value="https://code.jquery.com/ui/1.12.0-beta.1/jquery-ui.min.js"/>"></script>
-<script type="text/javascript" src="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.1.135/jspdf.min.js"/>"></script>
-<script type="text/javascript" src="<c:url value="http://cdn.uriit.ru/jsPDF/libs/adler32cs.js/adler32cs.js"/>"></script>
-<script type="text/javascript" src="<c:url value="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2014-11-29/FileSaver.min.js"/>"></script>
-<script type="text/javascript" src="<c:url value="libs/Blob.js/BlobBuilder.js"/>"></script>
-<script type="text/javascript" src="<c:url value="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.addimage.js"/>"></script>
-<script type="text/javascript" src="<c:url value="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.standard_fonts_metrics.js"/>"></script>
-<script type="text/javascript" src="<c:url value="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.split_text_to_size.js"/>"></script>
-<script type="text/javascript" src="<c:url value="http://cdn.immex1.com/js/jspdf/plugins/jspdf.plugin.from_html.js"/>"></script>
-<script type="text/javascript" src="<c:url value="js/basic.js"/>"></script>
-
-
-
-
 <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="<c:url value="/metronic/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js" />" type="text/javascript"></script>
@@ -212,8 +194,6 @@
 <script src="<c:url value="/metronic/assets/admin/pages/scripts/table-editable.js" />"></script>
 <script src="<c:url value="/metronic/assets/admin/pages/scripts/login.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/admin/pages/scripts/form-samples.js" />" type="text/javascript"></script>
-<script src="<c:url value="metronic/assets/admin/pages/scripts/jquery.table2excel.js"/>"></script>
-
 <!-- END PAGE LEVEL SCRIPTS -->
 	<script>
 		jQuery(document).ready(function() {
@@ -418,111 +398,9 @@
 
 			});
 
-		});		
-	</script>
-	
-	
-	<!-- Downloading page as PDF -->
-	<script type="text/javascript">
-	$(function () {
-
-    var specialElementHandlers = {
-        '#editor': function (element,renderer) {
-            return true;
-        }
-    };
- $('#cmd').click(function () {
-        var doc = new jsPDF();
-        doc.fromHTML($('#posts-landing').html(), 100, 100, {
-            'width': 522,'elementHandlers': specialElementHandlers
-        });
-        doc.save('sample-file.pdf');
-    });  
-});
-	
-	function demoFromHTML() {
-	    var pdf = new jsPDF('p', 'pt', 'letter');
-	    // source can be HTML-formatted string, or a reference
-	    // to an actual DOM element from which the text will be scraped.
-	    source = $('#posts-landing')[0];
-
-	    // we support special element handlers. Register them with jQuery-style 
-	    // ID selector for either ID or node name. ("#iAmID", "div", "span" etc.)
-	    // There is no support for any other type of selectors 
-	    // (class, of compound) at this time.
-	    specialElementHandlers = {
-	        // element with id of "bypass" - jQuery style selector
-	        '#bypassme': function (element, renderer) {
-	            // true = "handled elsewhere, bypass text extraction"
-	            return true
-	        }
-	    };
-	    margins = {
-	        top: 80,
-	        bottom: 60,
-	        left: 40,
-	        width: 800
-	    };
-	    // all coords and widths are in jsPDF instance's declared units
-	    // 'inches' in this case
-	    pdf.fromHTML(
-	    source, // HTML string or DOM elem ref.
-	    margins.left, // x coord
-	    margins.top, { // y coord
-	        'width': margins.width, // max width of content on PDF
-	        'elementHandlers': specialElementHandlers
-	    },
-
-	    function (dispose) {
-	        // dispose: object with X, Y of the last line add to the PDF 
-	        //          this allow the insertion of new lines after html
-	        pdf.save('StudentTestReport.pdf');
-	    }, margins);
-	}
-	
-	$(document).ready(function() {
-		  $("#btnExport").click(function(e) {
-		    e.preventDefault();
-
-		    //getting data from our table
-		    var data_type = 'data:application/vnd.ms-excel';
-		    var table_div = document.getElementById('table_wrapper');
-		    var table_html = table_div.outerHTML.replace(/ /g, '%20');
-
-		    var a = document.createElement('a');
-		    a.href = data_type + ', ' + table_html;
-		    a.download = 'exported_table_' + Math.floor((Math.random() * 9999999) + 1000000) + '.xls';
-		    a.click();
-		  });
 		});
-	
-	$("#export").click(function() {
-		$("#table2excel").table2excel({
-			exclude: ".noExl",
-			name: "Excel Document Name",
-			filename: "AssignmentList_Exported",
-			fileext: ".xls",
-			exclude_img: true,
-			exclude_links: true,
-			exclude_inputs: true
-		});
-	});
-	$("#exportResult").click(function() {
-		$("#sample_editable_1").table2excel({
-			exclude: ".noExl",
-			name: "Excel Document Name",
-			filename: "ResultList_Exported",
-			fileext: ".xls",
-			exclude_img: true,
-			exclude_links: true,
-			exclude_inputs: true
-		});
-	});
-
-	
-	
-	
-	
+		
+		
 	</script>
 	<!-- END JAVASCRIPTS -->
 </body>
