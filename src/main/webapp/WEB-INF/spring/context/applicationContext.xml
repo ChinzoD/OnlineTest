@@ -41,7 +41,7 @@
 				            <prop key="hibernate.show_sql">true</prop>
 				            <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				            <!-- <prop key="hibernate.hbm2ddl.import_files">/META-INF/spring/populate.sql</prop> -->
-				            <prop key="hibernate.hbm2ddl.import_files">populate.sql</prop>
+<!-- 				            <prop key="hibernate.hbm2ddl.import_files">populate.sql</prop> -->
 				            
 				   </props>
       </property>
