@@ -62,7 +62,21 @@
         (from native exceptions such as JPA PersistenceExceptions to
         Spring&rsquo;s DataAccessException hierarchy).
     -->
-   <bean id="persistenceExceptionTranslationPostProcessor"
-      class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
- 
+
+  <bean id="persistenceExceptionTranslationPostProcessor"
+       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+         <property name="host" value="smtp.gmail.com"/>
+         <property name="port" value="25"/>
+         <property name="username" value="mumtestlink@gmail.com"/>
+         <property name="password" value="MumTestLink12345"/>
+         <property name="javaMailProperties">
+             <props>
+                 <prop key="mail.transport.protocol">smtp</prop>
+                 <prop key="mail.smtp.auth">true</prop>
+                 <prop key="mail.smtp.starttls.enable">true</prop>
+                 <prop key="mail.debug">true</prop>
+             </props>
+         </property>
+     </bean>
 </beans>
