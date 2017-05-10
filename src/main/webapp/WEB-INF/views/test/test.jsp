@@ -3,8 +3,6 @@
 <%@ include file="/WEB-INF/views/include.jsp"%>
 <div class="content">
 	<div class="portlet light">
-
-
 		<h3 class="">Student Name: ${assignment.studentId.firstName}
 			${assignment.studentId.lastName}</h3>
 		<%-- <h3 class="">Student Id:
@@ -14,7 +12,6 @@
 		<div class="portlet-body form">
 			<form class="form-horizontal" role="form">
 				<div class="form-body" id="radOption">
-					<h4>
 						<label id="description"><h4>${test.question.description}</h4></label>
 						<div class="radio-list" id="qList">
 							<c:forEach items="${test.question.choices}" var="choice">

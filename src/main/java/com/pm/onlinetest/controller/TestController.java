@@ -145,12 +145,12 @@ public class TestController {
 	@RequestMapping(value = "/showcategories", method = RequestMethod.GET)
 	public String selectCategoriesView(Model model, HttpServletRequest request, RedirectAttributes attr) {
 
-		Assignment obj = (Assignment) request.getAttribute("assignment");
-
-		if (obj == null) {
-			attr.addFlashAttribute("errormessage", "Invalid Operation");
-			return "redirect:/test/error";
-		}
+//		Assignment obj = (Assignment) request.getAttribute("assignment");
+//
+//		if (obj == null) {
+//			attr.addFlashAttribute("errormessage", "Invalid Operation");
+//			return "redirect:/test/error";
+//		}
 
 		CategorySelectDto dto = new CategorySelectDto();
 
