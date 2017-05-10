@@ -1,5 +1,7 @@
 package com.pm.onlinetest.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -10,5 +12,8 @@ public interface ChoiceRepository extends CrudRepository<Choice, Integer>{
 
 	
 	@Query("SELECT c FROM Choice c WHERE c.answer=true and c.question =:q")
-	public Choice getQuestionAnswer (@Param("q") Question q);
+	public Choice getQuestionTrueAnswer (@Param("q") Question q);
+	
+	@Query("SELECT c FROM Choice c WHERE c.question =:question")
+	List<Choice> findByQuestion(@Param("question") Question question);
 }

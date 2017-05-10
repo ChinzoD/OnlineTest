@@ -1,0 +1,2 @@
+INSERT INTO `User` (`userId`, `email`, `enabled`, `firstName`, `lastName`, `password`, `username`) VALUES (1, 'bayar.mehdi@gmail.com', b'1', 'Mehdi', 'Bayar', '$2a$10$0aBQojMx1UXILntw3LtYhek2zmYeW3IfWcUmpbEnsequtV0dBnVXi', 'mehdi');
+INSERT INTO `Authority` (`id`, `authority`, `userId`) VALUES (1, 'ROLE_ADMIN', 1);

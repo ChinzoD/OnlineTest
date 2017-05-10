@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<%@ include file="/WEB-INF/views/include.jsp" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ include file="/WEB-INF/views/include.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -8,24 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="content">
-
-<form:form modelAttribute="categoryDto" method="POST" action="setcategories">
-
-	<h1>Select Categories</h1>
-	<%-- <c:forEach items="categoryDto.categories" var="cats">
-	
-		<c:out value="cats.name"/><br/>
-		
-		<c:forEach items="cats.subcategories" var="subcats">
-			<form:checkbox path="selectedSubCategories" value="${subcats.name}"/>${subcats.name}<br/>
-		</c:forEach><hr/>
-		
-	</c:forEach> --%>
-	<button type="submit">Submit</button>
-</form:form>
-
-</div>
+	<div class="content">
+		<form:form modelAttribute="categoryDto" method="POST" action="categories/">
+			<c:forEach items="${categoryDto.categories}" var="cats">
+		        ${cats.name}<br />
+				<c:forEach items="${cats.subcategories}" var="subcats">
+					 <form:checkbox  path="selectedSubCategories" value ="${subcats.id}"/>${subcats.name}<br/> 
+				</c:forEach><hr/>
+			</c:forEach>
+			<button type="submit">Submit</button>
+		</form:form>
+	</div>
 
 </body>
 </html>

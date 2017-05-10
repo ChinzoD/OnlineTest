@@ -10,7 +10,7 @@ import com.pm.onlinetest.domain.Category;
 @Component
 public class CategorySelectDto {
 	
-	List<String> selectedSubCategories = new ArrayList<>();
+List<Integer> selectedSubCategories = new ArrayList<>();
 	
 	List<Category> categories = new ArrayList<>();
 
@@ -22,12 +22,17 @@ public class CategorySelectDto {
 		this.categories = categories;
 	}
 
-	public List<String> getSelectedSubCategories() {
+	public List<Integer> getSelectedSubCategories() {
 		return selectedSubCategories;
 	}
 
-	public void setSelectedSubCategories(List<String> selectedSubCategories) {
+	public void setSelectedSubCategories(List<Integer> selectedSubCategories) {
 		this.selectedSubCategories = selectedSubCategories;
+	}
+
+	@Override
+	public String toString() {
+		return "CategorySelectDto selectedSubCategories=" + selectedSubCategories + "";
 	}
 	
 	

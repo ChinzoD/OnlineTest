@@ -12,7 +12,7 @@ public class Inventory {
     private Integer id;
  	
  	private String name;
- 	private Integer value;
+ 	private String value;
 	public Integer getId() {
 		return id;
 	}
@@ -25,12 +25,13 @@ public class Inventory {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getValue() {
+	public String getValue() {
 		return value;
 	}
-	public void setValue(Integer value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
+
  	
  	
 

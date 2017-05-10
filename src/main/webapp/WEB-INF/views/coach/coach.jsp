@@ -1,9 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
+<%@ include file="/WEB-INF/views/include.jsp"%>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <div class="portlet box blue">
 	<div class="portlet-title">
 		<div class="caption">
-			<i class="fa fa-edit"></i>Student List
+			<i class="fa"></i>Student List
 		</div>
 	</div>
 	<div class="portlet-body">
@@ -27,7 +29,45 @@
 						<td>${student.studentId}</td>
 						<td>${student.firstName}${student.lastName}</td>
 						<td>${student.email}</td>
-						<td>${student.jobSearchStatus}</td>
+						<td>
+							<a data-toggle="modal" data-target="#myModal">
+								<c:choose>
+									<c:when test="${student.jobSearchStatus eq true}">
+										Active
+									</c:when>
+							    	<c:otherwise>
+						      			 Inactive
+						        	</c:otherwise>
+						 	 	 </c:choose>
+							</a>
+											<div class="modal fade" id="myModal" role="dialog">
+						    <div class="modal-dialog ">
+						      <div class="modal-content">
+						        <div class="modal-header">
+						          <button type="button" class="close" data-dismiss="modal">&times;</button>
+						          <h4 class="modal-title">Job Search Status</h4>
+						        </div>
+						         <div class="modal-body">
+						         	
+						        		<div class="radio-list">
+						        
+						        			<label for='active' >
+						         				<input type="radio"  id="active" value="active" name="jobSearchStatus"> Active
+						        			</label>
+						        	
+						        			<label  for='inactive'>
+						        				<input type="radio" id="inactive" value="InActive" name="jobSearchStatus"> InActive
+						       				</label>
+						       			</div>
+						       		</div>
+						        <div class="modal-footer">
+						         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+						        <button type="button" class="btn btn-primary" name="saveJobSearchStatusChange" id="saveJobSearchStatusChange" onclick="saveJobSearchStatusChange(${student.userId})">Save changes</button>
+						        </div>
+						      </div>
+						    </div>
+						  </div>
+						</td>
 						<td><a href="<c:url value="/coach/studentAssignmentDetail/${student.userId}" />">Generate Test</a></td>
 			
 						<td><a href="<c:url value="/coach/studentAssignmentHistory/${student.userId}" />">Test History</a></td>
@@ -37,4 +77,6 @@
 		</table>
 	</div>
 </div>
+<script src="<c:url value="/metronic/assets/coach/scripts/assignment.js" />" type="text/javascript"></script>
+
 

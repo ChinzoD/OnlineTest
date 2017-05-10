@@ -18,6 +18,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 public class Question {
 
+	
+	
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -25,19 +27,29 @@ public class Question {
 	@NotEmpty(message="Question can not empty")
 	private String description;
 
+
 	@Transient
 	private String category;
-
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
-	private List<Choice> choices;
-		
+	
 
 	@ManyToOne
 	@JoinColumn(name = "subcategory_id")
 	private Subcategory subcategory;
 
-	@OneToMany(mappedBy = "question")
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
+	private List<Choice> choices;
+		
+
+   
+
+
+    @OneToMany(fetch=FetchType.EAGER, mappedBy = "question", cascade = CascadeType.ALL)
 	private Set<Test> tests;
+  
+	
+	
+
 
 	public Integer getId() {
 		return id;
@@ -78,6 +90,8 @@ public class Question {
 	public void setTests(Set<Test> tests) {
 		this.tests = tests;
 	}
+
+
 	public String getCategory() {
 		return category;
 	}
@@ -85,15 +99,12 @@ public class Question {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	//@Transient
-		//private Set<String> listOfchoice;
-		
-		/*public Set<String> getListOfchoice() {
-			return listOfchoice;
-		}
 
-		public void setListOfchoice(Set<String> listOfchoice) {
-			this.listOfchoice = listOfchoice;
-		}
-	*/
+
+
+	
+
+
+	
+
 }

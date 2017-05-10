@@ -25,9 +25,6 @@ import com.pm.onlinetest.domain.Choice;
 import com.pm.onlinetest.service.CategoryService;
 import com.pm.onlinetest.service.QuestionService;
 
-
-
-
 @Controller
 @RequestMapping("/questions/")
 public class QuestionsController {
@@ -36,61 +33,61 @@ public class QuestionsController {
 	QuestionService questionService;
 	@Autowired
 	CategoryService categoryService;
+
 	@RequestMapping(value = "/addquestion", method = RequestMethod.GET)
 	public String addQuestion(Model model) {
 		List<Category> listCategory = new ArrayList<>();
 		listCategory.addAll(categoryService.findAll());
 		Question q = new Question();
-		List<Choice> choices =new ArrayList<>();
-		 for(int i=0; i<5; i++) {
-			 choices.add(new Choice());
-		    }
-		 q.setChoices(choices);
+		List<Choice> choices = new ArrayList<>();
+		for (int i = 0; i < 5; i++) {
+			choices.add(new Choice());
+		}
+		q.setChoices(choices);
 		model.addAttribute("question", q);
 		model.addAttribute("categories", listCategory);
-    	//model.addAttribute("choices", choices);
+		// model.addAttribute("choices", choices);
 		return "questions/addquestion";
 	}
 
 	@RequestMapping(value = "addquestion", method = RequestMethod.POST)
-	public String addQuestion(@Valid @ModelAttribute("question")Question question, BindingResult result, RedirectAttributes redirectAttr,Model model) {
+	public String addQuestion(@Valid @ModelAttribute("question") Question question, BindingResult result,
+			RedirectAttributes redirectAttr, Model model) {
 
 		if (result.hasErrors()) {
 			List<Category> listCategory = new ArrayList<>();
 			listCategory.addAll(categoryService.findAll());
-						model.addAttribute("categories", listCategory);
+			model.addAttribute("categories", listCategory);
 			return "questions/addquestion";
 		}
 
-	
-		for (Choice choice :question.getChoices()) {
-			
+		for (Choice choice : question.getChoices()) {
+
 			choice.setQuestion(question);
-			
 
 		}
-				questionService.save(question);
+		questionService.save(question);
 		redirectAttr.addFlashAttribute("success", "The question Successfully added !");
 		redirectAttr.addFlashAttribute("question", question);
 		return "redirect:/questions/addquestion";
 
 	}
 
-	
 	@RequestMapping(value = "/editquestion/{question_id}", method = RequestMethod.GET)
-	public String editQuestion(@PathVariable  Integer question_id, Model model) {
+	public String editQuestion(@PathVariable Integer question_id, Model model) {
 		List<Category> listCategory = new ArrayList<>();
 		listCategory.addAll(categoryService.findAll());
-		
-		 Question question = questionService.findQuestionById(question_id) ;
-	        model.addAttribute("question", question);
-	        model.addAttribute("categories", listCategory);
-	 
+
+		Question question = questionService.findQuestionById(question_id);
+		model.addAttribute("question", question);
+		model.addAttribute("categories", listCategory);
+
 		return "questions/editquestion";
 	}
 
 	@RequestMapping(value = "/editquestion/{question_id}", method = RequestMethod.POST)
-	public String editQuestion(@Valid @ModelAttribute("question")Question question, BindingResult result, RedirectAttributes redirectAttr,Model model) {
+	public String editQuestion(@Valid @ModelAttribute("question") Question question, BindingResult result,
+			RedirectAttributes redirectAttr, Model model) {
 
 		if (result.hasErrors()) {
 			System.out.println("the error ");
@@ -98,22 +95,21 @@ public class QuestionsController {
 			return "questions/editquestion";
 		}
 
-	
-	
-				questionService.update(question);
+		questionService.update(question);
 		redirectAttr.addFlashAttribute("success", "The question Successfully added !");
-	
+
 		return "redirect:/questions/viewquestion";
 
 	}
 
 	@RequestMapping(value = "/viewquestions", method = RequestMethod.GET)
 	public String viewQuestions(Model m) {
-	List<Question> questions= questionService.findAll();	
-	
+		List<Question> questions = questionService.findAll();
+
 		m.addAttribute("questions", questions);
 		return "questions/viewquestions";
 	}
+
 	@RequestMapping(value = { "/deleteQuestion" }, method = RequestMethod.POST)
 	public void DeleteQuestion(HttpServletRequest request) {
 		String id = request.getParameter("id").toString();
