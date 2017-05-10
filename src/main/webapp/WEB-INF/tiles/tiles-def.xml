@@ -114,31 +114,19 @@
 			value="/WEB-INF/views/admin/createSubCategory.jsp" />
 	</definition>
 
-	<definition name="questions/addquestion" extends="base-definition">
-
-		<put-attribute name="menu" value="/WEB-INF/tiles/questionMenu.jsp"></put-attribute>
-
-		<put-attribute name="content"
-			value="/WEB-INF/views/questions/addquestion.jsp" />
+	<definition name="addquestion" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/dba-menu.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/dba/addquestion.jsp" />
 	</definition>
 
-<definition name="questions/editquestion" extends="base-definition">
-
-		<put-attribute name="menu" value="/WEB-INF/tiles/questionMenu.jsp"></put-attribute>
-
-		<put-attribute name="content"
-			value="/WEB-INF/views/questions/editquestion.jsp" />
+	<definition name="editquestion" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/dba-menu.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/dba/editquestion.jsp" />
 	</definition>
 
-	<definition name="question/testme" extends="base-definition">
-		<put-attribute name="content" value="/WEB-INF/views/question/testme.jsp" />
-	</definition>
-
-
-	<definition name="questions/viewquestions" extends="base-definition">
-		<put-attribute name="menu" value="/WEB-INF/tiles/questionMenu.jsp"></put-attribute>
-		<put-attribute name="content"
-			value="/WEB-INF/views/questions/viewquestions.jsp" />
+	<definition name="viewquestions" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/dba-menu.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/dba/viewquestions.jsp" />
 	</definition>
 
 

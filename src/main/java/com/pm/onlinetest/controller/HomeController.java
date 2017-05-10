@@ -54,7 +54,7 @@ public class HomeController {
 			} else if (authority.getAuthority().equals("ROLE_COACH")) {
 				return "redirect:/coach/home";
 			} else if (authority.getAuthority().equals("ROLE_DBA")) {
-				return "redirect:/dba/home";
+				return "redirect:/dba/viewquestions";
 			}
 		}
 		return "home";

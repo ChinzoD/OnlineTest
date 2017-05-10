@@ -36,7 +36,8 @@
 				<label class="col-md-3 control-label">Access Link</label>
 				<div class="col-md-4">
 					<div class="input-icon">
-						<input type="text" class="form-control" id="accessLink" name="accessLink" readonly="readonly" value="www.test.com">
+						<input type="text" class="form-control" id="accessLink" name="accessLink" readonly="readonly" 
+						value="http://localhost:8080/onlinetest/test">
 					</div>
 				</div>
 			</div>

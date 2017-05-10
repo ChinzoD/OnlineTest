@@ -16,7 +16,7 @@ import com.pm.onlinetest.domain.Subcategory;
 import com.pm.onlinetest.service.SubCategoryService;
 
 @RestController
-@RequestMapping(value = "/subcategories")
+@RequestMapping(value = "/dba/subcategories")
 public class RestQuestionController {
 	@Autowired
 	private SubCategoryService subCategoryService;

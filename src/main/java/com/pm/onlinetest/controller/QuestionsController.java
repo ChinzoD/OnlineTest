@@ -26,7 +26,7 @@ import com.pm.onlinetest.service.CategoryService;
 import com.pm.onlinetest.service.QuestionService;
 
 @Controller
-@RequestMapping("/questions/")
+@RequestMapping("/dba/")
 public class QuestionsController {
 
 	@Autowired
@@ -47,7 +47,7 @@ public class QuestionsController {
 		model.addAttribute("question", q);
 		model.addAttribute("categories", listCategory);
 		// model.addAttribute("choices", choices);
-		return "questions/addquestion";
+		return "addquestion";
 	}
 
 	@RequestMapping(value = "addquestion", method = RequestMethod.POST)
@@ -58,7 +58,7 @@ public class QuestionsController {
 			List<Category> listCategory = new ArrayList<>();
 			listCategory.addAll(categoryService.findAll());
 			model.addAttribute("categories", listCategory);
-			return "questions/addquestion";
+			return "addquestion";
 		}
 
 		for (Choice choice : question.getChoices()) {
@@ -69,7 +69,7 @@ public class QuestionsController {
 		questionService.save(question);
 		redirectAttr.addFlashAttribute("success", "The question Successfully added !");
 		redirectAttr.addFlashAttribute("question", question);
-		return "redirect:/questions/addquestion";
+		return "redirect:/dba/addquestion";
 
 	}
 
@@ -82,7 +82,7 @@ public class QuestionsController {
 		model.addAttribute("question", question);
 		model.addAttribute("categories", listCategory);
 
-		return "questions/editquestion";
+		return "editquestion";
 	}
 
 	@RequestMapping(value = "/editquestion/{question_id}", method = RequestMethod.POST)
@@ -98,7 +98,7 @@ public class QuestionsController {
 		questionService.update(question);
 		redirectAttr.addFlashAttribute("success", "The question Successfully added !");
 
-		return "redirect:/questions/viewquestion";
+		return "redirect:/dba/viewquestion";
 
 	}
 
@@ -107,7 +107,7 @@ public class QuestionsController {
 		List<Question> questions = questionService.findAll();
 
 		m.addAttribute("questions", questions);
-		return "questions/viewquestions";
+		return "viewquestions";
 	}
 
 	@RequestMapping(value = { "/deleteQuestion" }, method = RequestMethod.POST)

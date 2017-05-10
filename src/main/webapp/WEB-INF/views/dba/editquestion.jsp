@@ -8,7 +8,7 @@
 			<c:out value="${success}" />
 			Do you want to add more? <h1>${question.description}</h1>
 			<div class="btn-group" role="group" aria-label="...">
-				<a href="../questions/addquestion">
+				<a href="../dba/addquestion">
 					<button type="button" class="btn btn-default">YES</button>
 				</a> <a href="http://localhost:8080/onlinetest/">
 					<button type="button" class="btn btn-default">NO</button>
@@ -124,7 +124,7 @@
 											 var json = { "producer" : producer, "model" : model, "price": price}; */
 											$
 													.getJSON(
-															"http://localhost:8080/onlinetest/subcategories",
+															"../../../dba/subcategories",
 															{
 																catId : producer
 															},
