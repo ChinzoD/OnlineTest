@@ -36,26 +36,26 @@
 		<put-attribute name="content" value="/WEB-INF/views/admin/questions.jsp" />
 	</definition>
 	<definition name="result" extends="base-definition">
-		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/result.jsp"/> 
+		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/coach/result.jsp"/> 
 	</definition>
 	<definition name="resultDetail" extends="base-definition">
-		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/resultdetail.jsp"/> 
+		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/coach/resultdetail.jsp"/> 
 	</definition>
 	<definition name="resultlist" extends="base-definition">
-		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/resultlist.jsp"/> 
+		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/coach/resultlist.jsp"/> 
 	</definition>
 	
 	<definition name="feedback" extends="base-definition">
-		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/feedback.jsp"/> 
+		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/test/feedback.jsp"/> 
 	</definition>
 	
 	<definition name="assignments" extends="base-definition">
-		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
-		<put-attribute name="content"   value="/WEB-INF/views/admin/assignments.jsp"/> 
+		<put-attribute name="menu" value="/WEB-INF/tiles/coach-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/coach/assignments.jsp"/> 
 	</definition>
 	
 	<definition name="students" extends="base-definition">

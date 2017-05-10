@@ -2,60 +2,72 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include.jsp"%>
 <div class="content">
-	<div class="portlet light">
-		<div id="errorMessage" class="alert alert-warning hidden" ></div>
-		<input type="hidden" value="${assignment.accesscode}" id="sentEmail" />	
-		<h3>Student Assignment Detail</h3>
-	
-		<table class=" table-hover "
-			id="sample_editable_1">
-			
-			<tbody>
-					<tr>
-						<td style="width:25%"><label class="control-label">Student ID:</label></td>
-						<td><label class="control-label">${student.studentId} </label></td>
-					</tr>
-				
-					<tr>
-						<td><label class="control-label">Student Name:</label></td>
-						<td><label class="control-label">${student.firstName} ${student.lastName}   </label></td>
-					</tr>
-				
-					<tr>
-						<td><label class="control-label">Student Email:</label></td>
-						<td><label class="control-label" id="email" name="email">${student.email}  </label></td>
-					</tr>
-	
-				
-				
-					<tr>
-						<td><label class="control-label" > Access Link </label></td>
-						<td><input type="text" class="control-label" readonly="readonly"  id="accessLink" name="accessLink" value="<c:if test='${not empty assignment.accesscode}'> '<c:out value='www.test.com' />' </c:if>" /> 			
-						</td>
-					
-					</tr>
-				
-					<tr>
-						<td><label class="control-label" > Access Code </label>	</td>
-						<td> <input type="text" class="control-label" value="${assignment.accesscode}" readonly="readonly" id="accessCode" name="accessCode"/>
-						</td>
-					</tr>
-		
-					<tr>
-						<td><button type="button" id="generate-test-btn" onclick="generateAccessCode()" name="generate-test-btn" class="btn btn-success">Generate Test</button>
-			  				<button type="button" id="send-test-btn" onclick="sendEmail(${student.userId})" name="send-test-btn" class="btn btn-success">Send Email</button>
-						</td>
-					</tr>
-			</tbody>
-		</table>
-	
-			<div class="form-actions">
-				<button  type="button" id="student-assignment-cancelbtn" onclick="assignmentCancel()"
-			     class="btn btn-success uppercase pull-right ">Cancel</button>
-			     
-				<button  type="button" id="student-assignment-donebtn" onclick="assignmentDone(${student.userId})"
-			     class="btn btn-success uppercase pull-right">Save</button>			     
+	<div class="portlet box blue">
+		<div class="portlet-title">
+			<div class="caption">
+				<i class="fa fa-gift"></i>Student Assignment Detail
 			</div>
+		</div>
+		<div class="portlet-body form">
+		<div id="errorMessage" class="alert alert-warning hidden"></div>
+		<input type="hidden" value="${assignment.accesscode}" id="sentEmail" />
+		<form action="#" class="form-horizontal">
+		<div class="form-body">
+			<div class="form-group">
+				<label class="col-md-3 control-label">Student</label>
+				<div class="col-md-3">
+					<p class="form-control-static">${student.studentId}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">Student Name:</label>
+				<div class="col-md-3">
+					<p class="form-control-static">${student.firstName} ${student.lastName}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">Student Email:</label>
+				<div class="col-md-4">
+					<p class="form-control-static" id="email" name="email">${student.email}</p>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">Access Link</label>
+				<div class="col-md-4">
+					<div class="input-icon">
+						<input type="text" class="form-control" id="accessLink" name="accessLink" readonly="readonly" value="www.test.com">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-md-3 control-label">Access Code</label>
+				<div class="col-md-4">
+					<div class="input-icon">
+						<input type="text" class="form-control" value="${assignment.accesscode}" readonly="readonly"
+							id="accessCode" name="accessCode" >
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-actions">
+			<div class="row">
+				<div class="col-md-offset-3 col-md-9">
+					<button type="button" id="generate-test-btn"
+							onclick="generateAccessCode()" name="generate-test-btn"
+							class="btn btn-circle blue">Generate Test</button>
+					<button type="button" id="send-test-btn"
+							onclick="sendEmail(${student.userId})" name="send-test-btn"
+							class="btn btn-circle blue">Send Email</button>
+					<button type="button" id="student-assignment-cancelbtn" onclick="assignmentCancel()" 
+							class="btn btn-circle blue uppercase pull-right ">Cancel</button>
+					<button type="button" id="student-assignment-donebtn"
+						onclick="assignmentDone(${student.userId})"
+						class="btn btn-circle blue uppercase pull-right">Save</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	</div>
 	</div>
 </div>
 <script src="<c:url value="/metronic/assets/coach/scripts/assignment.js" />" type="text/javascript"></script>

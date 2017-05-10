@@ -25,7 +25,7 @@ import com.pm.onlinetest.service.GradeService;
 import com.pm.onlinetest.service.SearchService;
 
 @Controller
-// @RequestMapping("report")
+@RequestMapping("/coach")
 public class ReportController {
 
 	@Autowired
