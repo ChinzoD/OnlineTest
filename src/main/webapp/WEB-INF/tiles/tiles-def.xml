@@ -43,6 +43,21 @@
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
 		<put-attribute name="content"   value="/WEB-INF/views/admin/resultdetail.jsp"/> 
 	</definition>
+	<definition name="resultlist" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/resultlist.jsp"/> 
+	</definition>
+	
+	<definition name="feedback" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/feedback.jsp"/> 
+	</definition>
+	
+	<definition name="assignments" extends="base-definition">
+		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
+		<put-attribute name="content"   value="/WEB-INF/views/admin/assignments.jsp"/> 
+	</definition>
+	
 	<definition name="students" extends="base-definition">
 		<put-attribute name="menu" value="/WEB-INF/tiles/admin-menu.jsp"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/views/admin/students.jsp" />
@@ -107,7 +122,13 @@
 			value="/WEB-INF/views/questions/addquestion.jsp" />
 	</definition>
 
+<definition name="questions/editquestion" extends="base-definition">
 
+		<put-attribute name="menu" value="/WEB-INF/tiles/questionMenu.jsp"></put-attribute>
+
+		<put-attribute name="content"
+			value="/WEB-INF/views/questions/editquestion.jsp" />
+	</definition>
 
 	<definition name="question/testme" extends="base-definition">
 		<put-attribute name="content" value="/WEB-INF/views/question/testme.jsp" />

@@ -43,4 +43,10 @@ public class QuestionServiceImp implements QuestionService {
 		return questions;
 	}
 
+	@Override
+	public void update(Question question) {
+		questionRepository.save(question);
+		
+	}
+
 }

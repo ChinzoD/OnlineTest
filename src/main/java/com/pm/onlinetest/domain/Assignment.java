@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Assignment {
@@ -19,15 +21,17 @@ public class Assignment {
  	@Id
     @GeneratedValue
     private Integer id;
+ 	
  	private LocalDateTime start_date;
+ 
  	private LocalDateTime end_date;
  	private Integer count;
  	private boolean started;
  	private boolean finished;
  	private String accesscode;
  	
- 	@OneToOne	
- 	private User studentId;
+ 	@OneToOne(fetch=FetchType.EAGER)	
+ 	private Student studentId;
  	
  	@OneToOne	
  	private User coachId;
@@ -84,11 +88,11 @@ public class Assignment {
 		this.started = started;
 	}
 
-	public User getStudentId() {
+	public Student getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(User studentId) {
+	public void setStudentId(Student studentId) {
 		this.studentId = studentId;
 	}
 

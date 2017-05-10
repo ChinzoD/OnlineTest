@@ -10,7 +10,7 @@
 -->
 
 
-<script src="<c:url value="/metronic/ion-range-slider/js/vendor/jquery-1.12.3.min.js" />" type="text/javascript" ></script>
+<!-- <script src="<c:url value="/metronic/ion-range-slider/js/vendor/jquery-1.12.3.min.js" />" type="text/javascript" ></script> -->
 <script src="<c:url value="/metronic/ion-range-slider/js/ion-rangeSlider/ion.rangeSlider.min.js" />" type="text/javascript" ></script>
 
 
