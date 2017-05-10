@@ -122,7 +122,13 @@
 			value="/WEB-INF/views/questions/addquestion.jsp" />
 	</definition>
 
+<definition name="questions/editquestion" extends="base-definition">
 
+		<put-attribute name="menu" value="/WEB-INF/tiles/questionMenu.jsp"></put-attribute>
+
+		<put-attribute name="content"
+			value="/WEB-INF/views/questions/editquestion.jsp" />
+	</definition>
 
 	<definition name="question/testme" extends="base-definition">
 		<put-attribute name="content" value="/WEB-INF/views/question/testme.jsp" />
