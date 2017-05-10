@@ -18,7 +18,7 @@
 		</c:if>
 		<c:if test="${empty success}">
 			<form:form modelAttribute="question">
-				<h3>Add Question</h3>
+				<h3>Edit Question</h3>
 				<p class="hint">Enter Question and its choices below:</p>
 
 
@@ -29,7 +29,7 @@
 						class="form-control placeholder-no-fix"
 						placeholder="Choice Category" multiple="true">
 
-						<form:option value="" label="Select Category" />
+						<form:option value="" label="${question.subcategory.category.name}" />
 						<form:options items="${categories}" itemLabel="name"
 							itemValue="id" />
 
@@ -41,7 +41,7 @@
 					<form:select id="idSubCategory" path="subcategory.id"
 						class="form-control placeholder-no-fix" multiple="true"
 						itemValue="id" itemLabel="name">
-						<form:option value="" label="Sub Categories" />
+						<form:option value="" label="${question.subcategory.name}" />
 					</form:select>
 
 
@@ -62,7 +62,7 @@
 
 				<ol type="A">
 				<p class="text-right">
-				Correct Answer(select Only one)
+				Correct Answer
 				</p>
 					<c:forEach items="${question.choices}" var="choice" varStatus="i">
 						
@@ -85,9 +85,8 @@
 
 									</div>
 									<div class="col-md-1 ">
-										<span class="col-md-2 col-md-offset-1">
-										<form:checkbox
-												class="icheck" path="choices[${i.index}].answer"/> </span>
+										<span class="col-md-2 col-md-offset-1"><form:checkbox
+												class="icheck" path="choices[${i.index}].answer" /> </span>
 									</div>
 
 								</div>
@@ -101,7 +100,8 @@
 			class="btn btn-success uppercase pull-right">Submit</button>
 	</div>
 
-	<div id="result"></div>
+
+
 	</form:form>
 	</c:if>
 </div>
@@ -118,7 +118,10 @@
 
 											var producer = $('#idCategory')
 													.val();
-											
+											// alert(producer);
+											/*  var model = $('#model').val();
+											 var price = $('#price').val();
+											 var json = { "producer" : producer, "model" : model, "price": price}; */
 											$
 													.getJSON(
 															"http://localhost:8080/onlinetest/subcategories",

@@ -37,7 +37,7 @@
 						create-drop: drop the schema at the end of the session.
 						 
 						These options intended to be developers tools and not to facilitate any production level databases--> 
-							<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+							<prop key="hibernate.hbm2ddl.auto">update</prop>
 				            <prop key="hibernate.show_sql">true</prop>
 				            <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				            <!-- <prop key="hibernate.hbm2ddl.import_files">/META-INF/spring/populate.sql</prop> -->
@@ -50,9 +50,13 @@
  	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://howto.tn:3306/onlinetest?createDatabaseIfNotExist=true" />
-		<property name="username" value="onlinetest" />
-		<property name="password" value="O0aBAuPuL5zervBX" />
+		<property name="url" value="jdbc:mysql://localhost:3306/onlinetest?createDatabaseIfNotExist=true" />
+		<!-- <property name="url" value="jdbc:mysql://mysql.sonofiroko.com/onlinetest" /> -->
+		<property name="username" value="root" />
+		<!-- <property name="password" value="test123" /> -->
+		<property name="password" value="" />
+		
+	
 	</bean>
 
 
