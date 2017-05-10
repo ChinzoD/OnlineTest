@@ -62,7 +62,7 @@
 
 				<ol type="A">
 				<p class="text-right">
-				Correct Answer
+				Correct Answer(select Only one)
 				</p>
 					<c:forEach items="${question.choices}" var="choice" varStatus="i">
 						
