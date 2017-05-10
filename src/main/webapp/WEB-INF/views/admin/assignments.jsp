@@ -36,7 +36,7 @@
 		<br>
 		 <div id="table_wrapper">
 		<table class="table table-striped table-hover table-bordered"
-			id="table2excel">
+			id="sample_editable_1">
 			<thead>
 				<tr>
 					<th>No</th>
