@@ -510,7 +510,8 @@
 			        pdf.save('StudentTestReport.pdf');
 			    }, margins);
 		});
-	
+		
+
 	</script>
 	<!-- END JAVASCRIPTS -->
 </body>
