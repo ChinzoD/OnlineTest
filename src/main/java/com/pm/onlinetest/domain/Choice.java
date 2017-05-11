@@ -1,5 +1,6 @@
 package com.pm.onlinetest.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,7 +17,7 @@ public class Choice {
 	private Integer id;
 	//@NotEmpty(message="choice can not empty")
 	private String description;
-	private Boolean answer;
+	private boolean answer;
 
 	@ManyToOne
 	@JoinColumn(name = "question_id")
@@ -38,11 +39,12 @@ public class Choice {
 		this.description = description;
 	}
 
-	public Boolean getAnswer() {
+	@Column(name = "answer", nullable = false, columnDefinition = "BIT default FALSE", length = 1)
+	public boolean getAnswer() {
 		return answer;
 	}
 
-	public void setAnswer(Boolean answer) {
+	public void setAnswer(boolean answer) {
 		this.answer = answer;
 	}
 

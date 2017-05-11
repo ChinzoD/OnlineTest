@@ -15,7 +15,7 @@ function generateAccessCode(){
 		success:function(data){
 			
 			$("#accessCode").val(data.accessCode);
-			$("#accessLink").val(data.accessLink);
+			//$("#accessLink").val(data.accessLink);
 			
 		}
 	});
@@ -88,6 +88,8 @@ function sendEmail(userId){
 	$("#successMessage").append(msg);
 	$("#successMessage").show();
 	$("#sentEmail").val(true);
+	assignmentDone(userId);
+	
 	$.ajax({
 		url:'http://localhost:8080/onlinetest/coach/sendEmail',
 		data:{

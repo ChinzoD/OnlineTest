@@ -59,12 +59,9 @@
 							class="btn btn-circle blue">Generate Test</button>
 					<button type="button" id="send-test-btn"
 							onclick="sendEmail(${student.userId})" name="send-test-btn"
-							class="btn btn-circle blue">Send Email</button>
+							class="btn btn-circle blue">Send Email $ Save</button>
 					<button type="button" id="student-assignment-cancelbtn" onclick="assignmentCancel()" 
-							class="btn btn-circle blue uppercase pull-right ">Cancel</button>
-					<button type="button" id="student-assignment-donebtn"
-						onclick="assignmentDone(${student.userId})"
-						class="btn btn-circle blue uppercase pull-right">Save</button>
+							class="btn btn-circle blue">Cancel</button>
 				</div>
 			</div>
 		</div>

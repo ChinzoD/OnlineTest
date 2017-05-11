@@ -2,24 +2,24 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include.jsp"%>
 <div class="content">
-	<div class="portlet box green">
-		<c:if test="${msgType == 'Error'}">
-			<div class="alert alert-warning">
-				<strong>Warning!</strong> ${error1} <br />
-				<br /> ${error2}
-			</div>
-		</c:if>
-		<c:if test="${msgType == 'Succes'}">
-			<div class="alert alert-success">
-				<strong>Success!</strong> Successfully imported Data!
-			</div>
-		</c:if>
+	<div class="portlet box green">	
 		<div class="portlet-title">
 			<div class="caption">
 				<i class="fa fa-edit"></i>Import Data
 			</div>
 		</div>
 		<div class="portlet-body form">
+			<c:if test="${not empty error}">
+				<div class="alert alert-warning">
+					<strong>Warning!</strong> ${error1}
+					<br /> ${error2}
+				</div>
+			</c:if>
+			<c:if test="${not empty success}">
+				<div class="alert alert-success">
+					<strong>Success!</strong> Successfully imported Data!
+				</div>
+			</c:if>
 			<form:form method="POST" class="register-form" action="importData"
 				enctype="multipart/form-data">
 				<div class="form-body">

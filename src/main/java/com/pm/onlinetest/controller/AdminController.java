@@ -48,7 +48,6 @@ import com.pm.onlinetest.service.UserService;
  * Handles requests for the application home page.
  */
 @Controller
-@RequestMapping("/admin")
 public class AdminController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
@@ -68,24 +67,24 @@ public class AdminController {
 	@Autowired
 	ChoiceService choiceService;
 	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "admin-home";
 	}
 	
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 	public String getUsers(Locale locale, Model model) {
 		List<User> users = userService.findAllEnabled();
 		model.addAttribute("users", users);
 		return "users";
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/register", method = RequestMethod.GET)
 	public String register(@ModelAttribute("loginUser") User user) {
 		return "register";
 	}
 
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/register", method = RequestMethod.POST)
 	public String add(@Valid @ModelAttribute("loginUser") User user, BindingResult result,
 			RedirectAttributes redirectAttr) {
 		if (result.hasErrors()) {
@@ -93,72 +92,75 @@ public class AdminController {
 		}
 
 		if(null != userService.findByUsername(user.getUsername())){
-			redirectAttr.addFlashAttribute("msgType", "Error");
+			redirectAttr.addFlashAttribute("error", "Error");
 		}else{
 			user.setEnabled(true);
 			userService.save(user);
-			redirectAttr.addFlashAttribute("msgType", "Success");			
+			redirectAttr.addFlashAttribute("success", "Success");			
 		}
 		return "redirect:/admin/register";
 	}
 
-	@RequestMapping(value = "/registerStudent", method = RequestMethod.GET)
-	public String getStudent(@ModelAttribute("loginUser") Student student) {
-		return "registerStudent";
+	@RequestMapping(value = {"/admin/registerStudent", "/coach/registerStudent"}, method = RequestMethod.GET)
+	public String getStudent(@ModelAttribute("loginUser") Student student, HttpServletRequest request) {
+		String mapping = request.getServletPath();
+		return mapping;
 	}
 
-	@RequestMapping(value = "/registerStudent", method = RequestMethod.POST)
+	@RequestMapping(value = {"/admin/registerStudent", "/coach/registerStudent"}, method = RequestMethod.POST)
 	public String registerStudent(@ModelAttribute("loginUser") Student student, BindingResult result,
-			RedirectAttributes redirectAttr) {
+			RedirectAttributes redirectAttr, HttpServletRequest request) {
 		if (result.hasErrors()) {
 			return "registerStudent";
 		}
 		if(null != studentService.findByStudentId(student.getStudentId())){
-			redirectAttr.addFlashAttribute("msgType", "Error");
+			redirectAttr.addFlashAttribute("error", "Error");
 		}else{
 			studentService.save(student);
-			redirectAttr.addFlashAttribute("msgType", "Success");		
+			redirectAttr.addFlashAttribute("success", "Success");		
 		}
-		return "redirect:/admin/registerStudent";
+		String mapping = request.getServletPath();
+		return "redirect:"+mapping;
 	}
 
-	@RequestMapping(value = { "/deleteUser" }, method = RequestMethod.POST)
+	@RequestMapping(value = {"/admin/deleteUser", "/coach/deleteUser"}, method = RequestMethod.POST)
 	public void DeleteUser(HttpServletRequest request) {
 		String id = request.getParameter("userid").toString();
 		userService.softDelete(Integer.parseInt(id));		
 	}
 
-	@RequestMapping(value = "/students", method = RequestMethod.GET)
-	public String getStudents(Model model) {
+	@RequestMapping(value = {"/admin/students", "/coach/students"}, method = RequestMethod.GET)
+	public String getStudents(Model model, HttpServletRequest request) {
 		List<Student> students = studentService.findAllEnabled();
 		model.addAttribute("students", students);
-		return "students";
+		String mapping = request.getServletPath();
+		return mapping;
 	}
 
-	@RequestMapping(value = "/assign", method = RequestMethod.GET)
-	public String assignCoach(Model model) {
-		List<Student> students = studentService.findAll();
-		List<User> coaches = userService.findByAuthority("ROLE_COACH");
-
-		model.addAttribute("students", students);
-		model.addAttribute("coaches", coaches);
-
-		return "assignCoach";
-	}
+//	@RequestMapping(value = "/admin/assign", method = RequestMethod.GET)
+//	public String assignCoach(Model model) {
+//		List<Student> students = studentService.findAll();
+//		List<User> coaches = userService.findByAuthority("ROLE_COACH");
+//
+//		model.addAttribute("students", students);
+//		model.addAttribute("coaches", coaches);
+//
+//		return "assignCoach";
+//	}
 	
-	@RequestMapping(value = "/categories", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
 	public String getCategory(Model model) {
 		List<Category> categories = categoryService.findAllEnabled();
 		model.addAttribute("categories", categories);
 		return "categories";
 	}
 	
-	@RequestMapping(value = "/createCategory", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/createCategory", method = RequestMethod.GET)
 	public String createCategory(@ModelAttribute("Category") Category category) {
 		return "createCategory";
 	}
 	
-	@RequestMapping(value = "/createCategory", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/createCategory", method = RequestMethod.POST)
 	public String createCategoryPost(@ModelAttribute("Category") Category category, BindingResult result,
 			RedirectAttributes redirectAttr) {
 		if (result.hasErrors()) {
@@ -170,27 +172,27 @@ public class AdminController {
 		return "redirect:/admin/createCategory";
 	}
 	
-	@RequestMapping(value = "/subCategories", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/subCategories", method = RequestMethod.GET)
 	public String getSubCategory(Model model) {
 		List<Subcategory> subCategories = subCategoryService.findAllEnabled();
 		model.addAttribute("subCategories", subCategories);
 		return "subCategories";
 	}
 	
-	@RequestMapping(value = { "/deleteCategory" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/deleteCategory" }, method = RequestMethod.POST)
 	public void DeleteCategory(HttpServletRequest request) {
 		String id = request.getParameter("id").toString();
 		categoryService.softDelete(Integer.parseInt(id));		
 	}
 	
-	@RequestMapping(value = "/createSubCategory", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/createSubCategory", method = RequestMethod.GET)
 	public String createSubCategory(@ModelAttribute("Subcategory") Subcategory subcategory, Model model) {
 		List<Category> categories = categoryService.findAllEnabled();
 		model.addAttribute("categories", categories);
 		return "createSubCategory";
 	}
 	
-	@RequestMapping(value = "/createSubCategory", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/createSubCategory", method = RequestMethod.POST)
 	public String createSubCategoryPost(@ModelAttribute("Subcategory") Subcategory subcategory, BindingResult result,
 			RedirectAttributes redirectAttr) {
 		if (result.hasErrors()) {
@@ -203,18 +205,18 @@ public class AdminController {
 		return "redirect:/admin/createSubCategory";
 	}
 	
-	@RequestMapping(value = { "/deleteSubCategory" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/admin/deleteSubCategory" }, method = RequestMethod.POST)
 	public void DeleteSubCategory(HttpServletRequest request) {
 		String id = request.getParameter("id").toString();
 		subCategoryService.softDelete(Integer.parseInt(id));		
 	}
 		
-	@RequestMapping(value = "/importData", method = RequestMethod.GET)
+	@RequestMapping(value = {"/admin/importData", "/coach/importData", "/dba/importData"}, method = RequestMethod.GET)
 	public String importDataGet() {
 		return "importData";
 	}
 	
-	@RequestMapping(value = "/importData", method = RequestMethod.POST)
+	@RequestMapping(value = {"/admin/importData", "/coach/importData", "/dba/importData"}, method = RequestMethod.POST)
 	public String processExcel2007(Model model, @RequestParam("ExcelFile") MultipartFile excelfile, RedirectAttributes redirectAttr) {		
 		try {
 			List<Question> questions = new ArrayList<>();
@@ -237,18 +239,18 @@ public class AdminController {
 				boolean error = false;
 				for(int j= 0; j<10; j++){
 					if(row.getCell(j).getStringCellValue().trim().length() == 0){
-						error = false;
+						error = true;
 						redirectAttr.addFlashAttribute("error2", "");
 					}
 					if(j == 7){
 						String answer = row.getCell(j).getStringCellValue().toUpperCase();
 						if(65 > answer.charAt(0) || 70 < answer.charAt(0)){
-							error = false;
+							error = true;
 							redirectAttr.addFlashAttribute("error2", "Please check answer column.");
 						}
 					}
 					if(error){
-						redirectAttr.addFlashAttribute("msgType", "Error");
+						redirectAttr.addFlashAttribute("error", "Error");
 						redirectAttr.addFlashAttribute("error1", "Error on line: "+i);
 						return "redirect:/admin/importData";
 					}
@@ -296,11 +298,11 @@ public class AdminController {
 				
 			}			
 			workbook.close();
-			redirectAttr.addFlashAttribute("msgType", "Success");
+			redirectAttr.addFlashAttribute("success", "Success");
 		} catch (Exception e) {
 			e.printStackTrace();
-			redirectAttr.addFlashAttribute("msgType", "Error");
-			redirectAttr.addFlashAttribute("error2", "Error:\n\n"+e);
+			redirectAttr.addFlashAttribute("error", "Error");
+			redirectAttr.addFlashAttribute("error2", "Error:\n"+e);
 		}
 		
 		return "redirect:/admin/importData";

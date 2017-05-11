@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +44,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/rolecheck", method = RequestMethod.GET)
-	public String roleCheck(Locale locale, Model model) {
+	public String roleCheck(Locale locale, Model model, HttpServletRequest request) {
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String name = auth.getName();
@@ -50,10 +52,13 @@ public class HomeController {
 
 		for (Authority authority : user.getAuthorities()) {
 			if (authority.getAuthority().equals("ROLE_ADMIN")) {
+				request.getSession().setAttribute("role", "admin");
 				return "redirect:/admin/users";
 			} else if (authority.getAuthority().equals("ROLE_COACH")) {
+				request.getSession().setAttribute("role", "coach");
 				return "redirect:/coach/home";
 			} else if (authority.getAuthority().equals("ROLE_DBA")) {
+				request.getSession().setAttribute("role", "dba");
 				return "redirect:/dba/viewquestions";
 			}
 		}

@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page session="false"%>
 <div class="portlet box blue">
 	<div class="portlet-title">
@@ -44,3 +44,4 @@
 	</div>
 </div>
 
+ --%>

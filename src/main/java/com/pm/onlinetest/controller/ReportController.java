@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pm.onlinetest.domain.Assignment;
+import com.pm.onlinetest.domain.Choice;
 import com.pm.onlinetest.domain.Question;
 import com.pm.onlinetest.domain.Subcategory;
 import com.pm.onlinetest.domain.Test;
@@ -30,13 +31,13 @@ public class ReportController {
 
 	@Autowired
 	SearchService searchService;
-	
+
 	@Autowired
 	AssignmentService assignmentService;
 
 	@Autowired
 	GradeService gradeService;
-	
+
 	@Autowired
 	ChoiceService choiceService;
 
@@ -63,20 +64,26 @@ public class ReportController {
 			for (Test testQuestion : tests) {
 				if (testQuestion.getQuestion().getSubcategory().equals(subcat)) {
 					totalQuestionsPerCategory++;
-					System.out.println(testQuestion.getAnswer());
-					System.out.println(choiceService.getTrueAnswer(testQuestion.getQuestion()).getId());
 
-					if (testQuestion.getAnswer() == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()) {
-						overAllTotal++;
-						scorePerCategory++;
+					if (testQuestion.getAnswer() != null) {
+						int choiceID = 0;
+						for (Choice ch : testQuestion.getQuestion().getChoices()) {
+							if (ch.getAnswer()) {
+								choiceID = ch.getId();
+								break;
+							}
+						}
+						if (testQuestion.getAnswer() == choiceID) {
+							scorePerCategory++;
+						}
 					}
+					overAllTotal++;
 				}
 			}
 			//
-			report.put(subcat,
-					scorePerCategory + " / " + totalQuestionsPerCategory + "  |   "
-							+ scorePerCategory * 100 / totalQuestionsPerCategory + "%  |  Grade : "
-							+ gradeService.getGradeAsStringFromInteger(scorePerCategory * 100 / totalQuestionsPerCategory));
+			report.put(subcat, scorePerCategory + " / " + totalQuestionsPerCategory + "  |   "
+					+ scorePerCategory * 100 / totalQuestionsPerCategory + "%  |  Grade : "
+					+ gradeService.getGradeAsStringFromInteger(100 / totalQuestionsPerCategory*scorePerCategory));
 			overAllAverage = 0;
 			totalQuestionsPerCategory = 0;
 		}
@@ -98,18 +105,28 @@ public class ReportController {
 
 		for (Test testQuestion : tests) {
 			boolean answer = false;
-			if (testQuestion.getAnswer() == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()) {
-				answer = true;
-				score++;
-				reportDetail.put(testQuestion, answer);
+			int choiceID = 0;
+			if (testQuestion.getAnswer() != null) {
+				for (Choice ch : testQuestion.getQuestion().getChoices()) {
+					if (ch.getAnswer()) {
+						choiceID = ch.getId();
+						break;
+					}
+				}
+				if (testQuestion.getAnswer() == choiceID) {
+					answer = true;
+					score++;
+					reportDetail.put(testQuestion, answer);
+				}
 			}
 			reportDetail.put(testQuestion, answer);
 		}
 
 		model.addAttribute("answers", reportDetail);
-		model.addAttribute("student", assignmentService.findById(1).getStudentId());
+		model.addAttribute("student", assignmentService.findById(id).getStudentId());
 		model.addAttribute("score", score + "/" + tests.size());
-		model.addAttribute("percent", score * 100 / tests.size());
+		double testPercent = 100/tests.size()*score;
+		model.addAttribute("percent", testPercent);
 		return "resultDetail";
 
 	}
@@ -126,42 +143,46 @@ public class ReportController {
 	@RequestMapping(value = "/resultlist", method = RequestMethod.GET)
 	public String resultList(Model model) {
 
-		
-		
-		
-		HashMap<Assignment, Integer> reports = new HashMap<>();
-	List<Assignment> finisedAssignmentList = new ArrayList<>();
+		HashMap<Assignment, Long> reports = new HashMap<>();
+		List<Assignment> finisedAssignmentList = new ArrayList<>();
 		List<Assignment> assignments = assignmentService.findAll();
-		//filter only the finished tests
-		for(Assignment assign : assignments){
-			if(assign.isFinished()==true){
+		// filter only the finished tests
+		for (Assignment assign : assignments) {
+			if (assign.isFinished() == true) {
 				finisedAssignmentList.add(assign);
 			}
 		}
-		
+
 		int score = 0;
 		for (Assignment assignment : finisedAssignmentList) {
 			for (Test testQuestion : assignment.getTests()) {
-				if (testQuestion.getAnswer() == choiceService.getTrueAnswer(testQuestion.getQuestion()).getId()) {
-					score++;
-
+				if (testQuestion.getAnswer() != null) {
+					int choiceID = 0;
+					for (Choice ch : testQuestion.getQuestion().getChoices()) {
+						if (ch.getAnswer()) {
+							choiceID = ch.getId();
+							break;
+						}
+					}
+					if (testQuestion.getAnswer() == choiceID) {
+						score++;
+					}
 				}
-				reports.put(assignment, score * 100 / assignment.getTests().size());
+				long testPercent = 100 / assignment.getTests().size() * score;
+				reports.put(assignment, testPercent);
 
 			}
 
 			model.addAttribute("reports", reports);
-			
 
 		}
 		return "resultlist";
 	}
-	
+
 	@RequestMapping(value = "/feedback", method = RequestMethod.GET)
 	public String giveFeedback(Model model) {
 		return "feedback";
 
 	}
-	
-	
+
 }

@@ -20,8 +20,8 @@
 					<th>Question</th>
 					<th>Choices</th>
 					<!-- 	<th>Category</th>-->
-					<th>Edit</th>
-					<th>Delete</th>
+					<!-- <th>Edit</th> -->
+					<!-- <th>Delete</th> -->
 				</tr>
 			</thead>
 			<tbody>
@@ -46,11 +46,12 @@
 												</c:otherwise>
 											</c:choose></li>
 									</c:forEach>
-								</ol></td>
-<td><a href="<c:url value='/dba/editquestion/${question.id}' />">${question.id}</a></td>
+								</ol>
+								</td>
+								<%-- <td><a href="<c:url value='/dba/editquestion/${question.id}' />">${question.id}</a></td>
 						 
-							<td><button value="${question.id}" type="button"
-									class="btnDelUser btn btn-xs btn-default pull-right">Delete</button></td>
+								<td><button value="${question.id}" type="button"
+									class="btnDelUser btn btn-xs btn-default pull-right">Delete</button></td> --%>
 						</tr>
 					</c:if>
 				</c:forEach>

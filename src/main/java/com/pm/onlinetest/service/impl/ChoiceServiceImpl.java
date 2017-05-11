@@ -42,12 +42,6 @@ public class ChoiceServiceImpl implements ChoiceService {
 	}
 
 	@Override
-	public Choice getTrueAnswer(Question question) {
-		// TODO Auto-generated method stub
-		return choiceRepository.getQuestionTrueAnswer(question);
-	}
-
-	@Override
 	public List<Choice> findByQuestions(Question question) {
 		List<Choice> choice = choiceRepository.findByQuestion(question);
 		return choice;

@@ -10,10 +10,6 @@ import com.pm.onlinetest.domain.Choice;
 import com.pm.onlinetest.domain.Question;
 public interface ChoiceRepository extends CrudRepository<Choice, Integer>{
 
-	
-	@Query("SELECT c FROM Choice c WHERE c.answer=true and c.question =:q")
-	public Choice getQuestionTrueAnswer (@Param("q") Question q);
-	
 	@Query("SELECT c FROM Choice c WHERE c.question =:question")
 	List<Choice> findByQuestion(@Param("question") Question question);
 }

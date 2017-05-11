@@ -157,7 +157,8 @@ public class CoachController {
 	 
 	    message.setFrom("mumtestlink@gmail.com");
 	    message.setSubject("Test Link");
-	    message.setText("The test you can take at this particular link. To access the test you need to enter the access code provided below.  Please find the link and the access code below: \n"+ "Access Link: "+accessLink +"\n"+"Access Code: "+ accessCode +"\nAll the best!");
+	    message.setText("The test you can take at this particular link. To access the test you need to enter the access code provided below. "
+	    		+ " Please find the link and the access code below: \n"+ "Access Link: "+accessLink +"\n"+"Access Code: "+ accessCode +"\nAll the best!");
     	mailSender.send(message);
     	String result ="success";
 	    return result;

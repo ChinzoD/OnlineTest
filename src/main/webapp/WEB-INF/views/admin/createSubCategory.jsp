@@ -4,7 +4,9 @@
 <div class="content">
 	<div class="portlet light">
 		<c:if test="${not empty success}">
-			<c:out value="${success}" />
+		<div class="alert alert-success" >
+			<strong>Success!</strong> Successfully added new Sub Category!
+		</div>
 		</c:if>
 		<!-- BEGIN REGISTRATION FORM -->
 		<form:form method="POST" class="register-form" action="createSubCategory"
