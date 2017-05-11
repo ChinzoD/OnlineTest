@@ -27,7 +27,7 @@
 				<c:forEach items="${students}" var="student">
 					<tr id="${student.userId}"  >
 						<td>${student.studentId}</td>
-						<td>${student.firstName}${student.lastName}</td>
+						<td>${student.firstName} ${student.lastName}</td>
 						<td>${student.email}</td>
 						<td>
 							<a data-toggle="modal" data-target="#myModal">
@@ -40,7 +40,7 @@
 						        	</c:otherwise>
 						 	 	 </c:choose>
 							</a>
-											<div class="modal fade" id="myModal" role="dialog">
+							<div class="modal fade" id="myModal" role="dialog">
 						    <div class="modal-dialog ">
 						      <div class="modal-content">
 						        <div class="modal-header">
@@ -68,9 +68,9 @@
 						    </div>
 						  </div>
 						</td>
-						<td><a href="<c:url value="/coach/studentAssignmentDetail/${student.userId}" />">Generate Test</a></td>
+						<td><a href="<c:url value="/${sessionScope.role}/studentAssignmentDetail/${student.userId}" />">Generate Test</a></td>
 			
-						<td><a href="<c:url value="/coach/studentAssignmentHistory/${student.userId}" />">Test History</a></td>
+						<td><a href="<c:url value="/${sessionScope.role}/studentAssignmentHistory/${student.userId}" />">Test History</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -207,7 +207,7 @@
 			Demo.init();  
 			TableEditable.init();
 			FormSamples.init();
-			
+
 			$(".btnDelUser").live("click",function(){
 				var id = $(this).val();
 				$.ajax({

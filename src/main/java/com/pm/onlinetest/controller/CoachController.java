@@ -27,7 +27,6 @@ import com.pm.onlinetest.service.StudentService;
 import com.pm.onlinetest.service.UserService;
 
 @Controller
-@RequestMapping("/coach")
 public class CoachController {
 
 	@Autowired
@@ -46,7 +45,7 @@ public class CoachController {
     private MailSender mailSender;
 	
 	
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@RequestMapping(value = "/coach/home", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {		
 		List<Student> students = coachService.findStudentByAcitveJobStatus();
 		model.addAttribute("students", students);
@@ -55,7 +54,7 @@ public class CoachController {
 	}
 	
 	
-	@RequestMapping(value = "/home1", method = RequestMethod.POST)
+	@RequestMapping(value = "/coach/home1", method = RequestMethod.POST)
 	public String home1(Locale locale, Model model) {		
 		List<Student> students = coachService.findStudentByAcitveJobStatus();
 		model.addAttribute("students", students);
@@ -64,7 +63,7 @@ public class CoachController {
 	}
 	
 
-	@RequestMapping(value = "/studentAssignmentDetail/{userId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/coach/studentAssignmentDetail/{userId}", method = RequestMethod.GET)
 	public String studentAssignmentDetail(@PathVariable("userId") String userId,Locale locale, Model model) {
 		
 		System.out.println("Student id in detail: "+userId);
@@ -97,7 +96,7 @@ public class CoachController {
 	
 	
 	
-	@RequestMapping(value = "/studentAssignmentHistory/{userId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/coach/studentAssignmentHistory/{userId}", method = RequestMethod.GET)
 	public String studentAssignmentHistory(@PathVariable("userId") String userId,Locale locale, Model model) {
 		Student student = studentService.findByStudentId(Integer.parseInt(userId));
 		List<Assignment> assignments = assignmentService.findByStudent(student);
@@ -107,7 +106,7 @@ public class CoachController {
 	
 	}
 	
-	@RequestMapping(value = "/saveAssignment", method = RequestMethod.POST)
+	@RequestMapping(value = "/coach/saveAssignment", method = RequestMethod.POST)
 	public @ResponseBody String saveAssignment(RedirectAttributes redirectAttr,@RequestParam("userId") String userId,@RequestParam("accessLink") String accessLink,@RequestParam("accessCode") String accessCode) {		
 		System.out.println("Student Id in save ASsignment is: "+userId);
 		System.out.println("accesscode in save ASsignment is: "+accessCode);
@@ -148,7 +147,7 @@ public class CoachController {
 	
 	
 	
-	@RequestMapping(value = "/sendEmail", method = RequestMethod.GET)
+	@RequestMapping(value = "/coach/sendEmail", method = RequestMethod.GET)
 	public @ResponseBody String sendEmail(@RequestParam("userId") String userId,@RequestParam("accessLink") String accessLink,@RequestParam("accessCode") String accessCode, @RequestParam("email") String email,Locale locale, Model model) {
 		System.out.println("email sending");
 		SimpleMailMessage message = new SimpleMailMessage();
@@ -167,7 +166,7 @@ public class CoachController {
       
 	}
 	
-	@RequestMapping(value = "/changeStudentJobSearchStatus", method = RequestMethod.POST)
+	@RequestMapping(value = "/coach/changeStudentJobSearchStatus", method = RequestMethod.POST)
 	public @ResponseBody String changeStudentJobStatus(@RequestParam("userId") String studentId,@RequestParam("jobSearchStatus") String jobSearchStatus){
 		System.out.println("Inside job chnange status in coach controller studentId" +studentId);
 		System.out.println("job search status is: "+jobSearchStatus);	

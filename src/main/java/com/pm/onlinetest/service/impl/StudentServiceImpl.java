@@ -52,4 +52,16 @@ public class StudentServiceImpl implements StudentService {
 		return (List<Student>) studentRepository.findAllEnabled();
 	}
 
+	@Override
+	public Student findByUserId(Integer userId) {
+		// TODO Auto-generated method stub
+		return studentRepository.findByUserId(userId);
+	}
+
+	@Override
+	public Student findByStudentIdExceptThis(String studentId, Integer userId) {
+		// TODO Auto-generated method stub
+		return studentRepository.findByStudentIdExceptThis(studentId, userId);
+	}
+
 }

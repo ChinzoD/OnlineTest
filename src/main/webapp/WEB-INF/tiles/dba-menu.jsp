@@ -4,6 +4,7 @@
 <div class="hor-menu ">
 	<ul class="nav navbar-nav">
 		<li><a href="<c:url value="/dba/addquestion" />">Add Question</a></li>
-		<li><a href="<c:url value="/dba/viewquestions" />">Question Bank</a></li>
+		<li><a href="<c:url value="/dba/viewquestions" />">Question List</a></li>
+		<li><a href="<c:url value="/dba/importData" />">Import Data</a></li>
 	</ul>
 </div>

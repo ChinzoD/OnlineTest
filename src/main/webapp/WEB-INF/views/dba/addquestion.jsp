@@ -8,9 +8,9 @@
 			<c:out value="${success}" />
 			Do you want to add more? <h1>${question.description}</h1>
 			<div class="btn-group" role="group" aria-label="...">
-				<a href="../dba/addquestion">
+				<a href="addquestion">
 					<button type="button" class="btn btn-default">YES</button>
-				</a> <a href="http://localhost:8080/onlinetest/">
+				</a> <a href="/onlinetest/${sessionScope.role}/viewquestions">
 					<button type="button" class="btn btn-default">NO</button>
 				</a>
 
@@ -61,38 +61,36 @@
 
 
 				<ol type="A">
-				<p class="text-right">
-				Correct Answer(select Only one)
-				</p>
+					<p class="text-right">Correct Answer(select Only one)</p>
 					<c:forEach items="${question.choices}" var="choice" varStatus="i">
-						
-							<div class="form-group">
-								<div class="row">
-									<div class="col-md-1 ">
-										<span class="col-md-2 col-md-offset-5"><li></li></span>
-									</div>
-									<div class="col-md-10">
 
-										<form:label path="choices[${i.index}].description"
-											class="control-label visible-ie8 visible-ie9">Question</form:label>
-										<form:input path="choices[${i.index}].description"
-											class="form-control placeholder-no-fix"
-											placeholder="Type the Choice" />
+						<div class="form-group">
+							<div class="row">
+								<div class="col-md-1 ">
+									<span class="col-md-2 col-md-offset-5"><li></li></span>
+								</div>
+								<div class="col-md-10">
+
+									<form:label path="choices[${i.index}].description"
+										class="control-label visible-ie8 visible-ie9">Question</form:label>
+									<form:input path="choices[${i.index}].description"
+										class="form-control placeholder-no-fix"
+										placeholder="Type the Choice" />
 
 
-										<form:errors path="choices[${i.index}].description"
-											cssClass="text-danger" />
-
-									</div>
-									<div class="col-md-1 ">
-										<span class="col-md-2 col-md-offset-1">
-										<form:checkbox
-												class="icheck" path="choices[${i.index}].answer"/> </span>
-									</div>
+									<form:errors path="choices[${i.index}].description"
+										cssClass="text-danger" />
 
 								</div>
+								<div class="col-md-1 ">
+									<span class="col-md-2 col-md-offset-1"> <form:checkbox
+											class="icheck" path="choices[${i.index}].answer" />
+									</span>
+								</div>
+
 							</div>
-						
+						</div>
+
 					</c:forEach>
 				</ol>
 	</div>
@@ -108,51 +106,19 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
-	$(document)
-			.ready(
-					function() {
-
-						$('#idCategory')
-								.change(
-										function(event) {
-
-											var producer = $('#idCategory')
-													.val();
-											
-											$
-													.getJSON(
-															"../../../onlinetest/dba/subcategories",
-															{
-																catId : producer
-															},
-															function(data) {
-
-																$(
-																		'#idSubCategory')
-																		.empty();
-
-																$
-																		.each(
-																				data,
-																				function(
-																						i,
-																						value) {
-
-																					$(
-																							'#idSubCategory')
-																							.append(
-																									$(
-																											"<option />")
-																											.val(
-																													value[0].id)
-																											.text(
-																													value[0].name));
-
-																				});
-															});
-
-											//  event.preventDefault();
-										});
-
+	$(document).ready(function() {
+			$('#idCategory').change(function(event) {
+				var producer = $('#idCategory').val();
+				$.getJSON("../../../onlinetest/${sessionScope.role}/subcategories",
+				{
+					catId : producer
+				},
+				function(data) {
+					$('#idSubCategory').empty();
+					$.each(data, function(i,value) {
+					$('#idSubCategory').append($("<option />").val(value[0].id).text(value[0].name));
 					});
+				});
+		});
+	});
 </script>

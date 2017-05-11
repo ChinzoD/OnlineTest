@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +28,6 @@ import com.pm.onlinetest.service.GradeService;
 import com.pm.onlinetest.service.SearchService;
 
 @Controller
-@RequestMapping("/coach")
 public class ReportController {
 
 	@Autowired
@@ -41,8 +42,8 @@ public class ReportController {
 	@Autowired
 	ChoiceService choiceService;
 
-	@RequestMapping(value = "/result/{id}", method = RequestMethod.GET)
-	public String testResult(@PathVariable("id") int id, Model model) {
+	@RequestMapping(value = {"/coach/result/{id}", "/admin/result/{id}"}, method = RequestMethod.GET)
+	public String testResult(@PathVariable("id") int id, Model model, HttpServletRequest request) {
 
 		HashMap<Subcategory, String> report = new HashMap<>();
 
@@ -91,12 +92,14 @@ public class ReportController {
 		model.addAttribute("total", overAllTotal);
 		model.addAttribute("questions", numberofQuestions);
 		model.addAttribute("studentAssignment", assignment);
-		return "result";
-
+		
+		String mapping = request.getServletPath();
+		String mappingIDRemoved = mapping.substring(0, mapping.length()-Integer.toString(id).length()-1);
+		return mappingIDRemoved;
 	}
 
-	@RequestMapping(value = "/resultDetail/{id}", method = RequestMethod.GET)
-	public String testResultDetail(@PathVariable("id") int id, Model model) {
+	@RequestMapping(value = {"/coach/resultDetail/{id}", "/admin/resultDetail/{id}"}, method = RequestMethod.GET)
+	public String testResultDetail(@PathVariable("id") int id, Model model, HttpServletRequest request) {
 
 		HashMap<Test, Boolean> reportDetail = new HashMap<>();
 		Assignment assignment = assignmentService.findById(id);
@@ -127,21 +130,24 @@ public class ReportController {
 		model.addAttribute("score", score + "/" + tests.size());
 		double testPercent = 100/tests.size()*score;
 		model.addAttribute("percent", testPercent);
-		return "resultDetail";
-
+		
+		String mapping = request.getServletPath();
+		String mappingIDRemoved = mapping.substring(0, mapping.length()-Integer.toString(id).length()-1);
+		return mappingIDRemoved;
 	}
 
-	@RequestMapping(value = "/assignments", method = RequestMethod.GET)
-	public String assignmentDetail(Model model) {
+	@RequestMapping(value = {"/coach/assignments", "/admin/assignments"}, method = RequestMethod.GET)
+	public String assignmentDetail(Model model, HttpServletRequest request) {
 
 		List<Assignment> assignments = assignmentService.findAll();
 		model.addAttribute("assignments", assignments);
-		return "assignments";
-
+		
+		String mapping = request.getServletPath();
+		return mapping;
 	}
 
-	@RequestMapping(value = "/resultlist", method = RequestMethod.GET)
-	public String resultList(Model model) {
+	@RequestMapping(value = {"/coach/resultlist", "/admin/resultlist"}, method = RequestMethod.GET)
+	public String resultList(Model model, HttpServletRequest request) {
 
 		HashMap<Assignment, Long> reports = new HashMap<>();
 		List<Assignment> finisedAssignmentList = new ArrayList<>();
@@ -176,10 +182,11 @@ public class ReportController {
 			model.addAttribute("reports", reports);
 
 		}
-		return "resultlist";
+		String mapping = request.getServletPath();
+		return mapping;
 	}
 
-	@RequestMapping(value = "/feedback", method = RequestMethod.GET)
+	@RequestMapping(value = "/coach/feedback", method = RequestMethod.GET)
 	public String giveFeedback(Model model) {
 		return "feedback";
 

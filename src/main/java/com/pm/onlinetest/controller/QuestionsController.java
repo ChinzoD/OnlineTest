@@ -26,7 +26,6 @@ import com.pm.onlinetest.service.CategoryService;
 import com.pm.onlinetest.service.QuestionService;
 
 @Controller
-@RequestMapping("/dba/")
 public class QuestionsController {
 
 	@Autowired
@@ -34,8 +33,8 @@ public class QuestionsController {
 	@Autowired
 	CategoryService categoryService;
 
-	@RequestMapping(value = "/addquestion", method = RequestMethod.GET)
-	public String addQuestion(Model model) {
+	@RequestMapping(value = {"/dba/addquestion", "/coach/addquestion", "/admin/addquestion"}, method = RequestMethod.GET)
+	public String addQuestion(Model model, HttpServletRequest request) {
 		List<Category> listCategory = new ArrayList<>();
 		listCategory.addAll(categoryService.findAll());
 		Question q = new Question();
@@ -47,70 +46,75 @@ public class QuestionsController {
 		model.addAttribute("question", q);
 		model.addAttribute("categories", listCategory);
 		// model.addAttribute("choices", choices);
-		return "addquestion";
+		String mapping = request.getServletPath();
+		return mapping;
 	}
 
-	@RequestMapping(value = "addquestion", method = RequestMethod.POST)
+	@RequestMapping(value = {"/dba/addquestion", "/coach/addquestion", "/admin/addquestion"}, method = RequestMethod.POST)
 	public String addQuestion(@Valid @ModelAttribute("question") Question question, BindingResult result,
-			RedirectAttributes redirectAttr, Model model) {
-
+			RedirectAttributes redirectAttr, Model model, HttpServletRequest request) {
+		String mapping = request.getServletPath();
 		if (result.hasErrors()) {
 			List<Category> listCategory = new ArrayList<>();
 			listCategory.addAll(categoryService.findAll());
 			model.addAttribute("categories", listCategory);
-			return "addquestion";
+			return mapping;
 		}
 
 		for (Choice choice : question.getChoices()) {
-
 			choice.setQuestion(question);
-
 		}
 		questionService.save(question);
 		redirectAttr.addFlashAttribute("success", "The question Successfully added !");
 		redirectAttr.addFlashAttribute("question", question);
-		return "redirect:/dba/addquestion";
-
+		
+		return "redirect:"+mapping;
 	}
 
-	@RequestMapping(value = "/editquestion/{question_id}", method = RequestMethod.GET)
-	public String editQuestion(@PathVariable Integer question_id, Model model) {
-		List<Category> listCategory = new ArrayList<>();
-		listCategory.addAll(categoryService.findAll());
+	// @RequestMapping(value = "/dba/editquestion/{question_id}", method =
+	// RequestMethod.GET)
+	// public String editQuestion(@PathVariable Integer question_id, Model
+	// model) {
+	// List<Category> listCategory = new ArrayList<>();
+	// listCategory.addAll(categoryService.findAll());
+	//
+	// Question question = questionService.findQuestionById(question_id);
+	// model.addAttribute("question", question);
+	// model.addAttribute("categories", listCategory);
+	//
+	// return "editquestion";
+	// }
 
-		Question question = questionService.findQuestionById(question_id);
-		model.addAttribute("question", question);
-		model.addAttribute("categories", listCategory);
+	// @RequestMapping(value = "/dba/editquestion/{question_id}", method =
+	// RequestMethod.POST)
+	// public String editQuestion(@Valid @ModelAttribute("question") Question
+	// question, BindingResult result,
+	// RedirectAttributes redirectAttr, Model model) {
+	//
+	// if (result.hasErrors()) {
+	// System.out.println("the error ");
+	//
+	// return "questions/editquestion";
+	// }
+	//
+	// questionService.update(question);
+	// redirectAttr.addFlashAttribute("success", "The question Successfully
+	// added !");
+	//
+	// return "redirect:/dba/viewquestion";
+	//
+	// }
 
-		return "editquestion";
-	}
-
-	@RequestMapping(value = "/editquestion/{question_id}", method = RequestMethod.POST)
-	public String editQuestion(@Valid @ModelAttribute("question") Question question, BindingResult result,
-			RedirectAttributes redirectAttr, Model model) {
-
-		if (result.hasErrors()) {
-			System.out.println("the error ");
-
-			return "questions/editquestion";
-		}
-
-		questionService.update(question);
-		redirectAttr.addFlashAttribute("success", "The question Successfully added !");
-
-		return "redirect:/dba/viewquestion";
-
-	}
-
-	@RequestMapping(value = "/viewquestions", method = RequestMethod.GET)
-	public String viewQuestions(Model m) {
+	@RequestMapping(value = { "/dba/viewquestions", "/coach/viewquestions", "/admin/viewquestions" }, method = RequestMethod.GET)
+	public String viewQuestions(Model model, HttpServletRequest request) {
 		List<Question> questions = questionService.findAll();
 
-		m.addAttribute("questions", questions);
-		return "viewquestions";
+		model.addAttribute("questions", questions);
+		String mapping = request.getServletPath();
+		return mapping;
 	}
 
-	@RequestMapping(value = { "/deleteQuestion" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/dba/deleteQuestion", "/coach/deleteQuestion", "/admin/deleteQuestion" }, method = RequestMethod.POST)
 	public void DeleteQuestion(HttpServletRequest request) {
 		String id = request.getParameter("id").toString();
 		Question question = questionService.findQuestionById(Integer.parseInt(id));

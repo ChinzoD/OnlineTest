@@ -74,4 +74,10 @@ public class UserServiceImpl implements UserService {
 		userRepository.softDelete(userId);
 	}
 
+	@Override
+	public User findByUsernameExceptThis(String username, Integer userId) {
+		// TODO Auto-generated method stub
+		return userRepository.findByUsernameExceptThis(username, userId);
+	}
+
 }

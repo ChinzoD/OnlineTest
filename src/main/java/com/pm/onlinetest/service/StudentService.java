@@ -13,4 +13,6 @@ public interface StudentService {
 	public List<Student> findAll();
 	public Student findByStudentId(String studentId);
 	public Student findByStudentId(Integer studentId);
+	public Student findByStudentIdExceptThis(String studentId, Integer userId);
+	public Student findByUserId(Integer userId);
 }

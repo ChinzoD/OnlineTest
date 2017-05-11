@@ -16,7 +16,7 @@
 					<th>Full Name</th>
 					<th>Email</th>
 					<th>Role</th>
-					<!-- <th>Edit</th> -->
+					<th>Edit</th>
 					<th>Delete</th>
 				</tr>
 			</thead>
@@ -28,7 +28,7 @@
 							<td>${user.firstName} ${user.lastName}</td>
 							<td>${user.email}</td>
 							<td class="center">${user.authorities[0].authority}</td>
-							<!-- <td><a class="edit" href="javascript:;"> Edit </a></td> -->
+							<td><a href="editUser/${user.userId}"> Edit </a></td>
 							<td><button value="${user.userId}" type="button"
 									class="btnDelUser btn btn-xs btn-default pull-right">Delete</button></td>
 						</tr>

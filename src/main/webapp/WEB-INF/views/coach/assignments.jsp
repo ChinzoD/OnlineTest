@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/views/include.jsp"%>
-<%@ page session="false"%>
+
 <div id="assignment" class="portlet light ">
 	<div class="portlet-title">
 		<div class="caption">
@@ -87,9 +87,9 @@
 										test="${assignment.started == true and assignment.finished==true}">
 
 
-										<a href="<spring:url value="/coach/result/${assignment.id}" />">result</a> | <a
-											href="<spring:url value="/coach/resultDetail/${assignment.id}" />">detail</a>
-                                      | <a href="<spring:url value="/coach/resultDetail/${assignment.id}" />">Feedback</a>
+										<a href="<spring:url value="/${sessionScope.role}/result/${assignment.id}" />">result</a> | <a
+											href="<spring:url value="/${sessionScope.role}/resultDetail/${assignment.id}" />">detail</a>
+                                      | <a href="<spring:url value="/${sessionScope.role}/resultDetail/${assignment.id}" />">Feedback</a>
 
 									</c:when>
 								</c:choose></td>

@@ -22,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -101,17 +102,41 @@ public class AdminController {
 		return "redirect:/admin/register";
 	}
 
+	@RequestMapping(value = "/admin/editUser/{id}", method = RequestMethod.GET)
+	public String editUser(@ModelAttribute("loginUser") User user, Model model, @PathVariable("id") int id) {
+		model.addAttribute("user", userService.findByUserId(id));
+		return "editUser";
+	}
+	
+	@RequestMapping(value = "/admin/editUser", method = RequestMethod.POST)
+	public String editUser(@Valid @ModelAttribute("loginUser") User user, BindingResult result,
+			RedirectAttributes redirectAttr) {
+		if (result.hasErrors()) {
+			return "editUser";
+		}
+
+		if(null != userService.findByUsernameExceptThis(user.getUsername(), user.getUserId())){
+			redirectAttr.addFlashAttribute("error", "Error");
+		}else{
+			user.setEnabled(true);
+			userService.save(user);
+			redirectAttr.addFlashAttribute("success", "Success");			
+		}
+		return "redirect:/admin/editUser/"+user.getUserId();
+	}
+	
 	@RequestMapping(value = {"/admin/registerStudent", "/coach/registerStudent"}, method = RequestMethod.GET)
-	public String getStudent(@ModelAttribute("loginUser") Student student, HttpServletRequest request) {
+	public String getStudent(@ModelAttribute("student") Student student, HttpServletRequest request) {
 		String mapping = request.getServletPath();
 		return mapping;
 	}
 
 	@RequestMapping(value = {"/admin/registerStudent", "/coach/registerStudent"}, method = RequestMethod.POST)
-	public String registerStudent(@ModelAttribute("loginUser") Student student, BindingResult result,
+	public String registerStudent(@ModelAttribute("student") Student student, BindingResult result,
 			RedirectAttributes redirectAttr, HttpServletRequest request) {
+		String mapping = request.getServletPath();
 		if (result.hasErrors()) {
-			return "registerStudent";
+			return mapping;
 		}
 		if(null != studentService.findByStudentId(student.getStudentId())){
 			redirectAttr.addFlashAttribute("error", "Error");
@@ -119,10 +144,53 @@ public class AdminController {
 			studentService.save(student);
 			redirectAttr.addFlashAttribute("success", "Success");		
 		}
-		String mapping = request.getServletPath();
+		
 		return "redirect:"+mapping;
 	}
 
+	@RequestMapping(value = {"/admin/editStudent/{id}", "/coach/editStudent/{id}"}, method = RequestMethod.GET)
+	public String editStudent(@ModelAttribute("student") Student student, HttpServletRequest request, 
+			Model model, @PathVariable("id") int id) {
+		model.addAttribute("student", studentService.findByUserId(id));
+		String mapping = request.getServletPath();
+		String mappingIDRemoved = mapping.substring(0, mapping.length()-Integer.toString(id).length()-1);
+		return mappingIDRemoved;
+	}
+	
+	@RequestMapping(value = {"/admin/editStudent", "/coach/editStudent"}, method = RequestMethod.POST)
+	public String editStudent(@ModelAttribute("student") Student student, BindingResult result,
+			RedirectAttributes redirectAttr, HttpServletRequest request) {
+		String mapping = request.getServletPath();
+		if (result.hasErrors()) {
+			return mapping;
+		}
+
+		if(null != studentService.findByStudentIdExceptThis(student.getStudentId(), student.getUserId())){
+			redirectAttr.addFlashAttribute("error", "Error");
+		}else{
+			studentService.save(student);
+			redirectAttr.addFlashAttribute("success", "Success");		
+		}		
+
+		return "redirect:"+mapping+"/"+student.getUserId();
+	}
+	
+//	@RequestMapping(value = {"/admin/editStudent", "/coach/editStudent"}, method = RequestMethod.POST)
+//	public String editStudent(@ModelAttribute("student") Student student, BindingResult result,
+//			RedirectAttributes redirectAttr, HttpServletRequest request) {
+//		String mapping = request.getServletPath();
+//		if (result.hasErrors()) {
+//			return mapping;
+//		}
+//		if(null != studentService.findByStudentId(student.getStudentId())){
+//			redirectAttr.addFlashAttribute("error", "Error");
+//		}else{
+//			studentService.save(student);
+//			redirectAttr.addFlashAttribute("success", "Success");		
+//		}
+//		return "redirect:"+mapping;
+//	}
+	
 	@RequestMapping(value = {"/admin/deleteUser", "/coach/deleteUser"}, method = RequestMethod.POST)
 	public void DeleteUser(HttpServletRequest request) {
 		String id = request.getParameter("userid").toString();
@@ -212,13 +280,18 @@ public class AdminController {
 	}
 		
 	@RequestMapping(value = {"/admin/importData", "/coach/importData", "/dba/importData"}, method = RequestMethod.GET)
-	public String importDataGet() {
-		return "importData";
+	public String importDataGet(HttpServletRequest request) {
+		String mapping = request.getServletPath();
+		return mapping;
 	}
 	
 	@RequestMapping(value = {"/admin/importData", "/coach/importData", "/dba/importData"}, method = RequestMethod.POST)
-	public String processExcel2007(Model model, @RequestParam("ExcelFile") MultipartFile excelfile, RedirectAttributes redirectAttr) {		
+	public String processExcel2007(Model model, @RequestParam("ExcelFile") MultipartFile excelfile, 
+			RedirectAttributes redirectAttr, HttpServletRequest request) {	
+		String mapping = request.getServletPath();
 		try {
+			
+
 			List<Question> questions = new ArrayList<>();
 			int i = 0;
 			// Creates a workbook object from the uploaded excelfile
@@ -252,11 +325,10 @@ public class AdminController {
 					if(error){
 						redirectAttr.addFlashAttribute("error", "Error");
 						redirectAttr.addFlashAttribute("error1", "Error on line: "+i);
-						return "redirect:/admin/importData";
+						return "redirect:"+mapping;
 					}
 				}
 
-				
 				List<Subcategory> subcategories = subCategoryService.findSubCategoryByName(subCatName);
 				if(subcategories.size() == 0){
 					Subcategory subCategory = new Subcategory();
@@ -305,7 +377,7 @@ public class AdminController {
 			redirectAttr.addFlashAttribute("error2", "Error:\n"+e);
 		}
 		
-		return "redirect:/admin/importData";
+		return "redirect:"+mapping;
 	}
 //	@ResponseBody
 //	@RequestMapping(value = "/assign", method = RequestMethod.POST)

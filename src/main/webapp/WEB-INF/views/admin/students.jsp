@@ -26,7 +26,8 @@
 					<th>Full Name</th>
 					<th>Email</th>
 					<th>Year</th>
-					<!-- <th>Edit</th> -->
+					<th>Job Search Status</th>
+					<th>Edit</th>
 					<th>Delete</th>
 				</tr>
 			</thead>
@@ -37,7 +38,15 @@
 						<td>${student.firstName} ${student.lastName}</td>
 						<td>${student.email}</td>
 						<td class="center">${student.entry}</td>
-						<!-- <td><a class="edit" href="javascript:;"> Edit </a></td> -->
+						<td class="center">
+							<c:if test="${student.jobSearchStatus}">
+								Active
+							</c:if>
+							<c:if test="${student.jobSearchStatus ne true}">
+								Inactive
+							</c:if>
+						</td>
+						<td><a href="editStudent/${student.userId}"> Edit </a></td>
 						<td><button value="${student.userId}" type="button"
 								class="btnDelUser btn btn-xs btn-default pull-right">Delete</button></td>
 					</tr>

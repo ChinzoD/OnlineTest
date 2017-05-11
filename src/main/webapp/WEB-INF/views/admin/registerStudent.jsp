@@ -15,7 +15,7 @@
 		</c:if>
 		<!-- BEGIN REGISTRATION FORM -->
 		<form:form method="POST" class="register-form"
-			action="registerStudent" modelAttribute="loginUser">
+			action="registerStudent" modelAttribute="student">
 			<h3>Sign Up</h3>
 			<p class="hint">Enter student information below:</p>
 			<div class="form-group">

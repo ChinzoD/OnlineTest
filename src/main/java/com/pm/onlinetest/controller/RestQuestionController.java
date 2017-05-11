@@ -16,11 +16,11 @@ import com.pm.onlinetest.domain.Subcategory;
 import com.pm.onlinetest.service.SubCategoryService;
 
 @RestController
-@RequestMapping(value = "/dba/subcategories")
 public class RestQuestionController {
 	@Autowired
 	private SubCategoryService subCategoryService;
-	@RequestMapping(method = RequestMethod.GET)
+	
+	@RequestMapping(value = {"/dba/subcategories", "/coach/subcategories", "/admin/subcategories"}, method = RequestMethod.GET)
 	public @ResponseBody List<Subcategory> subCategories(@RequestParam("catId") Integer catId, Model model) {
 		List<Subcategory> listSubCategory = new ArrayList<>();
 		listSubCategory.addAll(subCategoryService.findByCategoryId(catId));

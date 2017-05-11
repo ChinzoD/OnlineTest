@@ -5,30 +5,30 @@
 
  
                                           
-                                           <section id="posts-landing">
-                                                <div id="report" class="portlet light ">
-                                                    <div class="portlet-title">
-                                                        <div class="caption">
-                                                            <span class="caption-subject bold uppercase font-dark">Student Test Score </span>                                                       
-                                                            
-                                                        </div>
-                                                        <div class="actions">
-                                                         <jsp:useBean id="now" class="java.util.Date"/> 
-                                                           Date Time :
-                                                            <fmt:formatDate value="${now}" pattern="dd-MM-yyyy HH:mm:ss a z" />
-                                                            <a class="btn btn-circle btn-icon-only btn-default" href="#">
-                                                                <i class="icon-cloud-upload"></i>
-                                                            </a>
-                                                            <a class="btn btn-circle btn-icon-only btn-default" href="#">
-                                                                <i class="icon-wrench"></i>
-                                                            </a>
-                                                            <a class="btn btn-circle btn-icon-only btn-default" href="#">
-                                                                <i class="icon-trash"></i>
-                                                            </a>
-                                                            <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title=""> </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="portlet-body">
+   <section id="posts-landing">
+        <div id="report" class="portlet light ">
+            <div class="portlet-title">
+                <div class="caption">
+                    <span class="caption-subject bold uppercase font-dark">Student Test Score </span>                                                       
+                    
+                </div>
+                <div class="actions">
+                 <jsp:useBean id="now" class="java.util.Date"/> 
+                   Date Time :
+                    <fmt:formatDate value="${now}" pattern="dd-MM-yyyy HH:mm:ss a z" />
+                    <a class="btn btn-circle btn-icon-only btn-default" href="#">
+                        <i class="icon-cloud-upload"></i>
+                    </a>
+                    <a class="btn btn-circle btn-icon-only btn-default" href="#">
+                        <i class="icon-wrench"></i>
+                    </a>
+                    <a class="btn btn-circle btn-icon-only btn-default" href="#">
+                        <i class="icon-trash"></i>
+                    </a>
+                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title=""> </a>
+                </div>
+            </div>
+            <div class="portlet-body">
                                                     
 
     <h3><span>Student Profile </span> </h3>                                                   

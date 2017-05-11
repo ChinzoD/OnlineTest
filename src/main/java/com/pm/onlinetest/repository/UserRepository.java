@@ -17,6 +17,9 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	@Query("SELECT u FROM User u WHERE u.userId =:userId")
 	User findByUserId(@Param("userId") Integer userId);
 	
+	
+	
+	
 	@Query("SELECT u FROM Authority a, User u WHERE u.userId = a.userId AND a.authority =:authority AND u.enabled = true")
 	List<User> findByAuthority(@Param("authority") String authority);
 	
@@ -30,4 +33,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	@Query("SELECT u FROM User u WHERE u.username=:username AND u.enabled = true")
 	User findByUsername(@Param("username") String username);
+	
+	@Query("SELECT u FROM User u WHERE u.username=:username AND u.enabled = true AND u.userId !=:userId")
+	User findByUsernameExceptThis(@Param("username") String username, @Param("userId") Integer userId);
 }

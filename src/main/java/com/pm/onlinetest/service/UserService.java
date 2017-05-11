@@ -12,6 +12,7 @@ public interface UserService {
 	public void softDelete(Integer userId);
 	public List<User> findAllEnabled();
 	public User findByUsername(String username);
+	public User findByUsernameExceptThis(String username, Integer userId);
 	public User findByUserId(Integer userId);
 	public List<User> findByAuthority(String authority);
  }

@@ -7,5 +7,9 @@
 		<li><a href="<c:url value="/coach/assignments" />">Assignments</a></li>
 		<li><a href="<c:url value="/coach/resultlist" />">Test Results</a></li>
 		<li><a href="<c:url value="/coach/students" />">Student List</a></li>
+		<li><a href="<c:url value="/coach/addquestion" />">Add Question</a></li>
+		<li><a href="<c:url value="/coach/viewquestions" />">Question List</a></li>
+		<li><a href="<c:url value="/coach/importData" />">Import Data</a></li>
+		<%-- <li><a href="<c:url value="/coach/grading" />">Grading</a></li> --%>
 	</ul>
 </div>
