@@ -13,5 +13,7 @@
 		<li><a href="<c:url value="/admin/importData" />">Import Data</a></li>
 		<li><a href="<c:url value="/admin/assignments" />">Assignments</a></li>
 		<li><a href="<c:url value="/admin/resultlist" />">Test Results</a></li>
+		<li><a href="<c:url value="/inventory" />">Inventory</a></li>
+		<li><a href="<c:url value="/grading" />">Grading</a></li>
 	</ul>
 </div>
