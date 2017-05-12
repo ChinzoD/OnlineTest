@@ -13,6 +13,11 @@
 <title>Online Test</title>
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
 <!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+
+
+	
+
 <link rel="stylesheet" type="text/css" href="<c:url value="/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css" />" />
 <link href="<c:url value="/metronic/assets/global/plugins/font-awesome/css/font-awesome.min.css" />" rel="stylesheet" type="text/css"/>
 <link href="<c:url value="/metronic/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" />" rel="stylesheet" type="text/css"/>
@@ -171,6 +176,9 @@
 <![endif]-->
 
 
+
+
+
 <!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
 <script src="<c:url value="/metronic/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/global/plugins/bootstrap/js/bootstrap.min.js" />" type="text/javascript"></script>
@@ -193,8 +201,6 @@
 <script src="<c:url value="/metronic/assets/admin/pages/scripts/table-editable.js" />"></script>
 <script src="<c:url value="/metronic/assets/admin/pages/scripts/login.js" />" type="text/javascript"></script>
 <script src="<c:url value="/metronic/assets/admin/pages/scripts/form-samples.js" />" type="text/javascript"></script>
-
-
 
 
 <!-- END PAGE LEVEL SCRIPTS -->
