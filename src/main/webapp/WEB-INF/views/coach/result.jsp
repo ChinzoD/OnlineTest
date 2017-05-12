@@ -12,21 +12,15 @@
                     <span class="caption-subject bold uppercase font-dark">Student Test Score </span>                                                       
                     
                 </div>
-                <div class="actions">
-                 <jsp:useBean id="now" class="java.util.Date"/> 
-                   Date Time :
-                    <fmt:formatDate value="${now}" pattern="dd-MM-yyyy HH:mm:ss a z" />
-                    <a class="btn btn-circle btn-icon-only btn-default" href="#">
-                        <i class="icon-cloud-upload"></i>
-                    </a>
-                    <a class="btn btn-circle btn-icon-only btn-default" href="#">
-                        <i class="icon-wrench"></i>
-                    </a>
-                    <a class="btn btn-circle btn-icon-only btn-default" href="#">
-                        <i class="icon-trash"></i>
-                    </a>
-                    <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="#" data-original-title="" title=""> </a>
-                </div>
+               <div class="actions">
+			<jsp:useBean id="now" class="java.util.Date" />
+			Date Time :
+			<fmt:formatDate value="${now}" pattern="dd-MM-yyyy HH:mm:ss a z" />
+			<button id="export" onclick="javascript:demoFromHTML();" class="btn btn-circlebtn-icon-only  btn-default">Export
+			</button>
+			<a class="btn btn-circle btn-icon-only btn-default fullscreen"
+				href="#" data-original-title="" title=""></a>
+		</div>
             </div>
             <div class="portlet-body">
                                                     
@@ -34,8 +28,6 @@
     <h3><span>Student Profile </span> </h3>                                                   
 	<div class="row">
   <div class="col-md-4">
-		
-				
 		
                  
                   <table class="table table-sm">
@@ -56,7 +48,7 @@
                         <td>Full Name </td>
                         <td>${studentAssignment.studentId.firstName} ${studentAssignment.studentId.lastName}</td>
                       </tr>
-                   
+                  
                          
                              <tr>
                         <td>Entry </td>
@@ -86,10 +78,7 @@
                      
                     </tbody>
                   </table>
-                 
-                  <a href="#" class="btn btn-primary">Give Us Your Feedback </a>     
-                  <button type="button" class="btn btn-info" onclick="javascript:demoFromHTML();">Export to PDF</button>     
-                         
+                             
                 </div>
            
      
@@ -118,7 +107,9 @@
 		</table></div>
 		<span class="label label-info"> Overall Score </span>
 		<br>
-	<div class="col-md-4"><h3>${total} Out of ${questions}</h3> </div>
+	<div class="col-md-4">
+	<h3>Score : ${total} Out of ${questions}</h3>
+	<h3>Grade ${grade} </h3> </div>
 
 </div>
   

@@ -3,10 +3,20 @@
 <%@ page session="false"%>
 <div class="portlet light ">
 	<div class="portlet-title">
-		<div class="caption">
-			<span class="caption-subject bold uppercase font-dark">Revenue</span>
-			<span class="caption-helper">distance stats...</span>
-		</div>
+	 <div class="caption">
+                    <span class="caption-subject bold uppercase font-dark">Student Result Detail </span>                                                       
+                    
+                </div>
+                <div class="actions">
+			<jsp:useBean id="now" class="java.util.Date" />
+			Date Time :
+			<fmt:formatDate value="${now}" pattern="dd-MM-yyyy HH:mm:ss a z" />
+			<button id="export" class="btn btn-circlebtn-icon-only  btn-default">Export
+			</button>
+			<a class="btn btn-circle btn-icon-only btn-default fullscreen"
+				href="#" data-original-title="" title=""></a>
+		</div>             
+            </div>
 		<div class="portlet-body">
 			<div class="table-toolbar">
 				<div class="row">
@@ -21,14 +31,10 @@
   <p>Student ID : ${student.studentId }</p>
   <p>Student Name  : ${student.firstName} ${student.lastName}</p>
   <p>Entry  : ${student.entry}</p>
+  <p>Score  : ${score}</p>
+  <p>Percent:${percent}%</p>
   </div>
-  <div class="col-md-4">
-  <h2>Your Test Score </h2>
-  
- <h1><span class="label label-info"> ${score} <span class="label label-danger"> ${percent}%</span></span> </h1>
- <h1> </h1>
-    
-  </div>
+
 </div>
 			<br><br>
 			
@@ -72,7 +78,7 @@
 														<p>${choice.description}</p>
 													</c:when>
 													<c:otherwise>
-            Do something...     
+            
          </c:otherwise>
 												</c:choose></li>
 
