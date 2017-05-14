@@ -13,6 +13,5 @@
 		<li><a href="<c:url value="/admin/importData" />">Import Data</a></li>
 		<li><a href="<c:url value="/admin/assignments" />">Assignments</a></li>
 		<li><a href="<c:url value="/admin/resultlist" />">Test Results</a></li>
-		
 	</ul>
 </div>

@@ -94,7 +94,6 @@ public class ReportController {
 		model.addAttribute("questions", numberofQuestions);
 		model.addAttribute("studentAssignment", assignment);		
 		model.addAttribute("grade", gradeService.getGradeAsStringFromInteger(100 / numberofQuestions*overAllTotal));
-
 		String mapping = request.getServletPath();
 		String mappingIDRemoved = mapping.substring(0, mapping.length()-Integer.toString(id).length()-1);
 		return mappingIDRemoved;
