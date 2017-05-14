@@ -76,9 +76,10 @@ public class ReportController {
 						}
 						if (testQuestion.getAnswer() == choiceID) {
 							scorePerCategory++;
+							overAllTotal++;
 						}
 					}
-					overAllTotal++;
+					
 				}
 			}
 			//
@@ -91,8 +92,9 @@ public class ReportController {
 		model.addAttribute("reports", report);
 		model.addAttribute("total", overAllTotal);
 		model.addAttribute("questions", numberofQuestions);
-		model.addAttribute("studentAssignment", assignment);
-		
+		model.addAttribute("studentAssignment", assignment);		
+		model.addAttribute("grade", gradeService.getGradeAsStringFromInteger(100 / numberofQuestions*overAllTotal));
+
 		String mapping = request.getServletPath();
 		String mappingIDRemoved = mapping.substring(0, mapping.length()-Integer.toString(id).length()-1);
 		return mappingIDRemoved;
@@ -161,6 +163,7 @@ public class ReportController {
 
 		int score = 0;
 		for (Assignment assignment : finisedAssignmentList) {
+			System.out.println(assignment.getStudentId());
 			for (Test testQuestion : assignment.getTests()) {
 				if (testQuestion.getAnswer() != null) {
 					int choiceID = 0;
@@ -174,12 +177,14 @@ public class ReportController {
 						score++;
 					}
 				}
-				long testPercent = 100 / assignment.getTests().size() * score;
-				reports.put(assignment, testPercent);
+				
 
 			}
-
+			long testPercent = 100 * score / assignment.getTests().size() ;
+			System.out.println("----"+testPercent);
+			reports.put(assignment, testPercent);
 			model.addAttribute("reports", reports);
+			score = 0;
 
 		}
 		String mapping = request.getServletPath();

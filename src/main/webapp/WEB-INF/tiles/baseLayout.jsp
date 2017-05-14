@@ -68,7 +68,8 @@
 							data-toggle="dropdown" data-hover="dropdown"
 							data-close-others="true"> <span
 								class="username username-hide-mobile">Welcome
-									${sessionScope.username} !</span>
+									${sessionScope.username} ${sessionScope.role}!
+									</span>
 						</a>
 							<ul class="dropdown-menu dropdown-menu-default">
 								<%-- <li><a href="<c:url value="/user/profile" />"> <i
@@ -373,9 +374,17 @@
 				});
 			}
 			
-			$(".btnTestFinish").live("click",function(){
-
-			 	var qNum = parseInt($(".btnPrev").attr("id"));
+			
+	       
+				
+	       
+	        
+	        $(".btnTestFinish").live("click",function(){
+	       		finish(); 	
+			});
+	        
+	        function finish() {
+	        	var qNum = parseInt($(".btnPrev").attr("id"));
 				$(".btnPrev").hide();
 				$(".btnNext").hide();
 				$(".btnTestSubmit").hide();
@@ -399,7 +408,7 @@
 				
 				window.location.replace("http://localhost:8080/onlinetest/test/completed");
 
-			});
+	        }
 
 			
 			// from kedir export and other helper scripts

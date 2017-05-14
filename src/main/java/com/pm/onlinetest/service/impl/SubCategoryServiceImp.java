@@ -46,9 +46,8 @@ public class SubCategoryServiceImp implements SubCategoryService {
 	}
 
 	@Override
-	public List<Subcategory> findByCategoryId(Integer catId) {
+	public List<Subcategory> findByCategoryId(Category category) {
 		// TODO Auto-generated method stub
-		return subCategoryRepository.findByCategoryId(catId);
+		return subCategoryRepository.findByCategoryId(category);
 	}
-
 }

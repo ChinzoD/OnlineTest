@@ -12,18 +12,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pm.onlinetest.domain.Subcategory;
-
+import com.pm.onlinetest.service.CategoryService;
 import com.pm.onlinetest.service.SubCategoryService;
 
 @RestController
 public class RestQuestionController {
 	@Autowired
 	private SubCategoryService subCategoryService;
+	@Autowired
+	private CategoryService categoryService;
 	
-	@RequestMapping(value = {"/dba/subcategories", "/coach/subcategories", "/admin/subcategories"}, method = RequestMethod.GET)
-	public @ResponseBody List<Subcategory> subCategories(@RequestParam("catId") Integer catId, Model model) {
-		List<Subcategory> listSubCategory = new ArrayList<>();
-		listSubCategory.addAll(subCategoryService.findByCategoryId(catId));
-		return listSubCategory;
-	}
+//	@RequestMapping(value = {"/dba/subcategories", "/coach/subcategories", "/admin/subcategories"}, method = RequestMethod.GET)
+//	public @ResponseBody List<Subcategory> subCategories(@RequestParam("catId") Integer catId, Model model) {
+//		List<Subcategory> listSubCategory = new ArrayList<>();
+//		listSubCategory.addAll(subCategoryService.findByCategoryId(categoryService.findOne(catId)));
+//		System.out.println(listSubCategory);
+//		System.out.println(listSubCategory.get(0).getName());
+//		return listSubCategory;
+//	}
 }

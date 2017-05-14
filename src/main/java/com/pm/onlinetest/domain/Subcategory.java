@@ -22,7 +22,9 @@ public class Subcategory {
 	private boolean enabled;
 	@Transient
 	private Integer categoryId;
-
+	@Transient
+	private Integer questionCount;
+	
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
@@ -70,6 +72,11 @@ public class Subcategory {
 	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
+
+	public Integer getQuestionCount() {
+		return questions.size();
+	}
+
 
 	
 }
