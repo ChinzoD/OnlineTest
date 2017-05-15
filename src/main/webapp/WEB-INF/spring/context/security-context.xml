@@ -20,7 +20,6 @@
 	<!-- Security configuration for Student Access Code -->
 	<security:http pattern="/test/*" use-expressions="true">
 	   <security:csrf disabled="true"/>
-	
 		<!-- <security:access-denied-handler error-page="/test/403" />
 		<security:intercept-url pattern="/test/access" access="isAnonymous()" />
 		<security:intercept-url pattern="/test/**" access="hasRole('ROLE_STUDENT')" /> -->

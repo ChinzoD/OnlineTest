@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/include.jsp"%>
-<div class="content">
+<body onload="examTimer()">
+<div class="content" >
 	<div class="portlet light">
+		<div id="showtime" style="position:absolute;left:800px;top:20px"></div>
 		<h3 class="">Student Name: ${assignment.studentId.firstName}
 			${assignment.studentId.lastName}</h3>
 		<%-- <h3 class="">Student Id:
@@ -51,3 +53,62 @@
 		</div>
 	</div>
 </div>
+<input type="hidden" name="minute"/> 
+<input type="hidden" name="second"/>
+</body>
+<script>
+
+var tim;       
+var min = '${sessionScope.min}';
+var sec = '${sessionScope.sec}';
+
+function examTimer() {
+    if (parseInt(sec) >0) {
+	
+	    document.getElementById("showtime").innerHTML = "Time Remaining :"+min+" Minute " + sec+" Seconds";
+        sec = parseInt(sec) - 1;                
+        tim = setTimeout("examTimer()", 1000);
+    }
+    else {
+	
+	    if (parseInt(min)==0 && parseInt(sec)==0){
+	    	document.getElementById("showtime").innerHTML = "Time Remaining :"+min+" Minute ," + sec+" Seconds";
+		     alert("Time Up");
+		     /* document.questionForm.minute.value=0;
+		     document.questionForm.second.value=0; */
+		     var qNum = parseInt($(".btnPrev").attr("id"));
+				$(".btnPrev").hide();
+				$(".btnNext").hide();
+				$(".btnTestSubmit").hide();
+				
+				var CurrentQuestion = {}; //The Object to Send Data Back to the Controller
+				CurrentQuestion.questionNum = qNum;
+				CurrentQuestion.answer = $('#radOption input:radio:checked').val();
+				
+				$.ajax({
+					type: 'POST',
+					url: '/onlinetest/test/finishTest',
+					contentType : 'application/json; charset=utf-8',
+				    dataType : 'json',
+	                data: JSON.stringify(CurrentQuestion),
+	                success: function (data) {
+
+	                },error: function(jqXHR, status, err){
+
+	                }
+				});
+				
+				window.location.replace("http://localhost:8080/onlinetest/test/completed");
+	     }
+		 
+        if (parseInt(sec) == 0) {				
+		    document.getElementById("showtime").innerHTML = "Time Remaining :"+min+" Minute ," + sec+" Seconds";					
+            min = parseInt(min) - 1;
+			sec=59;
+            tim = setTimeout("examTimer()", 1000);
+        }
+       
+    }
+}
+        
+</script>

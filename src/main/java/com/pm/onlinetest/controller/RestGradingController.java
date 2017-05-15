@@ -18,9 +18,7 @@ public class RestGradingController {
 	GradeService gradeService;
 	
 	@RequestMapping(value="/grading/save", method = RequestMethod.POST)
-	public @ResponseBody String update(@RequestBody GradesWrapper gradeswrapper) {
-
-		
+	public @ResponseBody String update(@RequestBody GradesWrapper gradeswrapper) {		
 		gradeService.saveAll(gradeswrapper.getGrades());
 		
 		return "ok";

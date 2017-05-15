@@ -57,12 +57,6 @@ public class AssignmentController {
 		map.put("accessLink",accessLink);
 		
 		return map;
-		
-	
 	}
-	
-
-	
-	
- 
+	 
 }

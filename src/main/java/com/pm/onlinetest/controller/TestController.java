@@ -1,6 +1,7 @@
 package com.pm.onlinetest.controller;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pm.onlinetest.domain.Assignment;
+import com.pm.onlinetest.domain.Category;
 import com.pm.onlinetest.domain.Choice;
 import com.pm.onlinetest.domain.Question;
 import com.pm.onlinetest.domain.Subcategory;
@@ -79,7 +81,7 @@ public class TestController {
 			request.getSession().setAttribute("assignmentId", assgnmentObj.getId());
 			// Check if Student has previously finished test
 			if (assgnmentObj.isFinished()) {
-				attr.addFlashAttribute("errormessage", "This Test has been completed.");
+				attr.addFlashAttribute("errormessage", "This test has been completed.");
 				return "redirect:/test";
 			} else { // If Student has not previously finished,
 
@@ -93,9 +95,12 @@ public class TestController {
 					if (assgnmentObj.isStarted()) {// Check if Student has
 													// started Test previously
 
-						// Check if time is still remaining
+
 						LocalDateTime currentDate = LocalDateTime.now();
-						if (currentDate.compareTo(assgnmentObj.getEnd_date()) == -1) {
+						// Check if time is still remaining
+						long minutes = ChronoUnit.MINUTES.between(assgnmentObj.getStart_date(), currentDate);
+						System.out.println("minutes:"+minutes);
+						if (minutes < 160) {
 
 							// Authenticate Student and redirect to test page
 							GrantedAuthority aut = new SimpleGrantedAuthority("ROLE_STUDENT");
@@ -116,7 +121,7 @@ public class TestController {
 						return "redirect:/test/showcategories";
 
 				} else {
-					attr.addFlashAttribute("errormessage", "This test has expired.");
+					attr.addFlashAttribute("errormessage", "This test has expired. You tried more than 3 times.");
 					return "redirect:/test";
 				}
 			}
@@ -153,8 +158,16 @@ public class TestController {
 //		}
 
 		CategorySelectDto dto = new CategorySelectDto();
-
-		dto.setCategories(categoryService.findAllEnabled());
+		List<Category> categories = new ArrayList<>();
+		for(Category cat : categoryService.findAllEnabled()){
+			for(Subcategory subCat : cat.getSubcategories()){
+				if(subCat.isEnabled() && questionService.findBySubcategory(subCat).size() > 30){
+					categories.add(cat);
+				}
+			}
+		}
+		dto.setCategories(categories);
+		//dto.setCategories(categoryService.findAllEnabled());
 		model.addAttribute("categoryDto", dto);
 		return "categoryselect";
 	}
@@ -211,6 +224,8 @@ public class TestController {
 		model.addAttribute("test", tests.get(0));
 		model.addAttribute("indexCount", tests.get(0).getId());
 		model.addAttribute("assignment", assignment);
+		request.getSession().setAttribute("min", 0);
+		request.getSession().setAttribute("sec", 59);
 		return "test";
 	}
 

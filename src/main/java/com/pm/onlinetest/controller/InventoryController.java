@@ -29,7 +29,6 @@ public class InventoryController {
 	@Autowired
 	InventoryService inventoryService;
 	
-	
 	@RequestMapping(value="", method = RequestMethod.GET)
 	public String listInventory(Locale locale, Model model) {
 		

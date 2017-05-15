@@ -12,6 +12,7 @@ import javax.validation.Valid;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +39,7 @@ import com.pm.onlinetest.domain.Choice;
 import com.pm.onlinetest.domain.Question;
 import com.pm.onlinetest.domain.Student;
 import com.pm.onlinetest.domain.Subcategory;
+import com.pm.onlinetest.domain.Test;
 import com.pm.onlinetest.service.AuthorityService;
 import com.pm.onlinetest.service.CategoryService;
 import com.pm.onlinetest.service.ChoiceService;
@@ -44,6 +47,8 @@ import com.pm.onlinetest.service.QuestionService;
 import com.pm.onlinetest.service.StudentService;
 import com.pm.onlinetest.service.SubCategoryService;
 import com.pm.onlinetest.service.UserService;
+
+import helpers.CurrentQuestion;
 
 /**
  * Handles requests for the application home page.
@@ -378,6 +383,25 @@ public class AdminController {
 		}
 		
 		return "redirect:"+mapping;
+	}
+	
+	@RequestMapping(value = {"/dba/subcategories/{catId}", 
+			"/coach/subcategories/{catId}", "/admin/subcategories/{catId}"}, method = RequestMethod.POST)
+	@ResponseBody
+	public JSONObject setAnswer(HttpServletRequest request, @PathVariable("catId") Integer catId) {
+
+		List<Subcategory> listSubCategory = new ArrayList<>();
+		listSubCategory.addAll(subCategoryService.findByCategoryId(categoryService.findOne(catId)));
+
+		JSONObject obj = new JSONObject();
+
+		String str="<select id='idSubCategory' path='subcategory.id' name='subcategory.id' class='form-control placeholder-no-fix'>";
+		for (Subcategory sc : listSubCategory) {
+			str+= "<option value="+sc.getId()+">"+sc.getName()+"</option>";
+		}
+		str+="</select>";
+		obj.put("subcat", str);
+		return obj;
 	}
 //	@ResponseBody
 //	@RequestMapping(value = "/assign", method = RequestMethod.POST)

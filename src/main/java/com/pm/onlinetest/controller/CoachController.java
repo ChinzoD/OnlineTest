@@ -53,7 +53,6 @@ public class CoachController {
 	
 	}
 	
-	
 	@RequestMapping(value = "/coach/home1", method = RequestMethod.POST)
 	public String home1(Locale locale, Model model) {		
 		List<Student> students = coachService.findStudentByAcitveJobStatus();

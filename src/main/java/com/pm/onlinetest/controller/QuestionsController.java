@@ -129,5 +129,4 @@ public class QuestionsController {
 		Question question = questionService.findQuestionById(Integer.parseInt(id));
 		questionService.delete(question);
 	}
-
 }

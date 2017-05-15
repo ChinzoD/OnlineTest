@@ -1,5 +1,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
 <%@ include file="/WEB-INF/views/include.jsp"%>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <div class="portlet box blue">
@@ -68,9 +67,9 @@
 						    </div>
 						  </div>
 						</td>
-						<td><a href="<c:url value="/${sessionScope.role}/studentAssignmentDetail/${student.userId}" />">Generate Test</a></td>
-			
-						<td><a href="<c:url value="/${sessionScope.role}/studentAssignmentHistory/${student.userId}" />">Test History</a></td>
+						
+						<td><a href="<c:url value="studentAssignmentDetail/${student.userId}" />">Generate Test</a>			
+						<td><a href="<c:url value="studentAssignmentHistory/${student.userId}" />">Test History</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

@@ -1,5 +1,5 @@
-
 <%@ include file="/WEB-INF/views/include.jsp"%>
+<%@ page session="true"%>
 <div class="content">
 	<div class="portlet light">
 		<h1>${description}</h1>
@@ -38,12 +38,13 @@
 				<div class="form-group">
 					<form:label path="subcategory.id"
 						class="control-label visible-ie8 visible-ie9">Sub category</form:label>
-					<form:select id="idSubCategory" path="subcategory.id"
+					<div id="subCat">
+					<form:select  path="subcategory.id"
 						class="form-control placeholder-no-fix" multiple="true"
 						itemValue="id" itemLabel="name">
 						<form:option value="" label="Sub Categories" />
 					</form:select>
-
+					</div>
 
 				</div>
 
@@ -108,17 +109,21 @@
 <script>
 	$(document).ready(function() {
 			$('#idCategory').change(function(event) {
-				var producer = $('#idCategory').val();
-				$.getJSON("../../../onlinetest/${sessionScope.role}/subcategories",
-				{
-					catId : producer
-				},
-				function(data) {
-					$('#idSubCategory').empty();
-					$.each(data, function(i,value) {
-					$('#idSubCategory').append($("<option />").val(value[0].id).text(value[0].name));
-					});
+				var id = $('#idCategory').val();
+
+				$.ajax({
+					type: 'POST',
+					url: '/onlinetest/${sessionScope.role}/subcategories/'+id,
+					contentType : 'application/json; charset=utf-8',
+				    dataType : 'json',
+	                success: function (data) {
+	                	$('#subCat').empty();
+						$('#subCat').append(data.subcat);						
+	                },error: function(jqXHR, status, err){
+
+	                }
 				});
+
 		});
 	});
 </script>

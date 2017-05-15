@@ -9,13 +9,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pm.onlinetest.domain.Category;
 import com.pm.onlinetest.domain.Subcategory;
 
 @Repository
 public interface SubCategoryRepository extends CrudRepository<Subcategory, Integer> {
 
-	@Query("FROM Subcategory sc join sc.category c  where c.id=:catId AND sc.enabled = true")
-	public List<Subcategory> findByCategoryId(@Param("catId") Integer catId);
 	
 	@Query("FROM Subcategory sc WHERE sc.enabled = true")
 	public List<Subcategory> findAllEnabled();
@@ -27,4 +26,7 @@ public interface SubCategoryRepository extends CrudRepository<Subcategory, Integ
 	
 	@Query("SELECT sc FROM Subcategory sc WHERE sc.name=:name AND sc.enabled = true")
 	public List<Subcategory> findSubCategoryByName(@Param("name") String name);
+	
+	@Query("SELECT sc FROM Subcategory sc WHERE sc.category=:category")
+	public List<Subcategory> findByCategoryId(@Param("category") Category category);
 }
