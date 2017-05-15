@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,10 +43,12 @@ public class ReportController {
 	@Autowired
 	ChoiceService choiceService;
 
+	
+	// this controller will calculate the grade and wether the student miss the question or not 
 	@RequestMapping(value = {"/coach/result/{id}", "/admin/result/{id}"}, method = RequestMethod.GET)
 	public String testResult(@PathVariable("id") int id, Model model, HttpServletRequest request) {
 
-		HashMap<Subcategory, String> report = new HashMap<>();
+		Map<Subcategory, String> report = new HashMap<>();
 
 		Set<Subcategory> subcats = new HashSet<>();
 		Assignment assignment = assignmentService.findById(id);
