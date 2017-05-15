@@ -25,6 +25,15 @@ import com.pm.onlinetest.domain.Choice;
 import com.pm.onlinetest.service.CategoryService;
 import com.pm.onlinetest.service.QuestionService;
 
+/**
+* The Question controller have used to add,update and delelte question and its corresponding choices and answers
+* It also used to for shared by  other modules .
+*
+* @author  Birhanu Gebresenbet
+* @version 1.0
+* @since   2017-03-31 
+*/
+
 @Controller
 public class QuestionsController {
 
