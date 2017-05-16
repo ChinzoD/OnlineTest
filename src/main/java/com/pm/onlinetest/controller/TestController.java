@@ -167,6 +167,7 @@ public class TestController {
 			}
 		}
 		dto.setCategories(categories);
+		//dto.setCategories(categoryService.findAllEnabled());
 		model.addAttribute("categoryDto", dto);
 		return "categoryselect";
 	}

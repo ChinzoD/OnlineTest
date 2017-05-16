@@ -193,6 +193,7 @@ public class ReportController {
 	@RequestMapping(value = "/coach/feedback", method = RequestMethod.GET)
 	public String giveFeedback(Model model) {
 		return "feedback";
+
 	}
 
 }

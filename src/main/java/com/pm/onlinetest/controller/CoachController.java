@@ -139,7 +139,8 @@ public class CoachController {
 		
 		assignmentService.saveAssignment(assignment);
 	/*	redirectAttr.addFlashAttribute("success", "Test Generated Successfully!");
-	   	return "redirect:/coach/home";*/
+	   	return "redirect:/coach/home";
+*/
 		return "success";
 	}
 	
@@ -158,8 +159,10 @@ public class CoachController {
 	    		+ " Please find the link and the access code below: \n"+ "Access Link: "+accessLink +"\n"+"Access Code: "+ accessCode +"\nAll the best!");
     	mailSender.send(message);
     	String result ="success";
-    	
-	    return result;  
+	    return result;
+	    
+	    
+      
 	}
 	
 	@RequestMapping(value = "/coach/changeStudentJobSearchStatus", method = RequestMethod.POST)
@@ -175,7 +178,6 @@ public class CoachController {
 		Student student = studentService.findByStudentId(Integer.parseInt(studentId));
 		student.setJobSearchStatus(jobStatus);
 		studentService.save(student);
-		
 		return "success";
 	}
 	

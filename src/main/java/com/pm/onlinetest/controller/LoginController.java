@@ -23,6 +23,7 @@ public class LoginController {
 
 	@Autowired
 	UserService userService;
+
 	
 	@RequestMapping(value = "/exam", method = RequestMethod.GET)
 	public String exam(HttpServletRequest request) {
@@ -40,6 +41,7 @@ public class LoginController {
 	public String loginerror(@ModelAttribute("loginUser") User user, Model model) {
 		model.addAttribute("error", "true");
 		return "login";
+
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

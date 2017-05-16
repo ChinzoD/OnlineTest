@@ -42,6 +42,7 @@ public class AssignmentController {
 	@RequestMapping(value = "/generateTest", method = RequestMethod.GET)
 	public @ResponseBody Map<String,String> generateTest(Locale locale, Model model, HttpServletResponse response) {
 		
+
 		String accessCode = assignmentService.generateAccesscode();
 		String accessLink="www.test.com";
 		model.addAttribute("accessCode",accessCode);
@@ -53,7 +54,9 @@ public class AssignmentController {
 		list.add(accessLink);
 	*/	
 		map.put("accessCode",accessCode);
-		map.put("accessLink",accessLink);		
+		map.put("accessLink",accessLink);
+		
 		return map;
-	} 
+	}
+	 
 }
