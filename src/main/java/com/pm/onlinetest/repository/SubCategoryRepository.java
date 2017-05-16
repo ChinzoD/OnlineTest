@@ -11,14 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pm.onlinetest.domain.Category;
 import com.pm.onlinetest.domain.Subcategory;
-/**
-* The subcategory repository have used to add,update and delelte subcategory 
-* It also used to for shared by  other modules .
-*
-* @author  Birhanu Gebresenbet
-* @version 1.0
-* @since   2017-03-31 
-*/
+
 @Repository
 public interface SubCategoryRepository extends CrudRepository<Subcategory, Integer> {
 

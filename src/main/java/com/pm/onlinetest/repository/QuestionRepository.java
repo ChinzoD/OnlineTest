@@ -10,14 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.pm.onlinetest.domain.Question;
 import com.pm.onlinetest.domain.Subcategory;
 
-/**
-* The Question repository have used to add,update and delelte question and its corresponding choices and answers
-* It also used to for shared by  other modules .
-*
-* @author  Birhanu Gebresenbet
-* @version 1.0
-* @since   2017-03-31 
-*/
+
 @Repository
 
 public interface QuestionRepository extends CrudRepository<Question, Integer>{

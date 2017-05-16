@@ -10,14 +10,7 @@ import com.pm.onlinetest.repository.ChoiceRepository;
 import com.pm.onlinetest.service.ChoiceService;
 
 @Service
-/**
-* The choice service implementation have used to add,update and delelte question and its corresponding choices and answers
-* It also used to for shared by  other modules .
-*
-* @author  Birhanu Gebresenbet
-* @version 1.0
-* @since   2017-03-31 
-*/
+
 public class ChoiceServiceImpl implements ChoiceService {
 	@Autowired
 	ChoiceRepository choiceRepository;
