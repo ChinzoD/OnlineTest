@@ -403,23 +403,7 @@ public class AdminController {
 		obj.put("subcat", str);
 		return obj;
 	}
-//	@ResponseBody
-//	@RequestMapping(value = "/assign", method = RequestMethod.POST)
-//	public String getAssignCoach(Locale locale, Model model, HttpServletRequest request,
-//			RedirectAttributes redirectAttr) {
-//		String coachId = request.getParameter("coachId").toString();
-//		String studentId = request.getParameter("studentId").toString();
-//		User coach = userService.findByUserId(Integer.parseInt(coachId));
-//		Student student = studentService.findByStudentId(studentId);
-//		Student_Record studentRecord = new Student_Record();
-//		studentRecord.setCoach(coach);
-//		studentRecord.setStudent(student);
-//		studentRecordService.save(studentRecord);
-//
-//		// redirectAttr.addFlashAttribute("success", "Successfully assigned!");
-//		// return "assigned";
-//		return "ok";
-//	}
+
 
 //	@RequestMapping(value = "/assignedList", method = RequestMethod.GET)
 //	public String getAssignedList(Locale locale, Model model) {

@@ -71,40 +71,6 @@ public class QuestionsController {
 		return "redirect:"+mapping;
 	}
 
-	// @RequestMapping(value = "/dba/editquestion/{question_id}", method =
-	// RequestMethod.GET)
-	// public String editQuestion(@PathVariable Integer question_id, Model
-	// model) {
-	// List<Category> listCategory = new ArrayList<>();
-	// listCategory.addAll(categoryService.findAll());
-	//
-	// Question question = questionService.findQuestionById(question_id);
-	// model.addAttribute("question", question);
-	// model.addAttribute("categories", listCategory);
-	//
-	// return "editquestion";
-	// }
-
-	// @RequestMapping(value = "/dba/editquestion/{question_id}", method =
-	// RequestMethod.POST)
-	// public String editQuestion(@Valid @ModelAttribute("question") Question
-	// question, BindingResult result,
-	// RedirectAttributes redirectAttr, Model model) {
-	//
-	// if (result.hasErrors()) {
-	// System.out.println("the error ");
-	//
-	// return "questions/editquestion";
-	// }
-	//
-	// questionService.update(question);
-	// redirectAttr.addFlashAttribute("success", "The question Successfully
-	// added !");
-	//
-	// return "redirect:/dba/viewquestion";
-	//
-	// }
-
 	@RequestMapping(value = { "/dba/viewquestions", "/coach/viewquestions", "/admin/viewquestions" }, method = RequestMethod.GET)
 	public String viewQuestions(Model model, HttpServletRequest request) {
 		List<Question> questions = questionService.findAll();

@@ -76,7 +76,5 @@ public class Subcategory {
 	public Integer getQuestionCount() {
 		return questions.size();
 	}
-
-
 	
 }
