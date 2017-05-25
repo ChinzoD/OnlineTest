@@ -36,7 +36,7 @@
 <link href="<c:url value="/metronic/assets/admin/layout3/css/themes/default.css" />" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="<c:url value="/metronic/assets/admin/layout3/css/custom.css" />" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
-<link rel="shortcut icon" href="favicon.ico" />
+<link rel="shortcut icon"/>
 
 
 <!-- Mehdi : I moved this in the top because i will need it to be loaded before I execute  some of my scripts  -->

@@ -65,7 +65,7 @@ public class CoachController {
 	@RequestMapping(value = "/coach/studentAssignmentDetail/{userId}", method = RequestMethod.GET)
 	public String studentAssignmentDetail(@PathVariable("userId") String userId,Locale locale, Model model) {
 		
-		System.out.println("Student id in detail: "+userId);
+		System.out.println("Student id in detail1: "+userId);
 		
 		Integer studentId= Integer.parseInt(userId);
 		Student student = coachService.findStudentById(studentId);
@@ -76,7 +76,7 @@ public class CoachController {
 		model.addAttribute("student",student);
 		
 		if(assignment !=null && assignment.getAccesscode()!=null){
-		System.out.println("assignment details accessocde"+ assignment.getAccesscode());
+		System.out.println("assignment details accessCode: "+ assignment.getAccesscode());
 			
 			model.addAttribute("assignment",assignment);
 			
@@ -88,7 +88,7 @@ public class CoachController {
 			System.out.println("making assignment null");
 		}
 		
-		System.out.println("assignment details accessocde"+ assignment);
+		System.out.println("assignment details accessCode:"+ assignment);
 		return "studentAssignmentDetail";
 	
 	}

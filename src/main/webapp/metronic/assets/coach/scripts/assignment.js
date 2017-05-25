@@ -10,7 +10,7 @@ function generateAccessCode(){
 	}
 
 	$.ajax({
-		url:'http://localhost:8080/onlinetest/assignment/generateTest',
+		url:'../../../onlinetest/assignment/generateTest',
 		type:"GET",
 		success:function(data){
 			
@@ -44,7 +44,7 @@ function assignmentDone(userId){
 	}
 	$.ajax({ 
 	   type: "POST",
-	   url: 'http://localhost:8080/onlinetest/coach/saveAssignment',
+	   url: '../../../onlinetest/coach/saveAssignment',
 	   data:{
 		   userId:userId,
 		   accessCode :$('#accessCode').val(),
@@ -54,7 +54,7 @@ function assignmentDone(userId){
 	   success: function(data){        
 		   
 		   if(data === "success"){
-			   window.location.href = "http://localhost:8080/onlinetest/coach/home";
+			   window.location.href = "../../../onlinetest/coach/home";
 			   
 		   }
 		   
@@ -66,7 +66,7 @@ function assignmentDone(userId){
 
 function assignmentCancel(){
 
-	window.location.href = "http://localhost:8080/onlinetest/coach/home";
+	window.location.href = "../../../onlinetest/coach/home";
 
 }
 
@@ -91,7 +91,7 @@ function sendEmail(userId){
 	assignmentDone(userId);
 	
 	$.ajax({
-		url:'http://localhost:8080/onlinetest/coach/sendEmail',
+		url:'../../../onlinetest/coach/sendEmail',
 		data:{
 			 userId:userId,		
 			 accessLink:$('#accessLink').val(),
@@ -114,7 +114,7 @@ function saveJobSearchStatusChange(userId){
 
 $.ajax({ 
    type: "POST",
-   url: 'http://localhost:8080/onlinetest/coach/changeStudentJobSearchStatus',
+   url: '../../../onlinetest/coach/changeStudentJobSearchStatus',
    data:{
 	   userId:userId,
 	   jobSearchStatus :$('input[name=jobSearchStatus]:checked').val(),
@@ -124,7 +124,7 @@ $.ajax({
    success: function(data){        
 	   
 	   if(data === "success"){
-		   window.location.href = "http://localhost:8080/onlinetest/coach/home";
+		   window.location.href = "../../../onlinetest/coach/home";
 		   
 	   }
 	   
