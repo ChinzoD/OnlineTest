@@ -161,7 +161,7 @@ public class TestController {
 		List<Category> categories = new ArrayList<>();
 		for(Category cat : categoryService.findAllEnabled()){
 			for(Subcategory subCat : cat.getSubcategories()){
-				if(subCat.isEnabled() && questionService.findBySubcategory(subCat).size() > 30){
+				if(subCat.isEnabled() && questionService.findBySubcategory(subCat).size() >= 20){
 					categories.add(cat);
 				}
 			}
@@ -185,13 +185,14 @@ public class TestController {
 			List<Integer> subcategories = dto.getSelectedSubCategories();
 
 			Subcategory subcategory = null;
-			Integer totalQuestions = 80;
+			//Integer totalQuestions = 80;
 			Random rand = new Random();
 			for (Integer subcat_id : subcategories) {
 				subcategory = subCategoryService.findOne(subcat_id);
 
 				List<Question> subcategoryQuestions = questionService.findBySubcategory(subcategory);
-				for (int i = 0; i < totalQuestions / subcategories.size(); i++) {
+				//for (int i = 0; i < totalQuestions / subcategories.size(); i++) {
+				for (int i = 0; i < 20; i++) {
 
 					int index = 0;
 					if (subcategoryQuestions.size() > 0) {
@@ -224,6 +225,7 @@ public class TestController {
 		model.addAttribute("test", tests.get(0));
 		model.addAttribute("indexCount", tests.get(0).getId());
 		model.addAttribute("assignment", assignment);
+		model.addAttribute("totalTestCount", tests.size());
 		request.getSession().setAttribute("min", 0);
 		request.getSession().setAttribute("sec", 59);
 		return "test";

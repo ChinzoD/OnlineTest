@@ -275,8 +275,9 @@
 			
 			$(".btnNext").live("click",function(){
 				var qNum = parseInt($(this).attr("id"));
+				var testCount = parseInt($('#testCount').val());
 				$(".btnPrev").show();
-				if(parseInt(qNum) == 78){
+				if(parseInt(qNum) == testCount-2){
 					$(".btnNext").hide();
 					$(".btnTestSubmit").show();
 				}else{
@@ -288,10 +289,11 @@
 			
 			$(".btnPrev").live("click",function(){
 				var qNum = parseInt($(this).attr("id"));
+				var testCount = parseInt($('#testCount').val());
 				if(parseInt(qNum) == 1){
 					$(".btnPrev").hide();
 				}
-				if(parseInt(qNum) == 79){
+				if(parseInt(qNum) == testCount-1){
 					$(".btnNext").show();
 					$(".btnTestSubmit").hide();
 				}
@@ -302,19 +304,19 @@
 								
 				var qNum = parseInt(arg1);
 				var qNewNum = 0;
-
+				var testCount = $('#testCount').val();
 				$(".questionNumber").empty();
 								
 				if(parseInt(arg2) == 1){
 					qNewNum = parseInt(qNum)+1;
 					var num = qNewNum+1;
-					$(".questionNumber").append("Questions "+num+"/80");
+					$(".questionNumber").append("Questions "+num+"/"+testCount);
 					$(".btnNext").attr("id", qNum+1);
 					$(".btnPrev").attr("id", qNum+1);
 				}else{
 					qNewNum = parseInt(qNum)-1;
 					var num = qNewNum+1;
-					$(".questionNumber").append("Questions "+num+"/80");
+					$(".questionNumber").append("Questions "+num+"/"+testCount);
 					$(".btnNext").attr("id", qNum-1);
 					$(".btnPrev").attr("id", qNum-1);
 				}

@@ -9,7 +9,8 @@
 			${assignment.studentId.lastName}</h3>
 		<%-- <h3 class="">Student Id:
 			${assignment.studentId.userId}</h3> --%>
-		<h3 class="questionNumber">Questions 1/80</h3>
+		<h3 class="questionNumber">Questions 1/${totalTestCount}</h3>
+		<input type="hidden" id="testCount" value="${totalTestCount}">
 		<hr>
 		<div class="portlet-body form">
 			<form class="form-horizontal" role="form">
