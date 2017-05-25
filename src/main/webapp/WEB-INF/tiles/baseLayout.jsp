@@ -412,7 +412,7 @@
 	                }
 				});
 				
-				window.location.replace("http://localhost:8080/onlinetest/test/completed");
+				window.location.replace("../../../../onlinetest/test/completed");
 
 	        }
 
