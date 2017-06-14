@@ -2,11 +2,11 @@
 <%@ include file="/WEB-INF/views/include.jsp"%>
 <div class="portlet light ">
 	<div class="portlet-title">
-	 <div class="caption">
-                    <span class="caption-subject bold uppercase font-dark">Student Result Detail </span>                                                       
-                    
-                </div>
-                <div class="actions">
+		<div class="caption">
+			<span class="caption-subject bold uppercase font-dark">
+				Student Result Detail </span>
+		</div>
+		<div class="actions">
 			<jsp:useBean id="now" class="java.util.Date" />
 			Date Time :
 			<fmt:formatDate value="${now}" pattern="dd-MM-yyyy HH:mm:ss a z" />
@@ -14,87 +14,72 @@
 			</button>
 			<a class="btn btn-circle btn-icon-only btn-default fullscreen"
 				href="#" data-original-title="" title=""></a>
-		</div>             
-            </div>
-		<div class="portlet-body">
-			<div class="table-toolbar">
-				<div class="row">
-					<div class="col-md-6"></div>
-				</div>
-			</div>
-			<br><br>
-			
-			<div class="row">
-  <div class="col-md-8">
-  
-  <p>Student ID : ${student.studentId }</p>
-  <p>Student Name  : ${student.firstName} ${student.lastName}</p>
-  <p>Entry  : ${student.entry}</p>
-  <p>Score  : ${score}</p>
-  <p>Percent:${percent}%</p>
-  </div>
-
-</div>
-			<br><br>
-			
-			<table class="table table-striped table-hover table-bordered"
-				id="sample_editable_1">
-				<thead>
-					<tr>
-						<th>No</th>
-						<th>Question</th>
-
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${answers}" var="answer" varStatus="status">
-						<tr>
-							<td>${status.count}</td>
-							<td> <a data-toggle="collapse" href="#${status.count}">${answer.value ? "&#x2705;" : "&#10060;"}
-								${answer.key.question.description}</a>
-							
-								<div id="${status.count}" class="collapse">
-									<ol type="A">
-										<c:forEach items="${answer.key.question.choices}" var="choice">
-
-
-
-											<li><c:choose>
-													<c:when
-														test="${choice.id == answer.key.answer and choice.answer==true}">
-														<p class="text-success">${choice.description}</p>
-													</c:when>
-													<c:when
-														test="${choice.id == answer.key.answer and choice.answer==false}">
-														<p class="text-danger">${choice.description}</p>
-													</c:when>
-													<c:when
-														test="${choice.id != answer.key.answer and choice.answer==true}">
-														<p class="text-success">${choice.description}</p>
-													</c:when>
-													<c:when
-														test="${choice.id != answer.key.answer and choice.answer==false}">
-														<p>${choice.description}</p>
-													</c:when>
-													<c:otherwise>
-            
-         </c:otherwise>
-												</c:choose></li>
-
-
-										</c:forEach>
-
-
-									</ol>
-								</div>
-
-							</td>
-
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
 		</div>
+	</div>
+	<div class="portlet-body">
+		<div class="table-toolbar">
+			<div class="row">
+				<div class="col-md-6"></div>
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class="row">
+			<div class="col-md-8">
+				<p>Student ID : ${student.studentId }</p>
+				<p>Student Name : ${student.firstName} ${student.lastName}</p>
+				<p>Entry : ${student.entry}</p>
+				<p>Score : ${score}</p>
+				<p>Percent:${percent}%</p>
+			</div>
+		</div>
+		<br>
+		<br>
+		<table class="table table-striped table-hover table-bordered"
+			id="sample_editable_1">
+			<thead>
+				<tr>
+					<th>No</th>
+					<th>Question</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${answers}" var="answer" varStatus="status">
+					<tr>
+						<td>${status.count}</td>
+						<td><a data-toggle="collapse" href="#${status.count}">${answer.value ? "&#x2705;" : "&#10060;"}
+								${answer.key.question.description}</a>
+							<div id="${status.count}" class="collapse">
+								<ol type="A">
+									<c:forEach items="${answer.key.question.choices}" var="choice">
+										<li><c:choose>
+												<c:when
+													test="${choice.id == answer.key.answer and choice.answer==true}">
+													<p class="text-success">${choice.description}</p>
+												</c:when>
+												<c:when
+													test="${choice.id == answer.key.answer and choice.answer==false}">
+													<p class="text-danger">${choice.description}</p>
+												</c:when>
+												<c:when
+													test="${choice.id != answer.key.answer and choice.answer==true}">
+													<p class="text-success">${choice.description}</p>
+												</c:when>
+												<c:when
+													test="${choice.id != answer.key.answer and choice.answer==false}">
+													<p>${choice.description}</p>
+												</c:when>
+												<c:otherwise>
+
+												</c:otherwise>
+											</c:choose></li>
+									</c:forEach>
+								</ol>
+							</div></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	</div>
 </div>
 <script src="<c:url value="/metronic/assets/global/plugins/jquery.min.js" />" type="text/javascript"></script>

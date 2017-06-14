@@ -14,6 +14,13 @@
 				</c:forEach>
 				<hr />
 			</c:forEach>
+			<%-- <c:forEach items="${categoryDto.subCategories}" var="sub">
+		        ${sub.category.name}<br />
+					<form:checkbox name="selectedSubCategories"
+						path="selectedSubCategories" value="${sub.id}" />${sub.name}<br />
+			
+				<hr />
+			</c:forEach> --%>
 			<button class="btn btn-success btnSubmitCat" style="display: none;"
 				type="submit">Submit</button>
 		</form:form>

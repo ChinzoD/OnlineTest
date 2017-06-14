@@ -340,7 +340,7 @@ public class AdminController {
 					subCategory.setName(subCatName);
 					subCategory.setEnabled(true);
 					
-					List<Category> categories = categoryService.findCategoryByName(subCatName);
+					List<Category> categories = categoryService.findCategoryByName(catName);
 					if(categories.size() == 0){
 						Category category = new Category();
 						category.setName(catName);

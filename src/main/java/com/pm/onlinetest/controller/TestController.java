@@ -95,11 +95,10 @@ public class TestController {
 					if (assgnmentObj.isStarted()) {// Check if Student has
 													// started Test previously
 
-
 						LocalDateTime currentDate = LocalDateTime.now();
 						// Check if time is still remaining
 						long minutes = ChronoUnit.MINUTES.between(assgnmentObj.getStart_date(), currentDate);
-						System.out.println("minutes:"+minutes);
+						System.out.println("minutes:" + minutes);
 						if (minutes < 160) {
 
 							// Authenticate Student and redirect to test page
@@ -150,24 +149,45 @@ public class TestController {
 	@RequestMapping(value = "/showcategories", method = RequestMethod.GET)
 	public String selectCategoriesView(Model model, HttpServletRequest request, RedirectAttributes attr) {
 
-//		Assignment obj = (Assignment) request.getAttribute("assignment");
-//
-//		if (obj == null) {
-//			attr.addFlashAttribute("errormessage", "Invalid Operation");
-//			return "redirect:/test/error";
-//		}
+		// Assignment obj = (Assignment) request.getAttribute("assignment");
+		//
+		// if (obj == null) {
+		// attr.addFlashAttribute("errormessage", "Invalid Operation");
+		// return "redirect:/test/error";
+		// }
 
 		CategorySelectDto dto = new CategorySelectDto();
+
 		List<Category> categories = new ArrayList<>();
-		for(Category cat : categoryService.findAllEnabled()){
-			for(Subcategory subCat : cat.getSubcategories()){
-				if(subCat.isEnabled() && questionService.findBySubcategory(subCat).size() >= 20){
-					categories.add(cat);
+		for (Category cat : categoryService.findAllEnabled()) {
+			for (Subcategory subCat : cat.getSubcategories()) {
+				if (subCat.isEnabled() && questionService.findBySubcategory(subCat).size() >= 20) {
+					boolean catDup = false;
+					for(Category c: categories){
+						if(subCat.getCategory().getName().equals(c.getName())){
+							List<Subcategory> subCategories = new ArrayList<>();
+							if(c.getSubcategories() != null){
+								subCategories = c.getSubcategories();
+							}
+							subCategories.add(subCat);
+							c.setSubcategories(subCategories);
+							catDup = true;
+							break;
+						}
+					}
+					if(catDup == false){
+						Category category = new Category();
+						category.setName(subCat.getCategory().getName());
+						List<Subcategory> subCategories = new ArrayList<>();
+						subCategories.add(subCat);
+						category.setSubcategories(subCategories);
+						categories.add(category);
+					}
 				}
 			}
 		}
 		dto.setCategories(categories);
-		//dto.setCategories(categoryService.findAllEnabled());
+
 		model.addAttribute("categoryDto", dto);
 		return "categoryselect";
 	}
@@ -175,39 +195,43 @@ public class TestController {
 	@RequestMapping(value = "/setcategories", method = RequestMethod.POST)
 	public String setCategories(@ModelAttribute("categoryDto") CategorySelectDto dto, BindingResult resultDto,
 			HttpServletRequest request) {
+		if (dto.getSelectedSubCategories().size() == 3 || dto.getSelectedSubCategories().size() == 4) {
+			Integer assignmentId = Integer.parseInt(request.getSession().getAttribute("assignmentId").toString());
+			Assignment assignment = assignmentService.findById(assignmentId);
 
-		Integer assignmentId = Integer.parseInt(request.getSession().getAttribute("assignmentId").toString());
-		Assignment assignment = assignmentService.findById(assignmentId);
+			List<Test> existingTest = testService.findByAssignment(assignment);
+			System.out.println("ExistingTest: " + existingTest.size());
+			if (existingTest.size() == 0) {
+				List<Integer> subcategories = dto.getSelectedSubCategories();
 
-		List<Test> existingTest = testService.findByAssignment(assignment);
-		System.out.println("ExistingTest: " + existingTest.size());
-		if (existingTest.size() == 0) {
-			List<Integer> subcategories = dto.getSelectedSubCategories();
+				Subcategory subcategory = null;
+				// Integer totalQuestions = 80;
+				Random rand = new Random();
+				for (Integer subcat_id : subcategories) {
+					subcategory = subCategoryService.findOne(subcat_id);
 
-			Subcategory subcategory = null;
-			//Integer totalQuestions = 80;
-			Random rand = new Random();
-			for (Integer subcat_id : subcategories) {
-				subcategory = subCategoryService.findOne(subcat_id);
+					List<Question> subcategoryQuestions = questionService.findBySubcategory(subcategory);
+					// for (int i = 0; i < totalQuestions /
+					// subcategories.size(); i++) {
+					for (int i = 0; i < 20; i++) {
 
-				List<Question> subcategoryQuestions = questionService.findBySubcategory(subcategory);
-				//for (int i = 0; i < totalQuestions / subcategories.size(); i++) {
-				for (int i = 0; i < 20; i++) {
+						int index = 0;
+						if (subcategoryQuestions.size() > 0) {
+							index = rand.nextInt(subcategoryQuestions.size());
+						}
 
-					int index = 0;
-					if (subcategoryQuestions.size() > 0) {
-						index = rand.nextInt(subcategoryQuestions.size());
+						Test test = new Test();
+						test.setQuestion(subcategoryQuestions.remove(index));
+						test.setAssignment(assignment);
+						testService.save(test);
 					}
-
-					Test test = new Test();
-					test.setQuestion(subcategoryQuestions.remove(index));
-					test.setAssignment(assignment);
-					testService.save(test);
 				}
 			}
-		}
 
-		return "redirect:/test/test";
+			return "redirect:/test/test";
+		} else {
+			return "redirect:/test/showcategories";
+		}
 
 	}
 
