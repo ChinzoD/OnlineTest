@@ -8,6 +8,21 @@
 	<definition name="login-definition" template="/WEB-INF/tiles/loginLayout.jsp">
 	</definition>
 
+	<definition name="contributor" extends="base-definition">
+	<put-attribute name="menu" value="/WEB-INF/tiles/def-menu.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/contributor.jsp" />
+	</definition>
+	
+	<definition name="contactus" extends="base-definition">
+	<put-attribute name="menu" value="/WEB-INF/tiles/def-menu.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/contactus.jsp" />
+	</definition>
+	
+	<definition name="help" extends="base-definition">
+	<put-attribute name="menu" value="/WEB-INF/tiles/def-menu.jsp"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/views/help.jsp" />
+	</definition>
+	
 	<definition name="login" extends="login-definition">
 		<put-attribute name="content" value="/WEB-INF/views/login.jsp" />
 	</definition>

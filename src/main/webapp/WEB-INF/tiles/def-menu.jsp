@@ -4,5 +4,8 @@
 <div class="hor-menu ">
 	<ul class="nav navbar-nav">
 		<li><a href="<c:url value="/login" />">Login</a></li>
+		<li><a href="<c:url value="/contactus" />">Contact us</a></li>
+		<li><a href="<c:url value="/contributor" />">Contributor</a></li>
+		<li><a href="<c:url value="/help" />">Help</a></li>
 	</ul>
 </div>
