@@ -14,12 +14,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.pm.onlinetest.domain.User;
 import com.pm.onlinetest.domain.Authority;
+import com.pm.onlinetest.domain.Contactus;
 import com.pm.onlinetest.service.AuthorityService;
+import com.pm.onlinetest.service.ContactUsService;
 import com.pm.onlinetest.service.UserService;
 
 /**
@@ -31,6 +34,9 @@ public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
+	ContactUsService contactService;
+	
+	@Autowired
 	UserService userService;
 	@Autowired
 	AuthorityService authorityService;
@@ -41,6 +47,26 @@ public class HomeController {
 	@RequestMapping(value = { "/", "home" }, method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "home";
+	}
+	@RequestMapping(value = { "/contactus" }, method = RequestMethod.GET)
+	public String coantactus(@ModelAttribute("contactus")Contactus contactus) {
+		return "contactus";
+	}
+	@RequestMapping(value = { "/help" }, method = RequestMethod.GET)
+	public String help() {
+		return "help";
+	}
+	
+	
+	@RequestMapping(value = { "/contactus" }, method = RequestMethod.POST)
+	public String coantacted(@ModelAttribute("contactus")Contactus contactus) {
+		contactService.save(contactus);
+		return "home";
+	}
+	
+	@RequestMapping(value = "/contributor", method = RequestMethod.GET)
+	public String contributor(Model model){
+		return "contributor";
 	}
 
 	@RequestMapping(value = "/rolecheck", method = RequestMethod.GET)
